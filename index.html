@@ -1,0 +1,559 @@
+<html>
+    <head>
+        <title>JSON Resume Editor</title>
+
+        <link rel="stylesheet" href="vendor/w3.4.13.css">
+        <link rel="stylesheet" href="vendor/fontawesome-free-5.11.2-web/css/all.min.css" type="text/css" media="all" />
+
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body class="w3-light-grey">
+
+
+        <!-- Top container -->
+        <div class="w3-bar w3-top w3-black w3-large" style="z-index:4">
+            <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="helpers.w3_open();"><i
+                    class="fa fa-bars"></i> &nbsp;Menu</button>
+            <span class="w3-bar-item w3-right">JSON Resume Editor</span>
+        </div>
+
+        <!-- Sidebar/menu -->
+        <nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar">
+            <!-- <div class="w3-container w3-row">
+                <div class="w3-col s4">
+                    <img src="/w3images/avatar2.png" class="w3-circle w3-margin-right" style="width:46px">
+                </div>
+                <div class="w3-col s8 w3-bar">
+                    <span>Welcome, <strong>Mike</strong></span><br>
+                    <a href="#" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i></a>
+                    <a href="#" class="w3-bar-item w3-button"><i class="fa fa-user"></i></a>
+                    <a href="#" class="w3-bar-item w3-button"><i class="fa fa-cog"></i></a>
+                </div>
+            </div>
+            <hr> -->
+            <div class="w3-bar-block">
+                <a href="#/" class="w3-bar-item w3-button w3-padding w3-blue"><i class="fas fa-home"></i>&nbsp; Home</a>
+            </div>
+            <div class="w3-container">
+                <h5>Resume Sections</h5>
+            </div>
+            <div class="w3-bar-block">
+                <a href="#/" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="helpers.w3_close()" title="close menu"><i class="fas fa-times"></i>&nbsp; Close Menu</a>
+                <a href="#/section/basics" class="w3-bar-item w3-button w3-padding"><i class="far fa-address-card"></i>&nbsp; Basics</a>
+                <a href="#/section/work" class="w3-bar-item w3-button w3-padding"><i class="fas fa-building"></i>&nbsp; Work</a>
+                <a href="#/section/volunteer" class="w3-bar-item w3-button w3-padding"><i class="fas fa-hands-helping"></i>&nbsp; Volunteer</a>
+                <a href="#/section/education" class="w3-bar-item w3-button w3-padding"><i class="fas fa-graduation-cap"></i>&nbsp; Education</a>
+                <a href="#/section/awards" class="w3-bar-item w3-button w3-padding"><i class="fas fa-award""></i>&nbsp; Awards</a>
+                <a href="#/section/publications" class="w3-bar-item w3-button w3-padding"><i class="fas fa-book"></i>&nbsp; Publications</a>
+                <a href="#/section/skills" class="w3-bar-item w3-button w3-padding"><i class="fas fa-tools"></i>&nbsp; Skills</a>
+                <a href="#/section/languages" class="w3-bar-item w3-button w3-padding"><i class="fas fa-heart"></i>&nbsp; Languages</a>
+                <a href="#/section/interests" class="w3-bar-item w3-button w3-padding"><i class="fas fa-map"></i>&nbsp; Interests</a>
+                <a href="#/section/references" class="w3-bar-item w3-button w3-padding"><i class="fas fa-list"></i>&nbsp; References</a>
+            </div>
+            <hr>
+            <div class="w3-bar-block">
+                <a href="#/preview" class="w3-bar-item w3-button w3-padding"><i class="fas fa-print"></i>&nbsp; Preview</a>
+                <a href="#/import" class="w3-bar-item w3-button w3-padding"><i class="fas fa-file-upload"></i>&nbsp; Import</a>
+                <a href="#/export" class="w3-bar-item w3-button w3-padding"><i class="fas fa-file-download"></i>&nbsp; Export</a>
+            </div>
+            <hr>
+            <div class="w3-bar-block">
+                <a href="#/about" class="w3-bar-item w3-button w3-padding"><i class="fas fa-info-circle"></i>&nbsp; About</a>
+            </div>
+            <br><br>
+        </nav>
+
+
+        <!-- Overlay effect when opening sidebar on small screens -->
+        <div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="helpers.w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+
+        <!-- End Page Content -->
+        <div class="w3-main w3-padding-16">
+
+            <!-- VueJS App -->
+            <div id="app">
+                <div id="full-page-overlay">
+                    <div id="full-page-overlay-text">Please wait while we load the goodness.</div>
+                </div>
+
+                <!-- Header -->
+                <header class="w3-container">
+                    <h5 v-if="activePage.title != ''"><b><i class='page-title' style="margin-right: 20px;" v-if="activePage.fontAwesomeIconCss != ''" v-bind:class="activePage.fontAwesomeIconCss"></i> {{activePage.title}}</b></h5>
+                </header>
+
+                <div class="w3-container">
+                    <router-view>Loading...</router-view>
+                </div>
+            </div>
+            <!-- /VueJS App -->
+
+
+
+
+            
+            
+            <!-- Footer -->
+            <!-- <footer class="w3-container w3-padding-16 w3-dark-grey w3-margin-top">
+                
+            </footer> -->
+        </div>
+        <!-- /End Page Content -->
+
+
+
+
+        <!-- Component Templates -->
+        <template type="text/x-template" id="home-template" lang="html">
+            <div id="home-root">
+                <p>
+                    Welcome to the <a href="https://jsonresume.org/">JSON Resume</a> editor.
+                </p>
+                <p>
+                    No registratioon required. No data stored.
+                </p>
+                <p>
+                    <ol>
+                        <li>To create your JSON resume, fill in the details under each section.</li>
+                        <li>At any time <a href="#/preview">Preview</a> how your resume could look.</li>
+                        <li>When you're finished <a href="">export</a> your resume by copying the JSON output into a texdt file.</li>
+                        <li>
+                            Create a public Gist in your <a href="https://github.com/">GitHub</a> account (create a new account for free) with a filenane "resume.json".<br>
+                            (See an <a href="https://gist.github.com/jsnelders/cab89beb9bc0e677ef3f5ec30ef4260b">example here</a>.)
+                        </li>
+                        <li>
+                            View your live resume on jsonresume.org by browsing to https://registry.jsonresume.org/{your_github_profile}.<br>
+                            (see an <a href="https://registry.jsonresume.org/jsnelders">example here</a>.)
+                        </li>
+                    </ol>
+                </p>
+                <p>
+                    Don't worry about saving. All information is automatically saved in your browser, which means you can close your browser, come back tomorrow and everything will be as you left it.
+                </p>
+            </div>
+        </template>
+
+
+
+        <template type="text/x-template" id="section-basics-template" lang="html">
+            <div id="section-basics-root">
+                <div class="w3-row">
+                    <div class="w3-col m6">
+                        <form class="w3-container w3-card-4">
+                            <p>      
+                                <label for="name" class="w3-text-blue required-field"><b>Full Name</b></label>
+                                <input id="name" class="w3-input w3-border" type="text" v-model="name" required>
+                                <small id="nameHelp" class="form-help text-muted">Your full name.</small>
+                            </p>
+                            <p>      
+                                <label for="label" class="w3-text-blue required-field"><b>Label</b></label>
+                                <input id="label" class="w3-input w3-border" type="text" v-model="label" required>
+                                <small id="labelHelp" class="form-help text-muted">Your job or professional title (e.g. software developer, IT manager, graphic designer).</small>
+                            </p>
+                            <p>      
+                                <label for="picture" class="w3-text-blue"><b>Picture</b></label>
+                                <input id="picture" class="w3-input w3-border" type="text" v-model="picture">
+                                <small id="pictureHelp" class="form-help text-muted">URL to your profile photo or avatar.</small>
+                            </p>
+                            <p>      
+                                <label for="email" class="w3-text-blue"><b>Email</b></label>
+                                <input id="email" class="w3-input w3-border" type="text" v-model="email" required>
+                                <small id="emailHelp" class="form-help text-muted">Your contact email address</small>
+                            </p>
+                            <p>      
+                                <label for="phone" class="w3-text-blue"><b>Phone</b></label>
+                                <input id="phone" class="w3-input w3-border" type="text" v-model="phone">
+                                <small id="phoneHelp" class="form-help text-muted">Your contact phone number.</small>
+                            </p>
+                            <p>      
+                                <label for="website" class="w3-text-blue"><b>Website</b></label>
+                                <input id="website" class="w3-input w3-border" type="text" v-model="website">
+                                <small id="websiteHelp" class="form-help text-muted">Your website.</small>
+                            </p>
+                            <p>      
+                                <label for="summary" class="w3-text-blue"><b>Summary</b></label>
+                                <textarea id="summary" rows="8" class="w3-input w3-border" type="text" v-model="summary"></textarea>
+                                <small id="summaryHelp" class="form-help text-muted">About you, what your do, who you are, what you are looking for in your career.</small>
+                            </p>
+
+
+                            <h5 class="margin-top-32">Location</h5>
+                            <small id="locationHelp" class="form-help text-muted">Where are you located?</small>
+                            <p>      
+                                <label for="location.address" class="w3-text-blue"><b>Address</b></label>
+                                <input id="location.address" class="w3-input w3-border" type="text" v-model="location.address">
+                                <small id="addressHelp" class="form-help text-muted">(Not recommended) Your street address</small>
+                            </p>
+                            <p>      
+                                <label for="location.postalCode" class="w3-text-blue"><b>Postal Code</b></label>
+                                <input id="location.postalCode" class="w3-input w3-border" type="text" v-model="location.postalCode">
+                                <small id="postalCodeHelp" class="form-help text-muted">Post or Zip cod</small>
+                            </p>
+                            <p>      
+                                <label for="location.city" class="w3-text-blue"><b>City</b></label>
+                                <input id="location.city" class="w3-input w3-border" type="text" v-model="location.city">
+                                <small id="cityHelp" class="form-help text-muted">City or town</small>
+                            </p>
+                            <p>      
+                                <label for="location.countryCode" class="w3-text-blue"><b>Country Code</b></label>
+                                <input id="location.countryCode" class="w3-input w3-border" type="text" v-model="location.countryCode">
+                                <small id="countryCodeHelp" class="form-help text-muted">The 2-character country code (https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes)</small>
+                            </p>
+                            <p>      
+                                <label for="location.region" class="w3-text-blue"><b>Region</b></label>
+                                <input id="location.region" class="w3-input w3-border" type="text" v-model="location.region">
+                                <small id="regionHelp" class="form-help text-muted">State or region</small>
+                            </p>
+
+
+                            <h5 class="margin-top-32">Social Network Profiles</h5>
+                            <p>      
+                                <label for="profiles[0].network" class="w3-text-blue"><b>Network</b></label>
+                                <input id="profiles[0].network" class="w3-input w3-border" type="text" v-model="profiles[0].network">
+                                <small id="networkHelp" class="form-help text-muted">Name of the network</small>
+                            </p>
+                            <p>      
+                                <label for="profiles[0].username" class="w3-text-blue"><b>Username</b></label>
+                                <input id="profiles[0].username" class="w3-input w3-border" type="text" v-model="profiles[0].username">
+                                <small id="usernameHelp" class="form-help text-muted">Your username in the network</small>
+                            </p>
+                            <p>      
+                                <label for="profiles[0].url" class="w3-text-blue"><b>URL</b></label>
+                                <input id="profiles[0].url" class="w3-input w3-border" type="text" v-model="profiles[0].url">
+                                <small id="urlHelp" class="form-help text-muted">URL to your profile in the network</small>
+                            </p>
+                        </form>
+                    </div>
+                    <div class="w3-col m1">
+                        &nbsp;
+                    </div>
+                    <div class="w3-col m5">
+                        <preview-field label="Full Name" v-bind:value="name"></preview-field>
+                        <preview-field label="Label" v-bind:value="label"></preview-field>
+                        <preview-field label="Picture" v-bind:value="picture" format="url"></preview-field>
+
+                        <preview-field label="Email" v-bind:value="email"></preview-field>
+                        <preview-field label="Phone" v-bind:value="phone"></preview-field>
+                        <preview-field label="Website" v-bind:value="website"></preview-field>
+
+                        <preview-field label="Summary" v-bind:value="summary" format="multi-line"></preview-field>
+
+                        <h5 class="margin-top-32">Location</h5>
+                        <preview-field label="Address" v-bind:value="location.address"></preview-field>
+                        <preview-field label="Postal/Zip Code" v-bind:value="location.postalCode"></preview-field>
+                        <preview-field label="City" v-bind:value="location.city"></preview-field>
+                        <preview-field label="Country Code" v-bind:value="location.countryCode"></preview-field>
+                        <preview-field label="Region" v-bind:value="location.region"></preview-field>
+
+                        <h5 class="margin-top-32">Social Network Profiles</h5>
+                        <preview-field label="Network" v-bind:value="profiles[0].network"></preview-field>
+                        <preview-field label="Username" v-bind:value="profiles[0].username"></preview-field>
+                        <preview-field label="URL" v-bind:value="profiles[0].url"></preview-field>
+                    </div>
+                </div>
+
+            </div>
+        </template>
+
+
+
+        <template type="text/x-template" id="section-work-template" lang="html">
+            <div id="section-work-root">
+                Work
+            </div>
+        </template>
+
+
+
+        <template type="text/x-template" id="section-volunteer-template" lang="html">
+            <div id="section-volunteer-root">
+                Volunteer
+            </div>
+        </template>
+
+
+
+        <template type="text/x-template" id="section-education-template" lang="html">
+            <div id="section-education-root">
+                Education
+            </div>
+        </template>
+
+
+
+        <template type="text/x-template" id="section-awards-template" lang="html">
+            <div id="section-awards-root">
+                Awards
+            </div>
+        </template>
+
+
+
+        <template type="text/x-template" id="section-publications-template" lang="html">
+            <div id="section-publications-root">
+                Publications
+            </div>
+        </template>
+
+
+
+        <template type="text/x-template" id="section-skills-template" lang="html">
+            <div id="section-skills-root">
+                Skills
+            </div>
+        </template>
+
+
+
+        <template type="text/x-template" id="section-languages-template" lang="html">
+            <div id="section-languages-root">
+                Languages
+            </div>
+        </template>
+
+
+
+        <template type="text/x-template" id="section-interests-template" lang="html">
+            <div id="section-interests-root">
+                Interests
+            </div>
+        </template>
+
+
+
+        <template type="text/x-template" id="section-references-template" lang="html">
+            <div id="section-references-root">
+                References
+            </div>
+        </template>
+
+
+
+        <template type="text/x-template" id="preview-resume-template" lang="html">
+            <div id="preview-resume-root">
+                <!-- Page Container -->
+                <div class="w3-content w3-margin-top" style="max-width:1400px;">
+
+                    <!-- The Grid -->
+                    <div class="w3-row-padding">
+
+                        <!-- Left Column -->
+                        <div class="w3-third">
+
+                            <div class="w3-white w3-text-grey w3-card-4">
+                                <div class="w3-display-container">
+                                    <img src="https://www.w3schools.com/w3images/avatar_hat.jpg" style="width:100%" alt="Avatar">
+                                    <div class="w3-display-bottomleft w3-container w3-text-black">
+                                        <h2>Jane Doe</h2>
+                                    </div>
+                                </div>
+                                <div class="w3-container">
+                                    <p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>Designer</p>
+                                    <p><i class="fa fa-home fa-fw w3-margin-right w3-large w3-text-teal"></i>London, UK</p>
+                                    <p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i>ex@mail.com</p>
+                                    <p><i class="fa fa-phone fa-fw w3-margin-right w3-large w3-text-teal"></i>1224435534</p>
+                                    <hr>
+
+                                    <p class="w3-large"><b><i class="fa fa-asterisk fa-fw w3-margin-right w3-text-teal"></i>Skills</b>
+                                    </p>
+                                    <p>Adobe Photoshop</p>
+                                    <div class="w3-light-grey w3-round-xlarge w3-small">
+                                        <div class="w3-container w3-center w3-round-xlarge w3-teal" style="width:90%">90%</div>
+                                    </div>
+                                    <p>Photography</p>
+                                    <div class="w3-light-grey w3-round-xlarge w3-small">
+                                        <div class="w3-container w3-center w3-round-xlarge w3-teal" style="width:80%">
+                                            <div class="w3-center w3-text-white">80%</div>
+                                        </div>
+                                    </div>
+                                    <p>Illustrator</p>
+                                    <div class="w3-light-grey w3-round-xlarge w3-small">
+                                        <div class="w3-container w3-center w3-round-xlarge w3-teal" style="width:75%">75%</div>
+                                    </div>
+                                    <p>Media</p>
+                                    <div class="w3-light-grey w3-round-xlarge w3-small">
+                                        <div class="w3-container w3-center w3-round-xlarge w3-teal" style="width:50%">50%</div>
+                                    </div>
+                                    <br>
+
+                                    <p class="w3-large w3-text-theme"><b><i
+                                                class="fa fa-globe fa-fw w3-margin-right w3-text-teal"></i>Languages</b></p>
+                                    <p>English</p>
+                                    <div class="w3-light-grey w3-round-xlarge">
+                                        <div class="w3-round-xlarge w3-teal" style="height:24px;width:100%"></div>
+                                    </div>
+                                    <p>Spanish</p>
+                                    <div class="w3-light-grey w3-round-xlarge">
+                                        <div class="w3-round-xlarge w3-teal" style="height:24px;width:55%"></div>
+                                    </div>
+                                    <p>German</p>
+                                    <div class="w3-light-grey w3-round-xlarge">
+                                        <div class="w3-round-xlarge w3-teal" style="height:24px;width:25%"></div>
+                                    </div>
+                                    <br>
+                                </div>
+                            </div><br>
+
+                            <!-- End Left Column -->
+                        </div>
+
+                        <!-- Right Column -->
+                        <div class="w3-twothird">
+
+                            <div class="w3-container w3-card w3-white w3-margin-bottom">
+                                <h2 class="w3-text-grey w3-padding-16"><i
+                                        class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Work Experience</h2>
+                                <div class="w3-container">
+                                    <h5 class="w3-opacity"><b>Front End Developer / w3schools.com</b></h5>
+                                    <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>Jan 2015 - <span
+                                            class="w3-tag w3-teal w3-round">Current</span></h6>
+                                    <p>Lorem ipsum dolor sit amet. Praesentium magnam consectetur vel in deserunt aspernatur est
+                                        reprehenderit sunt hic. Nulla tempora soluta ea et odio, unde doloremque repellendus iure, iste.
+                                    </p>
+                                    <hr>
+                                </div>
+                                <div class="w3-container">
+                                    <h5 class="w3-opacity"><b>Web Developer / something.com</b></h5>
+                                    <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>Mar 2012 - Dec 2014
+                                    </h6>
+                                    <p>Consectetur adipisicing elit. Praesentium magnam consectetur vel in deserunt aspernatur est
+                                        reprehenderit sunt hic. Nulla tempora soluta ea et odio, unde doloremque repellendus iure, iste.
+                                    </p>
+                                    <hr>
+                                </div>
+                                <div class="w3-container">
+                                    <h5 class="w3-opacity"><b>Graphic Designer / designsomething.com</b></h5>
+                                    <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>Jun 2010 - Mar 2012
+                                    </h6>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. </p><br>
+                                </div>
+                            </div>
+
+                            <div class="w3-container w3-card w3-white">
+                                <h2 class="w3-text-grey w3-padding-16"><i
+                                        class="fa fa-certificate fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Education</h2>
+                                <div class="w3-container">
+                                    <h5 class="w3-opacity"><b>W3Schools.com</b></h5>
+                                    <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>Forever</h6>
+                                    <p>Web Development! All I need to know in one place</p>
+                                    <hr>
+                                </div>
+                                <div class="w3-container">
+                                    <h5 class="w3-opacity"><b>London Business School</b></h5>
+                                    <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>2013 - 2015</h6>
+                                    <p>Master Degree</p>
+                                    <hr>
+                                </div>
+                                <div class="w3-container">
+                                    <h5 class="w3-opacity"><b>School of Coding</b></h5>
+                                    <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>2010 - 2013</h6>
+                                    <p>Bachelor Degree</p><br>
+                                </div>
+                            </div>
+
+                            <!-- End Right Column -->
+                        </div>
+
+                        <!-- End Grid -->
+                    </div>
+
+                    <!-- End Page Container -->
+                </div>
+            </div>
+        </template>
+
+
+
+        <template type="text/x-template" id="preview-single-field-template" lang="html">
+            <div class="w3-row w3-margin-bottom">
+                <div class="w3-col m3">
+                    <span>{{label}}</span>
+                </div>
+                <div class="w3-col m9">
+                    <span v-html="getValue()"></span>
+                </div>
+            </div>
+        </template>
+
+
+
+        <template type="text/x-template" id="import-template" lang="html">
+            <div id="import-root">
+                Import
+            </div>
+        </template>
+
+
+
+        <template type="text/x-template" id="export-template" lang="html">
+            <div id="export-root">
+                Export
+            </div>
+        </template>
+
+
+
+        <template type="text/x-template" id="about-template" lang="html">
+            <div id="export-root">
+                <h5 class="w3-bottombar w3-border-green">JSON Resume Editor</h5>
+                <p>
+                    <h4>What is it?</h4>
+                    An editor for creating and updating <a href="https://jsonresume.org/">JSON Resume</a> files.
+
+                    <h4>Why?</h4>
+                    <p>
+                        For 2 reasons:
+                    </p>
+                    <ol>
+                        <li>To provide an easy interface to creating and updating JSON Resume files. Working with raw JSON files is not difficult, but it's also not fun. This editor makes life easy.</li>
+                        <li>To act as sample application for creating VueJS training articles.</li>
+                    </ol>
+
+                    <h4>Technologies used</h4>
+                    <ul>
+                        <li><a href="https://www.w3schools.com/w3css/">W3CSS (v4.13)</a></li>
+                        <li><a href="https://vuejs.org/">VueJS (v2.6.10)</a></li>
+                        <li><a href="https://router.vuejs.org/">Vue Router (v3.1.3)</a></li>
+                    </ul>
+                </p>
+
+                <div class="w3-container w3-padding-16 w3-dark-grey w3-margin-top">
+                    
+                    <p>Developed by <a href="https://jsnelders.com" target="_blank">Jason Snelders</a></p>
+                </div>
+            </div>
+        </template>
+        <!-- /Component Templates -->
+
+
+
+
+
+        <!-- Scripts -->
+        <script type="text/javascript" src="scripts.js"></script>
+
+        <script type="text/javascript" src="vendor/vue.2.6.10.js"></script>
+        <script type="text/javascript" src="vendor/vue-router.3.1.3.js"></script>
+
+        <script type="text/javascript" src="app/component_registration.js"></script>
+        <script type="text/javascript" src="components/home.js"></script>
+        <script type="text/javascript" src="components/section_basics.js"></script>
+        <script type="text/javascript" src="components/section_work.js"></script>
+        <script type="text/javascript" src="components/section_volunteer.js"></script>
+        <script type="text/javascript" src="components/section_education.js"></script>
+        <script type="text/javascript" src="components/section_awards.js"></script>
+        <script type="text/javascript" src="components/section_publications.js"></script>
+        <script type="text/javascript" src="components/section_skills.js"></script>
+        <script type="text/javascript" src="components/section_languages.js"></script>
+        <script type="text/javascript" src="components/section_interests.js"></script>
+        <script type="text/javascript" src="components/section_references.js"></script>
+        <script type="text/javascript" src="components/preview_resume.js"></script>
+        <script type="text/javascript" src="components/preview_single_field.js"></script>
+        <script type="text/javascript" src="components/import.js"></script>
+        <script type="text/javascript" src="components/export.js"></script>
+        <script type="text/javascript" src="components/about.js"></script>
+        <script type="text/javascript" src="app/app.js"></script>
+        
+        <!-- /Scripts -->
+    </body>
+</html>

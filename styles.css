@@ -1,0 +1,96 @@
+html, body, h1, h2, h3, h4, h5 
+{
+    font-family: "Raleway", sans-serif
+}
+
+
+
+
+
+
+
+/********************************************************************************
+*                               Full page overlay
+********************************************************************************/
+#full-page-overlay 
+{
+    position: fixed; /* Sit on top of the page content */
+    /*display: none;*/ /* Hidden by default */
+    display: block;
+    display: none;
+    width: 100%; /* Full width (cover the whole page) */
+    height: 100%; /* Full height (cover the whole page) */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /*background-color: rgba(0,0,0,0.5);*/ /* Black background with opacity */
+    background-color: rgba(0,0,0,1);
+    z-index: 100; /* Specify a stack order in case you're using a different order for other elements */
+    cursor: pointer; /* Add a pointer on hover */
+}
+
+
+#full-page-overlay-text 
+{
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    font-size: 50px;
+    color: white;
+    transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+}
+
+
+
+
+
+/********************************************************************************
+*                               Layout and Navigation
+********************************************************************************/
+.w3-main
+{
+    margin-left:300px;
+    margin-top:43px;
+}
+
+
+
+
+
+/********************************************************************************
+*                               Helpers classes
+********************************************************************************/
+
+/**
+*   Create a 32px margin at the top of an element.
+*/
+.margin-top-32
+{
+    margin-top: 32px;
+}
+
+
+/**
+*   Bootstrap style muted helper text for form inputs.
+*/
+.text-muted
+{
+    color: #6c757d!important;
+}
+
+.form-help
+{
+    display: block;
+}
+
+/**
+* Add to the labels of fields that require a value
+*/
+.required-field:after
+{
+    color: red;
+    content:" *";
+}
