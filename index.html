@@ -207,24 +207,29 @@
                                 <input id="location.region" class="w3-input w3-border" type="text" v-model="$root.sections.basics.location.region">
                                 <small id="regionHelp" class="form-help text-muted">State or region</small>
                             </p>
+                        </form>
 
-
-                            <h5 class="margin-top-32">Social Network Profiles</h5>
-                            <p>      
-                                <label for="profiles[0].network" class="w3-text-blue"><b>Network</b></label>
-                                <input id="profiles[0].network" class="w3-input w3-border" type="text" v-model="$root.sections.basics.profiles[0].network">
-                                <small id="networkHelp" class="form-help text-muted">Name of the network</small>
-                            </p>
-                            <p>      
-                                <label for="profiles[0].username" class="w3-text-blue"><b>Username</b></label>
-                                <input id="profiles[0].username" class="w3-input w3-border" type="text" v-model="$root.sections.basics.profiles[0].username">
-                                <small id="usernameHelp" class="form-help text-muted">Your username in the network</small>
-                            </p>
-                            <p>      
-                                <label for="profiles[0].url" class="w3-text-blue"><b>URL</b></label>
-                                <input id="profiles[0].url" class="w3-input w3-border" type="text" v-model="$root.sections.basics.profiles[0].url">
-                                <small id="urlHelp" class="form-help text-muted">URL to your profile in the network</small>
-                            </p>
+                        <h5 class="margin-top-32">Social Network Profiles</h5>
+                        <button class="w3-btn w3-white w3-border w3-border-blue w3-round w3-padding-small" v-on:click="addProfile">+ Add Profile</button>
+                        
+                        <form class="w3-container w3-card-4 w3-margin-top">
+                            <div v-for="profile in $root.sections.basics.profiles">
+                                <p>      
+                                    <label for="profiles.network" class="w3-text-blue"><b>Network</b></label>
+                                    <input id="profiles.network" class="w3-input w3-border" type="text" v-model="profile.network">
+                                    <small id="networkHelp" class="form-help text-muted">Name of the network</small>
+                                </p>
+                                <p>      
+                                    <label for="profiles.username" class="w3-text-blue"><b>Username</b></label>
+                                    <input id="profiles.username" class="w3-input w3-border" type="text" v-model="profile.username">
+                                    <small id="usernameHelp" class="form-help text-muted">Your username in the network</small>
+                                </p>
+                                <p>      
+                                    <label for="profiles.url" class="w3-text-blue"><b>URL</b></label>
+                                    <input id="profiles.url" class="w3-input w3-border" type="text" v-model="profile.url">
+                                    <small id="urlHelp" class="form-help text-muted">URL to your profile in the network</small>
+                                </p>
+                            </div>
                         </form>
                     </div>
                     <div class="w3-col m6">
@@ -247,9 +252,11 @@
                             <preview-field label="Region" v-bind:value="$root.sections.basics.location.region"></preview-field>
     
                             <h5 class="margin-top-32">Social Network Profiles</h5>
-                            <preview-field label="Network" v-bind:value="$root.sections.basics.profiles[0].network"></preview-field>
-                            <preview-field label="Username" v-bind:value="$root.sections.basics.profiles[0].username"></preview-field>
-                            <preview-field label="URL" v-bind:value="$root.sections.basics.profiles[0].url"></preview-field>
+                            <div v-for="profile in $root.sections.basics.profiles">
+                                <preview-field label="Network" v-bind:value="profile.network"></preview-field>
+                                <preview-field label="Username" v-bind:value="profile.username"></preview-field>
+                                <preview-field label="URL" v-bind:value="profile.url"></preview-field>
+                            </div>
                         </div>
                     </div>
                 </div>

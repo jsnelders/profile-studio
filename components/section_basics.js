@@ -71,5 +71,9 @@ var sectionBasicsComponent = {
 
 
 	methods: {
+		addProfile: function()
+		{
+			
+		}
 	}
 };

@@ -99,7 +99,7 @@ var app = new Vue({
 
     mounted() 
     {
-		this.loadFromStorage();
+		//this.loadFromStorage();
 
 		// Set the "current" main navigation item based on the current route.
 		helpers.selectMenuItemForCurrentUrl();
@@ -137,95 +137,6 @@ var app = new Vue({
 			this.activePage.id = "";
 			this.activePage.title = "";
 			this.activePage.fontAwesomeIconCss = "";
-		},
-
-
-
-		getDefaultSections: function()
-		{
-			return {
-				basics: {
-					name: "",
-					label: "",
-					picture: "",
-					email: "",
-					phone: "",
-					website: "",
-					summary: "",
-					location: {
-						address: "",
-						postalCode: "",
-						city: "",
-						countryCode: "",
-						region: "",
-					},
-					profiles: [
-						{
-							network: "",
-							username: "",
-							url: "",
-						}
-					]
-				},
-				work: [{
-					company: "",
-					position: "",
-					website: "",
-					startDate: "",
-					endDate: "",
-					summary: "",
-					highlights: [""]
-				}],
-				volunteer: [{
-					organization: "",
-					position: "",
-					website: "",
-					startDate: "",
-					endDate: "",
-					summary: "",
-					highlights: []
-				}],
-				education: [{
-					institution: "",
-					area: "",
-					studyType: "",
-					startDate: "",
-					endDate: "",
-					gpa: "",
-					courses: []
-				}],
-				awards: [{
-					title: "",
-					date: "",
-					awarder: "",
-					summary: ""
-				}],
-				publications: [{
-					name: "",
-					publisher: "",
-					releaseDate: "",
-					website: "",
-					summary: ""
-				}],
-				skills: [{
-					name: "",
-					level: "",
-					keywords: []
-				}],
-				languages: [{
-					language: "",
-					fluency: ""
-				}],
-				interests: [{
-					name: "",
-					keywords: [
-					]
-				}],
-				references: [{
-					name: "",
-					reference: ""
-				}]
-			};
 		},
 
 
@@ -270,7 +181,279 @@ var app = new Vue({
 			}
 
 			return false;
+		},
+
+
+		
+		getDefaultSections: function()
+		{
+			// return {
+			// 	basics: {
+			// 		name: "",
+			// 		label: "",
+			// 		picture: "",
+			// 		email: "",
+			// 		phone: "",
+			// 		website: "",
+			// 		summary: "",
+			// 		location: {
+			// 			address: "",
+			// 			postalCode: "",
+			// 			city: "",
+			// 			countryCode: "",
+			// 			region: "",
+			// 		},
+			// 		profiles: [
+			// 			{
+			// 				network: "",
+			// 				username: "",
+			// 				url: "",
+			// 			}
+			// 		]
+			// 	},
+			// 	work: [{
+			// 		company: "",
+			// 		position: "",
+			// 		website: "",
+			// 		startDate: "",
+			// 		endDate: "",
+			// 		summary: "",
+			// 		highlights: [""]
+			// 	}],
+			// 	volunteer: [{
+			// 		organization: "",
+			// 		position: "",
+			// 		website: "",
+			// 		startDate: "",
+			// 		endDate: "",
+			// 		summary: "",
+			// 		highlights: []
+			// 	}],
+			// 	education: [{
+			// 		institution: "",
+			// 		area: "",
+			// 		studyType: "",
+			// 		startDate: "",
+			// 		endDate: "",
+			// 		gpa: "",
+			// 		courses: []
+			// 	}],
+			// 	awards: [{
+			// 		title: "",
+			// 		date: "",
+			// 		awarder: "",
+			// 		summary: ""
+			// 	}],
+			// 	publications: [{
+			// 		name: "",
+			// 		publisher: "",
+			// 		releaseDate: "",
+			// 		website: "",
+			// 		summary: ""
+			// 	}],
+			// 	skills: [{
+			// 		name: "",
+			// 		level: "",
+			// 		keywords: []
+			// 	}],
+			// 	languages: [{
+			// 		language: "",
+			// 		fluency: ""
+			// 	}],
+			// 	interests: [{
+			// 		name: "",
+			// 		keywords: [
+			// 		]
+			// 	}],
+			// 	references: [{
+			// 		name: "",
+			// 		reference: ""
+			// 	}]
+			// };
+
+			var structure = {
+				basics: {},
+				work: [],
+				volunteer: [],
+				education: [],
+				awards: [],
+				publications: [],
+				skills: [],
+				languages: [],
+				interests: [],
+				references: []
+			};
+
+			structure.basics = this.getDefaultBasic();
+			structure.work.push(this.getDefaultWork());
+			structure.volunteer.push(this.getDefaultVolunteer());
+			structure.education.push(this.getDefaultEducation());
+			structure.awards.push(this.getDefaultAward());
+			structure.publications.push(this.getDefaultPublication());
+			structure.skills.push(this.getDefaultSkill());
+			structure.languages.push(this.getDefaultLanguage());
+			structure.interests.push(this.getDefaultInterest());
+			structure.references.push(this.getDefaultReference());
+
+
+			return structure;
+		},
+
+
+		getDefaultBasic: function()
+		{
+			return {
+				name: "",
+				label: "",
+				picture: "",
+				email: "",
+				phone: "",
+				website: "",
+				summary: "",
+				location: {
+					address: "",
+					postalCode: "",
+					city: "",
+					countryCode: "",
+					region: "",
+				},
+				profiles: [
+					{
+						network: "",
+						username: "",
+						url: "",
+					}
+				]
+			};
+		},
+
+		getDefaultBasicProfile: function()
+		{
+			return {
+				network: "",
+				username: "",
+				url: "",
+			};
+		},
+
+		getDefaultWork: function()
+		{
+			return {
+				company: "",
+				position: "",
+				website: "",
+				startDate: "",
+				endDate: "",
+				summary: "",
+				highlights: []
+			};
+		},
+
+		getDefaultWorkHighlight: function()
+		{
+			return "";
+		},
+		
+		getDefaultVolunteer: function()
+		{
+			return {
+				organization: "",
+				position: "",
+				website: "",
+				startDate: "",
+				endDate: "",
+				summary: "",
+				highlights: []
+			};
+		},
+
+		getDefaulVolunteerHighlight: function()
+		{
+			return "";
+		},
+
+		getDefaultEducation: function()
+		{
+			return {
+				institution: "",
+				area: "",
+				studyType: "",
+				startDate: "",
+				endDate: "",
+				gpa: "",
+				courses: []
+			};
+		},
+				
+		getDefaultEducationCourse: function()
+		{
+			return "";
+		},
+		
+		getDefaultAward: function()
+		{
+			return {
+				title: "",
+				date: "",
+				awarder: "",
+				summary: ""
+			};
+		},
+
+		getDefaultPublication: function()
+		{
+			return {
+				name: "",
+				publisher: "",
+				releaseDate: "",
+				website: "",
+				summary: ""
+			};
+		},
+
+		getDefaultSkill: function()
+		{
+			return {
+				name: "",
+				level: "",
+				keywords: []
+			};
+		},
+				
+		getDefaultSkillKeywoard: function()
+		{
+			return "";
+		},
+
+		getDefaultLanguage: function()
+		{
+			return {
+				language: "",
+				fluency: ""
+			};
+		},
+
+		getDefaultInterest: function()
+		{
+			return {
+				name: "",
+				keywords: []
+			};
+		},
+
+		getDefaultInterestKeywoard: function()
+		{
+			return "";
+		},
+
+		getDefaultReference: function()
+		{
+			return {
+				name: "",
+				reference: ""
+			};
 		}
+
 	},
 
 
