@@ -487,7 +487,9 @@
 
         <template type="text/x-template" id="section-awards-template" lang="html">
             <div id="section-awards-root">
-                Specify any awards you have received throughout your professional career.
+                <p>
+                        Specify any awards you have received throughout your professional career.
+                </p>
                 <button type="button" class="w3-btn w3-white w3-border w3-border-blue w3-round w3-padding-small" v-on:click="addAward">+ Add Award</button>
 
                 <div class="w3-row">
@@ -531,8 +533,9 @@
 
         <template type="text/x-template" id="section-publications-template" lang="html">
             <div id="section-publications-root">
-                Specify your publications through your career.
-
+                <p>
+                    Specify your publications through your career.
+                </p>
                 <button type="button" class="w3-btn w3-white w3-border w3-border-blue w3-round w3-padding-small" v-on:click="addPublication">+ Add Publication</button>
 
                 <div class="w3-row">
@@ -632,10 +635,10 @@
 
 
         <template type="text/x-template" id="section-languages-template" lang="html">
-            <p>
-                List any other languages you speak.
-            </p>
             <div id="section-languages-root">
+                <p>
+                    List any other languages you speak.
+                </p>
                 <button type="button" class="w3-btn w3-white w3-border w3-border-blue w3-round w3-padding-small" v-on:click="addLanguage">+ Add Language</button>
 
                 <div class="w3-row">
@@ -667,7 +670,6 @@
 
         <template type="text/x-template" id="section-interests-template" lang="html">
             <div id="section-interests-root">
-                
                 <button type="button" class="w3-btn w3-white w3-border w3-border-blue w3-round w3-padding-small" v-on:click="addInterest">+ Add Interest</button>
 
                 <div class="w3-row">
@@ -711,7 +713,9 @@
 
         <template type="text/x-template" id="section-references-template" lang="html">
             <div id="section-references-root">
-                List references you have received.
+                <p>
+                        List references you have received.
+                </p>
                 <button type="button" class="w3-btn w3-white w3-border w3-border-blue w3-round w3-padding-small" v-on:click="addReference">+ Add Reference</button>
 
                 <div class="w3-row">
@@ -725,7 +729,7 @@
                             <p>
                                 <label for="reference" class="w3-text-blue required-field"><b>Reference</b></label>
                                 <textarea id="reference" rows="8" class="w3-input w3-border" type="text" v-model="reference.reference"></textarea>
-                                <small id="referenceHelp" class="form-help text-muted">The reference given by the person (e.g. Joe blogs was a great employee, who turned up to work at least once a week. He exceeded my expectations when it came to doing nothing.).</small>
+                                <small id="referenceHelp" class="form-help text-muted">The reference given by the person (e.g. Joe blogs was a great employee, who turned up to work at least once a week. He exceeded my expectations when it came to doing nothing).</small>
                             </p>
                         </form>
                     </div>
