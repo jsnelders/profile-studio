@@ -27,6 +27,10 @@ var sectionAwardsComponent = {
 	
 
 	methods: {
-
+		addAward: function()
+		{
+			var item = this.$root.getDefaultAward();
+			this.$root.sections.awards.push(item);
+		}
 	}
 };

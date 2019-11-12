@@ -27,6 +27,10 @@ var sectionLanguagesComponent = {
 	
 
 	methods: {
-
+		addLanguage: function()
+		{
+			var item = this.$root.getDefaultInterest();
+			this.$root.sections.languages.push(item);
+		}
 	}
 };

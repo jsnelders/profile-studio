@@ -102,10 +102,10 @@ var app = new Vue({
 		//this.loadFromStorage();
 
 		// Set the "current" main navigation item based on the current route.
-		helpers.selectMenuItemForCurrentUrl();
+		this.selectMenuItemForCurrentUrl();
 
 		// Once the app is fully displayed, hide the overlay.
-		helpers.hideFullPageOverlay();
+		this.hideFullPageOverlay();
 
 		this.status = "loaded";	// Now we can start watching for changes in 'sections' data.
 	},
@@ -184,93 +184,121 @@ var app = new Vue({
 		},
 
 
+
+		/**
+		 * Open the sidebar on smaller screens.
+		 */
+		w3_open: function()
+		{
+			var mySidebar = document.getElementById("mySidebar");
+			var overlayBg = document.getElementById("myOverlay");
+	
+			console.log("mySidebar=", mySidebar);
+	
+			if (mySidebar.style.display === 'block') 
+			{
+				mySidebar.style.display = 'none';
+				overlayBg.style.display = "none";
+			} 
+			else 
+			{
+				mySidebar.style.display = 'block';
+				overlayBg.style.display = "block";
+			}
+		},
+
+
+
+		/**
+		 * Open the sidebar on smaller screens.
+		 */
+		w3_close: function()
+		{
+			var mySidebar = document.getElementById("mySidebar");
+			var overlayBg = document.getElementById("myOverlay");
+	
+			mySidebar.style.display = "none";
+			overlayBg.style.display = "none";
+		},
+
+
+
+		/**
+		 * Show the full-page loading overlay.
+		 */
+		showFullPageOverlay: function() 
+		{
+			document.getElementById("full-page-overlay").style.display = "block";
+		},
+	
+
+
+		/**
+		 * Hide the full-page loading overlay.
+		 */
+		hideFullPageOverlay: function() 
+		{
+			document.getElementById("full-page-overlay").style.display = "none";
+		},
+
+
+
+		/**
+		 * Find and mark the main navigation item for the selected "current" page/route
+		 */
+		selectMenuItemForCurrentUrl: function()
+		{
+			// Get domain root URL of the current page.
+			var domainUrl = window.location.origin;
+
+			// Get components of the URL for the current page.
+			var pageBasePathName = window.location.pathname;
+			var pageHash = window.location.hash;
+			var pagePathName = window.location.pathname;
+			var pageBaseUrl = domainUrl + pageBasePathName + pageHash;
+
+			// Get all main navigation links
+			var elements = document.querySelectorAll(".w3-bar-item");
+
+			for (let i = 0; i < elements.length; i++) 
+			{
+				var element = elements[i];
+				//console.log("element[" + i + "]=", element);
+
+				// Get HREF from the element
+				var linkHref = element.getAttribute("href");
+
+				// Build a full URL the element's href (hash) so we can compare to the current URL.
+				var linkFullHref = domainUrl + pagePathName + linkHref;
+
+				// Remove the "current page" indicator from the element.
+				element.classList.remove("w3-blue");
+
+				// Ensure trailing slashes are added for comparison equivalence
+				var urlLast = linkFullHref[linkFullHref.length - 1];
+				if (urlLast != "/")
+				{
+					linkFullHref = linkFullHref + "/";
+				}
+				urlLast = pageBaseUrl[pageBaseUrl.length - 1];
+				if (urlLast != "/")
+				{
+					pageBaseUrl = pageBaseUrl + "/";
+				}
+
+				// Check if element is for the current page.
+				if (linkFullHref == pageBaseUrl)
+				{
+					// Add the "current page" indicator to the element.
+					element.classList.add("w3-blue");
+				}
+			}
+		},
+
 		
+
 		getDefaultSections: function()
 		{
-			// return {
-			// 	basics: {
-			// 		name: "",
-			// 		label: "",
-			// 		picture: "",
-			// 		email: "",
-			// 		phone: "",
-			// 		website: "",
-			// 		summary: "",
-			// 		location: {
-			// 			address: "",
-			// 			postalCode: "",
-			// 			city: "",
-			// 			countryCode: "",
-			// 			region: "",
-			// 		},
-			// 		profiles: [
-			// 			{
-			// 				network: "",
-			// 				username: "",
-			// 				url: "",
-			// 			}
-			// 		]
-			// 	},
-			// 	work: [{
-			// 		company: "",
-			// 		position: "",
-			// 		website: "",
-			// 		startDate: "",
-			// 		endDate: "",
-			// 		summary: "",
-			// 		highlights: [""]
-			// 	}],
-			// 	volunteer: [{
-			// 		organization: "",
-			// 		position: "",
-			// 		website: "",
-			// 		startDate: "",
-			// 		endDate: "",
-			// 		summary: "",
-			// 		highlights: []
-			// 	}],
-			// 	education: [{
-			// 		institution: "",
-			// 		area: "",
-			// 		studyType: "",
-			// 		startDate: "",
-			// 		endDate: "",
-			// 		gpa: "",
-			// 		courses: []
-			// 	}],
-			// 	awards: [{
-			// 		title: "",
-			// 		date: "",
-			// 		awarder: "",
-			// 		summary: ""
-			// 	}],
-			// 	publications: [{
-			// 		name: "",
-			// 		publisher: "",
-			// 		releaseDate: "",
-			// 		website: "",
-			// 		summary: ""
-			// 	}],
-			// 	skills: [{
-			// 		name: "",
-			// 		level: "",
-			// 		keywords: []
-			// 	}],
-			// 	languages: [{
-			// 		language: "",
-			// 		fluency: ""
-			// 	}],
-			// 	interests: [{
-			// 		name: "",
-			// 		keywords: [
-			// 		]
-			// 	}],
-			// 	references: [{
-			// 		name: "",
-			// 		reference: ""
-			// 	}]
-			// };
-
 			var structure = {
 				basics: {},
 				work: [],
@@ -298,7 +326,6 @@ var app = new Vue({
 
 			return structure;
 		},
-
 
 		getDefaultBasic: function()
 		{
@@ -469,10 +496,8 @@ var app = new Vue({
 		 */
 		$route: function (to, from)
 		{
-			//console.log("Route change: ", from, " --> ", to);
-
 			// Set the "current" main navigation item based on the current route.
-            helpers.selectMenuItemForCurrentUrl();
+            this.selectMenuItemForCurrentUrl();
 			
 			// Set the current page details based on the component mapped to the active route.
             var component = components.getComponentByPath(to.fullPath);
@@ -492,5 +517,5 @@ var app = new Vue({
 			},
 			deep: true
 		}
-    },
+    }
 });

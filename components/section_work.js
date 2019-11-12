@@ -27,10 +27,15 @@ var sectionWorkComponent = {
 	
 
 	methods: {
+		addPosition: function()
+		{
+			var item = this.$root.getDefaultWork();
+			this.$root.sections.work.push(item);
+		},
+
 		addHighlight: function(index)
 		{
 			var item = this.$root.getDefaultWorkHighlight();
-			console.log("addHighlight(" + index + ")", this.$root.sections.work[index]);
 			this.$root.sections.work[index].highlights.push(item);
 		}
 	}

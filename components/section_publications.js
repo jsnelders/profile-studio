@@ -27,6 +27,10 @@ var sectionPublicationsComponent = {
 	
 
 	methods: {
-
+		addPublication: function()
+		{
+			var item = this.$root.getDefaultWork();
+			this.$root.sections.publications.push(item);
+		}
 	}
 };

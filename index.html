@@ -16,7 +16,7 @@
 
         <!-- Top container -->
         <div class="w3-bar w3-top w3-black w3-large" style="z-index:4">
-            <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="helpers.w3_open();"><i class="fa fa-bars"></i> &nbsp;Menu</button>
+            <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" v-on:click="w3_open"><i class="fa fa-bars"></i> &nbsp;Menu</button>
             <span class="w3-bar-item w3-right">JSON Resume Editor</span>
         </div>
 
@@ -41,7 +41,7 @@
                 <h5>Resume Sections</h5>
             </div>
             <div class="w3-bar-block">
-                <a href="#/" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="helpers.w3_close()" title="close menu"><i class="fas fa-times"></i>&nbsp; Close Menu</a>
+                <a href="#/" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" v-on:click="w3_close" title="close menu"><i class="fas fa-times"></i>&nbsp; Close Menu</a>
                 <a href="#/section/basics" class="w3-bar-item w3-button w3-padding"><i class="far fa-address-card"></i>&nbsp; Basics</a>
                 <a href="#/section/work" class="w3-bar-item w3-button w3-padding"><i class="fas fa-building"></i>&nbsp; Work</a>
                 <a href="#/section/volunteer" class="w3-bar-item w3-button w3-padding"><i class="fas fa-hands-helping"></i>&nbsp; Volunteer</a>
@@ -69,26 +69,25 @@
 
 
         <!-- Overlay effect when opening sidebar on small screens -->
-        <div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="helpers.w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+        <div class="w3-overlay w3-hide-large w3-animate-opacity" v-on:click="w3_close" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
 
 
         <!-- End Page Content -->
         <div class="w3-main w3-padding-16">
+        
+            <div id="full-page-overlay">
+                <div id="full-page-overlay-text">Please wait while we load the goodness.</div>
+            </div>
 
-            
-                <div id="full-page-overlay">
-                    <div id="full-page-overlay-text">Please wait while we load the goodness.</div>
-                </div>
+            <!-- Header -->
+            <header class="w3-container">
+                <h5 v-if="activePage.title != ''"><b><i class='page-title' style="margin-right: 20px;" v-if="activePage.fontAwesomeIconCss != ''" v-bind:class="activePage.fontAwesomeIconCss"></i> {{activePage.title}}</b></h5>
+            </header>
 
-                <!-- Header -->
-                <header class="w3-container">
-                    <h5 v-if="activePage.title != ''"><b><i class='page-title' style="margin-right: 20px;" v-if="activePage.fontAwesomeIconCss != ''" v-bind:class="activePage.fontAwesomeIconCss"></i> {{activePage.title}}</b></h5>
-                </header>
-
-                <div class="w3-container">
-                    <router-view>Loading...</router-view>
-                </div>
-            
+            <div class="w3-container">
+                <router-view>Loading...</router-view>
+            </div>
+        
 
 
 
@@ -267,9 +266,11 @@
 
         <template type="text/x-template" id="section-work-template" lang="html">
             <div id="section-work-root">
+                <button type="button" class="w3-btn w3-white w3-border w3-border-blue w3-round w3-padding-small" v-on:click="addPosition">+ Add Position</button>
+
                 <div class="w3-row">
                     <div class="w3-col m6">
-                        <form class="w3-container w3-card-4" v-for="(work, w_index) in $root.sections.work">
+                        <form class="w3-container w3-card-4 margin-top-32" v-for="(work, w_index) in $root.sections.work">
                             <p>
                                 <label for="company" class="w3-text-blue required-field"><b>Company</b></label>
                                 <input id="company" class="w3-input w3-border" type="text" v-model="work.company" required>
@@ -314,7 +315,7 @@
                         </form>
                     </div>
                     <div class="w3-col m6">
-                        <div class="preview w3-container w3-card-4 w3-padding-16 w3-margin-left" v-for="(work, w_index) in $root.sections.work">
+                        <div class="preview w3-container w3-card-4 w3-padding-16 w3-margin-left margin-top-32" v-for="(work, w_index) in $root.sections.work">
                             <preview-field label="Company" v-bind:value="work.company"></preview-field>
                             <preview-field label="Position" v-bind:value="work.position"></preview-field>
                             <preview-field label="Website" v-bind:value="work.website" format="url"></preview-field>
@@ -338,9 +339,11 @@
 
         <template type="text/x-template" id="section-volunteer-template" lang="html">
             <div id="section-volunteer-root">
+                <button type="button" class="w3-btn w3-white w3-border w3-border-blue w3-round w3-padding-small" v-on:click="addPosition">+ Add Position</button>
+
                 <div class="w3-row">
                     <div class="w3-col m6">
-                        <form class="w3-container w3-card-4" v-for="(vol, v_index) in $root.sections.volunteer">
+                        <form class="w3-container w3-card-4 margin-top-32" v-for="(vol, v_index) in $root.sections.volunteer">
                             <div>
                                 <p>
                                     <label for="organization" class="w3-text-blue required-field"><b>Organisation</b></label>
@@ -387,22 +390,20 @@
                         </form>
                     </div>
                     <div class="w3-col m6">
-                        <div class="preview w3-container w3-card-4 w3-padding-16 w3-margin-left">
-                            <div v-for="(vol, v_index) in $root.sections.volunteer">
-                                <preview-field label="Organisation" v-bind:value="vol.organization"></preview-field>
-                                <preview-field label="Position" v-bind:value="vol.position"></preview-field>
-                                <preview-field label="Website" v-bind:value="vol.website" format="url"></preview-field>
-                                <preview-field label="Start Date" v-bind:value="vol.startDate"></preview-field>
-                                <preview-field label="End Date" v-bind:value="vol.endDate"></preview-field>
-                                <preview-field label="Summary" v-bind:value="vol.summary" format="multi-line"></preview-field>
-        
-                                <h5 class="margin-top-32">Highlights</h5>
-                                <ol>
-                                    <li v-for="(highlight, h_index) in vol.highlights">
-                                        <preview-field label="" v-bind:value="$root.sections.volunteer[v_index].highlights[h_index]" format="list-item"></preview-field>
-                                    </li>
-                                </ol>
-                            </div>
+                        <div class="preview w3-container w3-card-4 w3-padding-16 w3-margin-left margin-top-32" v-for="(vol, v_index) in $root.sections.volunteer">
+                            <preview-field label="Organisation" v-bind:value="vol.organization"></preview-field>
+                            <preview-field label="Position" v-bind:value="vol.position"></preview-field>
+                            <preview-field label="Website" v-bind:value="vol.website" format="url"></preview-field>
+                            <preview-field label="Start Date" v-bind:value="vol.startDate"></preview-field>
+                            <preview-field label="End Date" v-bind:value="vol.endDate"></preview-field>
+                            <preview-field label="Summary" v-bind:value="vol.summary" format="multi-line"></preview-field>
+    
+                            <h5 class="margin-top-32">Highlights</h5>
+                            <ol>
+                                <li v-for="(highlight, h_index) in vol.highlights">
+                                    <preview-field label="" v-bind:value="$root.sections.volunteer[v_index].highlights[h_index]" format="list-item"></preview-field>
+                                </li>
+                            </ol>
                         </div>
                     </div>
                 </div>
@@ -413,9 +414,11 @@
 
         <template type="text/x-template" id="section-education-template" lang="html">
             <div id="section-education-root">
+                <button type="button" class="w3-btn w3-white w3-border w3-border-blue w3-round w3-padding-small" v-on:click="addEducation">+ Add Education</button>
+
                 <div class="w3-row">
                     <div class="w3-col m6">
-                        <form class="w3-container w3-card-4" v-for="(edu, e_index) in $root.sections.education">
+                        <form class="w3-container w3-card-4 margin-top-32" v-for="(edu, e_index) in $root.sections.education">
                             <p>
                                 <label for="institution" class="w3-text-blue required-field"><b>Institution</b></label>
                                 <input id="institution" class="w3-input w3-border" type="text" v-model="edu.institution" required>
@@ -459,7 +462,7 @@
                         </form>
                     </div>
                     <div class="w3-col m6">
-                        <div class="preview w3-container w3-card-4 w3-padding-16 w3-margin-left" v-for="(edu, e_index) in $root.sections.education">
+                        <div class="preview w3-container w3-card-4 w3-padding-16 w3-margin-left margin-top-32" v-for="(edu, e_index) in $root.sections.education">
                             <preview-field label="Institution" v-bind:value="edu.institution"></preview-field>
                             <preview-field label="Area" v-bind:value="edu.area"></preview-field>
                             <preview-field label="Study Type" v-bind:value="edu.studyType"></preview-field>
@@ -483,9 +486,11 @@
 
         <template type="text/x-template" id="section-awards-template" lang="html">
             <div id="section-awards-root">
+                <button type="button" class="w3-btn w3-white w3-border w3-border-blue w3-round w3-padding-small" v-on:click="addAward">+ Add Award</button>
+
                 <div class="w3-row">
                     <div class="w3-col m6">
-                        <form class="w3-container w3-card-4" v-for="(award, a_index) in $root.sections.awards">
+                        <form class="w3-container w3-card-4 margin-top-32" v-for="(award, a_index) in $root.sections.awards">
                             <p>
                                 <label for="title" class="w3-text-blue required-field"><b>Title</b></label>
                                 <input id="title" class="w3-input w3-border" type="text" v-model="award.title" required>
@@ -509,7 +514,7 @@
                         </form>
                     </div>
                     <div class="w3-col m6">
-                        <div class="preview w3-container w3-card-4 w3-padding-16 w3-margin-left" v-for="(award, a_index) in $root.sections.awards">
+                        <div class="preview w3-container w3-card-4 w3-padding-16 w3-margin-left margin-top-32" v-for="(award, a_index) in $root.sections.awards">
                             <preview-field label="Title" v-bind:value="award.title"></preview-field>
                             <preview-field label="Date" v-bind:value="award.date"></preview-field>
                             <preview-field label="Awarder" v-bind:value="award.awarder"></preview-field>
@@ -524,9 +529,11 @@
 
         <template type="text/x-template" id="section-publications-template" lang="html">
             <div id="section-publications-root">
+                <button type="button" class="w3-btn w3-white w3-border w3-border-blue w3-round w3-padding-small" v-on:click="addPublication">+ Add Publication</button>
+
                 <div class="w3-row">
                     <div class="w3-col m6">
-                        <form class="w3-container w3-card-4" v-for="(publication, p_index) in $root.sections.publications">
+                        <form class="w3-container w3-card-4 margin-top-32" v-for="(publication, p_index) in $root.sections.publications">
                             <p>
                                 <label for="name" class="w3-text-blue required-field"><b>Name</b></label>
                                 <input id="name" class="w3-input w3-border" type="text" v-model="publication.name" required>
@@ -555,7 +562,7 @@
                         </form>
                     </div>
                     <div class="w3-col m6">
-                        <div class="preview w3-container w3-card-4 w3-padding-16 w3-margin-left" v-for="(publication, p_index) in $root.sections.publications">
+                        <div class="preview w3-container w3-card-4 w3-padding-16 w3-margin-left margin-top-32" v-for="(publication, p_index) in $root.sections.publications">
                             <preview-field label="Name" v-bind:value="publication.name"></preview-field>
                             <preview-field label="Publisher" v-bind:value="publication.publisher"></preview-field>
                             <preview-field label="Release Date" v-bind:value="publication.releaseDate"></preview-field>
@@ -571,9 +578,11 @@
 
         <template type="text/x-template" id="section-skills-template" lang="html">
             <div id="section-skills-root">
+                <button type="button" class="w3-btn w3-white w3-border w3-border-blue w3-round w3-padding-small" v-on:click="addSkill">+ Add Skill</button>
+
                 <div class="w3-row">
                     <div class="w3-col m6">
-                        <form class="w3-container w3-card-4" v-for="(skill, s_index) in $root.sections.skills">
+                        <form class="w3-container w3-card-4 margin-top-32" v-for="(skill, s_index) in $root.sections.skills">
                             <p>
                                 <label for="name" class="w3-text-blue required-field"><b>Name</b></label>
                                 <input id="name" class="w3-input w3-border" type="text" v-model="skill.name" required>
@@ -597,7 +606,7 @@
                         </form>
                     </div>
                     <div class="w3-col m6">
-                        <div class="preview w3-container w3-card-4 w3-padding-16 w3-margin-left" v-for="(skill, s_index) in $root.sections.skills">
+                        <div class="preview w3-container w3-card-4 w3-padding-16 w3-margin-left margin-top-32" v-for="(skill, s_index) in $root.sections.skills">
                             <preview-field label="Name" v-bind:value="skill.name"></preview-field>
                             <preview-field label="Level" v-bind:value="skill.level"></preview-field>
     
@@ -617,29 +626,27 @@
 
         <template type="text/x-template" id="section-languages-template" lang="html">
             <div id="section-languages-root">
+                <button type="button" class="w3-btn w3-white w3-border w3-border-blue w3-round w3-padding-small" v-on:click="addLanguage">+ Add Language</button>
+
                 <div class="w3-row">
                     <div class="w3-col m6">
-                        <form class="w3-container w3-card-4">
-                            <div>
-                                <p>
-                                    <label for="language" class="w3-text-blue required-field"><b>Language</b></label>
-                                    <input id="language" class="w3-input w3-border" type="text" v-model="$root.sections.languages[0].language" required>
-                                    <small id="languageHelp" class="form-help text-muted">Name of the language.</small>
-                                </p>
-                                <p>
-                                    <label for="fluency" class="w3-text-blue required-field"><b>Fluency</b></label>
-                                    <input id="fluency" class="w3-input w3-border" type="text" v-model="$root.sections.languages[0].fluency" required>
-                                    <small id="fluencyHelp" class="form-help text-muted">Fluency in the language.</small>
-                                </p>
-                            </div>
+                        <form class="w3-container w3-card-4 margin-top-32" v-for="language in $root.sections.languages">
+                            <p>
+                                <label for="language" class="w3-text-blue required-field"><b>Language</b></label>
+                                <input id="language" class="w3-input w3-border" type="text" v-model="language.language" required>
+                                <small id="languageHelp" class="form-help text-muted">Name of the language.</small>
+                            </p>
+                            <p>
+                                <label for="fluency" class="w3-text-blue required-field"><b>Fluency</b></label>
+                                <input id="fluency" class="w3-input w3-border" type="text" v-model="language.fluency" required>
+                                <small id="fluencyHelp" class="form-help text-muted">Fluency in the language.</small>
+                            </p>
                         </form>
                     </div>
                     <div class="w3-col m6">
-                        <div class="preview w3-container w3-card-4 w3-padding-16 w3-margin-left">
-                            <div>
-                                <preview-field label="Language" v-bind:value="$root.sections.languages[0].language"></preview-field>
-                                <preview-field label="Fluency" v-bind:value="$root.sections.languages[0].fluency"></preview-field>
-                            </div>
+                        <div class="preview w3-container w3-card-4 w3-padding-16 w3-margin-left margin-top-32" v-for="language in $root.sections.languages">
+                            <preview-field label="Language" v-bind:value="language.language"></preview-field>
+                            <preview-field label="Fluency" v-bind:value="language.fluency"></preview-field>
                         </div>
                     </div>
                 </div>
@@ -650,9 +657,11 @@
 
         <template type="text/x-template" id="section-interests-template" lang="html">
             <div id="section-interests-root">
+                <button type="button" class="w3-btn w3-white w3-border w3-border-blue w3-round w3-padding-small" v-on:click="addInterest">+ Add Interest</button>
+
                 <div class="w3-row">
                     <div class="w3-col m6">
-                        <form class="w3-container w3-card-4" v-for="(interest, i_index) in $root.sections.interests">
+                        <form class="w3-container w3-card-4 margin-top-32" v-for="(interest, i_index) in $root.sections.interests">
                             <p>
                                 <label for="name" class="w3-text-blue required-field"><b>Name</b></label>
                                 <input id="name" class="w3-input w3-border" type="text" v-model="interest.name" required>
@@ -672,7 +681,7 @@
                         </form>
                     </div>
                     <div class="w3-col m6">
-                        <div class="preview w3-container w3-card-4 w3-padding-16 w3-margin-left" v-for="(interest, i_index) in $root.sections.interests">
+                        <div class="preview w3-container w3-card-4 w3-padding-16 w3-margin-left margin-top-32" v-for="(interest, i_index) in $root.sections.interests">
                             <preview-field label="Name" v-bind:value="interest.name"></preview-field>
 
                             <h5 class="margin-top-32">Keywords</h5>
@@ -691,29 +700,27 @@
 
         <template type="text/x-template" id="section-references-template" lang="html">
             <div id="section-references-root">
+                <button type="button" class="w3-btn w3-white w3-border w3-border-blue w3-round w3-padding-small" v-on:click="addReference">+ Add Reference</button>
+
                 <div class="w3-row">
                     <div class="w3-col m6">
-                        <form class="w3-container w3-card-4">
-                            <div>
-                                <p>
-                                    <label for="name" class="w3-text-blue required-field"><b>Name</b></label>
-                                    <input id="name" class="w3-input w3-border" type="text" v-model="$root.sections.references[0].name" required>
-                                    <small id="nameHelp" class="form-help text-muted">Name of the person.</small>
-                                </p>
-                                <p>
-                                    <label for="reference" class="w3-text-blue required-field"><b>Reference</b></label>
-                                    <textarea id="reference" rows="8" class="w3-input w3-border" type="text" v-model="$root.sections.references[0].reference"></textarea>
-                                    <small id="referenceHelp" class="form-help text-muted">The reference given by the person.</small>
-                                </p>
-                            </div>
+                        <form class="w3-container w3-card-4 margin-top-32" v-for="reference in $root.sections.references">
+                            <p>
+                                <label for="name" class="w3-text-blue required-field"><b>Name</b></label>
+                                <input id="name" class="w3-input w3-border" type="text" v-model="reference.name" required>
+                                <small id="nameHelp" class="form-help text-muted">Name of the person.</small>
+                            </p>
+                            <p>
+                                <label for="reference" class="w3-text-blue required-field"><b>Reference</b></label>
+                                <textarea id="reference" rows="8" class="w3-input w3-border" type="text" v-model="reference.reference"></textarea>
+                                <small id="referenceHelp" class="form-help text-muted">The reference given by the person.</small>
+                            </p>
                         </form>
                     </div>
                     <div class="w3-col m6">
-                        <div class="preview w3-container w3-card-4 w3-padding-16 w3-margin-left">
-                            <div>
-                                <preview-field label="Name" v-bind:value="$root.sections.references[0].name"></preview-field>
-                                <preview-field label="Reference" v-bind:value="$root.sections.references[0].reference" format="multi-line"></preview-field>
-                            </div>
+                        <div class="preview w3-container w3-card-4 w3-padding-16 w3-margin-left margin-top-32" v-for="reference in $root.sections.references">
+                            <preview-field label="Name" v-bind:value="reference.name"></preview-field>
+                            <preview-field label="Reference" v-bind:value="reference.reference" format="multi-line"></preview-field>
                         </div>
                     </div>
                 </div>

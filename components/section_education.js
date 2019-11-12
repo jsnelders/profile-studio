@@ -27,10 +27,15 @@ var sectionEducationComponent = {
 	
 
 	methods: {
+		addEducation: function()
+		{
+			var item = this.$root.getDefaultEducation();
+			this.$root.sections.education.push(item);
+		},
+
 		addCourse: function(index)
 		{
 			var item = this.$root.getDefaultEducationCourse();
-			//console.log("addHighlight(" + index + ")", this.$root.sections.volunteer[index]);
 			this.$root.sections.education[index].courses.push(item);
 		}
 	}

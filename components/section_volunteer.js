@@ -27,6 +27,12 @@ var sectionVolunteerComponent = {
 	
 
 	methods: {
+		addPosition: function()
+		{
+			var item = this.$root.getDefaultVolunteer();
+			this.$root.sections.volunteer.push(item);
+		},
+
 		addHighlight: function(index)
 		{
 			var item = this.$root.getDefaulVolunteerHighlight();

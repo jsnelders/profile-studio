@@ -27,6 +27,12 @@ var sectionInterestsComponent = {
 	
 
 	methods: {
+		addInterest: function()
+		{
+			var item = this.$root.getDefaultInterest();
+			this.$root.sections.interests.push(item);
+		},
+
 		addKeyword: function(index)
 		{
 			var item = this.$root.getDefaultInterestKeywoard();

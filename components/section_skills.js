@@ -27,6 +27,12 @@ var sectionSkillsComponent = {
 	
 
 	methods: {
+		addSkill: function()
+		{
+			var item = this.$root.getDefaultSkill();
+			this.$root.sections.skills.push(item);
+		},
+
 		addKeyword: function(index)
 		{
 			var item = this.$root.getDefaultSkillKeywoard();
