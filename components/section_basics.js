@@ -1,16 +1,16 @@
 var sectionBasicsComponent = {
 	template: '#section-basics-template',
 
+
+
 	
 
 	mounted: function()
 	{
 		var savedData = helpers.getLocalStorage("section.basics");
 
-		console.log("basics: mounted", savedData);
 		if (savedData)
 		{
-			console.log("set data");
 			// Data previously saved.
 			this.data = savedData;
 
@@ -23,11 +23,9 @@ var sectionBasicsComponent = {
 				}
 			}
 		}
-
-		//this["name"] = "Doug";
-
-		console.log("this.data=", this);
 	},
+
+
 
 
 
@@ -38,34 +36,38 @@ var sectionBasicsComponent = {
 
 
 	
+
+
 	data: function()
 	{
 		return {
-			name: "",
-			label: "",
-			picture: "",
-			email: "",
-			phone: "",
-			website: "",
-			summary: "",
-			location: {
-				address: "",
-				postalCode: "",
-				city: "",
-				countryCode: "",
-				region: "",
-			},
-			profiles: [
-				{
-					network: "",
-					username: "",
-					url: "",
-				}
-			]
+			// name: "",
+			// label: "",
+			// picture: "",
+			// email: "",
+			// phone: "",
+			// website: "",
+			// summary: "",
+			// location: {
+			// 	address: "",
+			// 	postalCode: "",
+			// 	city: "",
+			// 	countryCode: "",
+			// 	region: "",
+			// },
+			// profiles: [
+			// 	{
+			// 		network: "",
+			// 		username: "",
+			// 		url: "",
+			// 	}
+			// ]
 		};
 	},
 
 	
+
+
 
 	watch: {
 		/**
@@ -76,14 +78,18 @@ var sectionBasicsComponent = {
 			{
 				// Save the data to localStorage
 				//NOTE: I'm initially not concerned about performance here/
-				helpers.setLocalStorage("section.basics", val);
+				//helpers.setLocalStorage("section.basics", val);
+
+				//this.$root.sections.basics = val;
 			},
 			deep: true
 		}
 	},
 	
 
-	methods: {
 
+
+
+	methods: {
 	}
 };

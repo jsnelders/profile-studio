@@ -5,7 +5,7 @@ var exportComponent = {
 
 	mounted: function()
 	{
-		
+		this.json = JSON.stringify(this.$root.sections, null, 4);
 	},
 
 
@@ -20,7 +20,7 @@ var exportComponent = {
 	data: function()
 	{
 		return {
-			item: {}
+			json: ""
 		};
 	},
 

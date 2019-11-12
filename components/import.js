@@ -20,7 +20,7 @@ var importComponent = {
 	data: function()
 	{
 		return {
-			item: {}
+			json: ""
 		};
 	},
 

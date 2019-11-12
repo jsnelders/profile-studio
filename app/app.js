@@ -36,30 +36,6 @@ var app = new Vue({
 	el: '#app',
 
 	router: router,
-
-
-
-
-
-	watch: {
-		/**
-		 * Detect when a route changes.
-		 * 
-		 * @param object to Details of the previous route (navigating away from).
-		 * @param object from Details of the new active route (navigating to).
-		 */
-		$route: function (to, from)
-		{
-			//console.log("Route change: ", from, " --> ", to);
-
-			// Set the "current" main navigation item based on the current route.
-            helpers.selectMenuItemForCurrentUrl();
-			
-			// Set the current page details based on the component mapped to the active route.
-            var component = components.getComponentByPath(to.fullPath);
-            this.setActivePageByComponent(component);
-		}
-    },
     
 
 
@@ -76,21 +52,91 @@ var app = new Vue({
 
     data: 
     {
-		// componentId: "",
-		// pageTitle: "",
-		// fontAwesomeIcon: "",
+		sections: {
+			basics: {
+				name: "",
+				label: "",
+				picture: "",
+				email: "",
+				phone: "",
+				website: "",
+				summary: "",
+				location: {
+					address: "",
+					postalCode: "",
+					city: "",
+					countryCode: "",
+					region: "",
+				},
+				profiles: [
+					{
+						network: "",
+						username: "",
+						url: "",
+					}
+				]
+			},
+			work: {
+				company: "",
+				position: "",
+				website: "",
+				startDate: "",
+				endDate: "",
+				summary: "",
+				highlights: []
+			},
+			volunteer: {
+				organization: "",
+				position: "",
+				website: "",
+				startDate: "",
+				endDate: "",
+				summary: "",
+				highlights: []
+			},
+			education: {
+				institution: "",
+				area: "",
+				studyType: "",
+				startDate: "",
+				endDate: "",
+				gpa: "",
+				courses: []
+			},
+			awards: [{
+				title: "",
+				date: "",
+				awarder: "",
+				summary: ""
+			}],
+			publications: [{
+				name: "",
+				publisher: "",
+				releaseDate: "",
+				website: "",
+				summary: ""
+			}],
+			skills: [{
+				name: "",
+				level: "",
+				keywords: []
+			}],
+			languages: [{
+				language: "",
+				fluency: ""
+			}],
+			interests: [{
+				name: "",
+				keywords: [
+				]
+			}],
+			references: [{
+				name: "",
+				reference: ""
+			}]
+		},
 
-		// display: "",
-		// sidebarHeight: "",
-		// username: "",
-		// searchString: "",
 
-
-		/**
-		 * The complete JSON document
-		 */
-		jsonDocument: "",
-		
 		/**
 		 * Details of the  current page/route.
 		 */
@@ -130,6 +176,47 @@ var app = new Vue({
 
     mounted() 
     {
+		// var savedData = helpers.getLocalStorage("sections.basics");
+
+		// console.log("savedData=", savedData);
+
+		// if (savedData)
+		// {
+		// 	// Data previously saved.
+		// 	//this.sections = savedData;
+
+		// 	for (var key in savedData) 
+		// 	{
+		// 		if (savedData.hasOwnProperty(key)) 
+		// 		{
+		// 			console.log(key + " > " + savedData[key]);
+		// 			this.sections.basics[key] = savedData[key];
+		// 		}
+		// 	}
+		// }
+
+
+		//var savedData = helpers.getLocalStorage("sections").sections;
+		var savedData = helpers.getLocalStorage("sections");
+
+		console.log("get saved data[sections]=", savedData);
+
+		if (savedData)
+		{
+			// Data previously saved.
+			//this.sections = savedData;
+
+			for (var key in savedData) 
+			{
+				if (savedData.hasOwnProperty(key)) 
+				{
+					console.log(key + " > ", savedData[key]);
+					this.sections[key] = savedData[key];
+				}
+			}
+		}
+
+
 		// Set the "current" main navigation item based on the current route.
 		helpers.selectMenuItemForCurrentUrl();
 
@@ -178,5 +265,58 @@ var app = new Vue({
 		// 	//alert("Hello was clicked" + "\n" + "Who=" + eventValue.whoWasIt + "\n" + "What=" + eventValue.whatWasIt);
 		// 	console.log("componentActivated(): eventValue.component=", eventValue.component);
 		// }
-	}
+	},
+
+
+
+
+
+	// watch: {
+	// 	/**
+	// 	 * Watch all data for changes
+	// 	 */
+	// 	'sections.basics':  function(val) 
+	// 	{
+	// 		// Save the data to localStorage
+	// 		//NOTE: I'm initially not concerned about performance here/
+	// 		console.log("watch section", val);
+	// 	}
+	// }
+
+
+
+
+
+
+	watch: {
+		/**
+		 * Detect when a route changes.
+		 * 
+		 * @param object to Details of the previous route (navigating away from).
+		 * @param object from Details of the new active route (navigating to).
+		 */
+		$route: function (to, from)
+		{
+			//console.log("Route change: ", from, " --> ", to);
+
+			// Set the "current" main navigation item based on the current route.
+            helpers.selectMenuItemForCurrentUrl();
+			
+			// Set the current page details based on the component mapped to the active route.
+            var component = components.getComponentByPath(to.fullPath);
+            this.setActivePageByComponent(component);
+		},
+
+
+		$data: {
+			handler: function(val, oldVal) 
+			{
+				console.log("val=", val.sections);
+				// Save the data to localStorage
+				//NOTE: I'm initially not concerned about performance here.
+				helpers.setLocalStorage("sections", val.sections);
+			},
+			deep: true
+		}
+    },
 });

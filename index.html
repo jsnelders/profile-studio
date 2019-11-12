@@ -142,37 +142,37 @@
                         <form class="w3-container w3-card-4">
                             <p>      
                                 <label for="name" class="w3-text-blue required-field"><b>Full Name</b></label>
-                                <input id="name" class="w3-input w3-border" type="text" v-model="name" required>
+                                <input id="name" class="w3-input w3-border" type="text" v-model="$root.sections.basics.name" required>
                                 <small id="nameHelp" class="form-help text-muted">Your full name.</small>
                             </p>
                             <p>      
                                 <label for="label" class="w3-text-blue required-field"><b>Label</b></label>
-                                <input id="label" class="w3-input w3-border" type="text" v-model="label" required>
+                                <input id="label" class="w3-input w3-border" type="text" v-model="$root.sections.basics.label" required>
                                 <small id="labelHelp" class="form-help text-muted">Your job or professional title (e.g. software developer, IT manager, graphic designer).</small>
                             </p>
                             <p>      
                                 <label for="picture" class="w3-text-blue"><b>Picture</b></label>
-                                <input id="picture" class="w3-input w3-border" type="text" v-model="picture">
+                                <input id="picture" class="w3-input w3-border" type="text" v-model="$root.sections.basics.picture">
                                 <small id="pictureHelp" class="form-help text-muted">URL to your profile photo or avatar.</small>
                             </p>
                             <p>      
                                 <label for="email" class="w3-text-blue"><b>Email</b></label>
-                                <input id="email" class="w3-input w3-border" type="text" v-model="email" required>
+                                <input id="email" class="w3-input w3-border" type="text" v-model="$root.sections.basics.email" required>
                                 <small id="emailHelp" class="form-help text-muted">Your contact email address</small>
                             </p>
                             <p>      
                                 <label for="phone" class="w3-text-blue"><b>Phone</b></label>
-                                <input id="phone" class="w3-input w3-border" type="text" v-model="phone">
+                                <input id="phone" class="w3-input w3-border" type="text" v-model="$root.sections.basics.phone">
                                 <small id="phoneHelp" class="form-help text-muted">Your contact phone number.</small>
                             </p>
                             <p>      
                                 <label for="website" class="w3-text-blue"><b>Website</b></label>
-                                <input id="website" class="w3-input w3-border" type="text" v-model="website">
+                                <input id="website" class="w3-input w3-border" type="text" v-model="$root.sections.basics.website">
                                 <small id="websiteHelp" class="form-help text-muted">Your website.</small>
                             </p>
                             <p>      
                                 <label for="summary" class="w3-text-blue"><b>Summary</b></label>
-                                <textarea id="summary" rows="8" class="w3-input w3-border" type="text" v-model="summary"></textarea>
+                                <textarea id="summary" rows="8" class="w3-input w3-border" type="text" v-model="$root.sections.basics.summary"></textarea>
                                 <small id="summaryHelp" class="form-help text-muted">About you, what your do, who you are, what you are looking for in your career.</small>
                             </p>
 
@@ -181,27 +181,27 @@
                             <small id="locationHelp" class="form-help text-muted">Where are you located?</small>
                             <p>      
                                 <label for="location.address" class="w3-text-blue"><b>Address</b></label>
-                                <input id="location.address" class="w3-input w3-border" type="text" v-model="location.address">
+                                <input id="location.address" class="w3-input w3-border" type="text" v-model="$root.sections.basics.location.address">
                                 <small id="addressHelp" class="form-help text-muted">(Not recommended) Your street address</small>
                             </p>
                             <p>      
                                 <label for="location.postalCode" class="w3-text-blue"><b>Postal Code</b></label>
-                                <input id="location.postalCode" class="w3-input w3-border" type="text" v-model="location.postalCode">
+                                <input id="location.postalCode" class="w3-input w3-border" type="text" v-model="$root.sections.basics.location.postalCode">
                                 <small id="postalCodeHelp" class="form-help text-muted">Post or Zip cod</small>
                             </p>
                             <p>      
                                 <label for="location.city" class="w3-text-blue"><b>City</b></label>
-                                <input id="location.city" class="w3-input w3-border" type="text" v-model="location.city">
+                                <input id="location.city" class="w3-input w3-border" type="text" v-model="$root.sections.basics.location.city">
                                 <small id="cityHelp" class="form-help text-muted">City or town</small>
                             </p>
                             <p>      
                                 <label for="location.countryCode" class="w3-text-blue"><b>Country Code</b></label>
-                                <input id="location.countryCode" class="w3-input w3-border" type="text" v-model="location.countryCode">
+                                <input id="location.countryCode" class="w3-input w3-border" type="text" v-model="$root.sections.basics.location.countryCode">
                                 <small id="countryCodeHelp" class="form-help text-muted">The 2-character country code (https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes)</small>
                             </p>
                             <p>      
                                 <label for="location.region" class="w3-text-blue"><b>Region</b></label>
-                                <input id="location.region" class="w3-input w3-border" type="text" v-model="location.region">
+                                <input id="location.region" class="w3-input w3-border" type="text" v-model="$root.sections.basics.location.region">
                                 <small id="regionHelp" class="form-help text-muted">State or region</small>
                             </p>
 
@@ -209,17 +209,17 @@
                             <h5 class="margin-top-32">Social Network Profiles</h5>
                             <p>      
                                 <label for="profiles[0].network" class="w3-text-blue"><b>Network</b></label>
-                                <input id="profiles[0].network" class="w3-input w3-border" type="text" v-model="profiles[0].network">
+                                <input id="profiles[0].network" class="w3-input w3-border" type="text" v-model="$root.sections.basics.profiles[0].network">
                                 <small id="networkHelp" class="form-help text-muted">Name of the network</small>
                             </p>
                             <p>      
                                 <label for="profiles[0].username" class="w3-text-blue"><b>Username</b></label>
-                                <input id="profiles[0].username" class="w3-input w3-border" type="text" v-model="profiles[0].username">
+                                <input id="profiles[0].username" class="w3-input w3-border" type="text" v-model="$root.sections.basics.profiles[0].username">
                                 <small id="usernameHelp" class="form-help text-muted">Your username in the network</small>
                             </p>
                             <p>      
                                 <label for="profiles[0].url" class="w3-text-blue"><b>URL</b></label>
-                                <input id="profiles[0].url" class="w3-input w3-border" type="text" v-model="profiles[0].url">
+                                <input id="profiles[0].url" class="w3-input w3-border" type="text" v-model="$root.sections.basics.profiles[0].url">
                                 <small id="urlHelp" class="form-help text-muted">URL to your profile in the network</small>
                             </p>
                         </form>
@@ -228,27 +228,27 @@
                         &nbsp;
                     </div>
                     <div class="w3-col m5">
-                        <preview-field label="Full Name" v-bind:value="name"></preview-field>
-                        <preview-field label="Label" v-bind:value="label"></preview-field>
-                        <preview-field label="Picture" v-bind:value="picture" format="url"></preview-field>
+                        <preview-field label="Full Name" v-bind:value="$root.sections.basics.name"></preview-field>
+                        <preview-field label="Label" v-bind:value="$root.sections.basics.label"></preview-field>
+                        <preview-field label="Picture" v-bind:value="$root.sections.basics.picture" format="url"></preview-field>
 
-                        <preview-field label="Email" v-bind:value="email"></preview-field>
-                        <preview-field label="Phone" v-bind:value="phone"></preview-field>
-                        <preview-field label="Website" v-bind:value="website"></preview-field>
+                        <preview-field label="Email" v-bind:value="$root.sections.basics.email"></preview-field>
+                        <preview-field label="Phone" v-bind:value="$root.sections.basics.phone"></preview-field>
+                        <preview-field label="Website" v-bind:value="$root.sections.basics.website"></preview-field>
 
-                        <preview-field label="Summary" v-bind:value="summary" format="multi-line"></preview-field>
+                        <preview-field label="Summary" v-bind:value="$root.sections.basics.summary" format="multi-line"></preview-field>
 
                         <h5 class="margin-top-32">Location</h5>
-                        <preview-field label="Address" v-bind:value="location.address"></preview-field>
-                        <preview-field label="Postal/Zip Code" v-bind:value="location.postalCode"></preview-field>
-                        <preview-field label="City" v-bind:value="location.city"></preview-field>
-                        <preview-field label="Country Code" v-bind:value="location.countryCode"></preview-field>
-                        <preview-field label="Region" v-bind:value="location.region"></preview-field>
+                        <preview-field label="Address" v-bind:value="$root.sections.basics.location.address"></preview-field>
+                        <preview-field label="Postal/Zip Code" v-bind:value="$root.sections.basics.location.postalCode"></preview-field>
+                        <preview-field label="City" v-bind:value="$root.sections.basics.location.city"></preview-field>
+                        <preview-field label="Country Code" v-bind:value="$root.sections.basics.location.countryCode"></preview-field>
+                        <preview-field label="Region" v-bind:value="$root.sections.basics.location.region"></preview-field>
 
                         <h5 class="margin-top-32">Social Network Profiles</h5>
-                        <preview-field label="Network" v-bind:value="profiles[0].network"></preview-field>
-                        <preview-field label="Username" v-bind:value="profiles[0].username"></preview-field>
-                        <preview-field label="URL" v-bind:value="profiles[0].url"></preview-field>
+                        <preview-field label="Network" v-bind:value="$root.sections.basics.profiles[0].network"></preview-field>
+                        <preview-field label="Username" v-bind:value="$root.sections.basics.profiles[0].username"></preview-field>
+                        <preview-field label="URL" v-bind:value="$root.sections.basics.profiles[0].url"></preview-field>
                     </div>
                 </div>
 
@@ -479,7 +479,10 @@
 
         <template type="text/x-template" id="import-template" lang="html">
             <div id="import-root">
-                Import
+                    <p>
+                        Past existing resume JSON to continue editing.
+                    </p>
+                    <textarea rows="20" class="w3-input w3-border" type="text" v-model="json"></textarea>
             </div>
         </template>
 
@@ -490,10 +493,7 @@
                 <p>
                     Copy the following text in a text file and save it with the exctension ".json" (.e.g resume.json).
                 </p>
-                <div>
-                    {{$parent.jsonDocument}}
-                </div>
-                <textarea rows="20" class="w3-input w3-border" type="text"></textarea>
+                <textarea rows="20" class="w3-input w3-border" type="text" v-model="json"></textarea>
             </div>
         </template>
 
