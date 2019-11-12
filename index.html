@@ -487,7 +487,13 @@
 
         <template type="text/x-template" id="export-template" lang="html">
             <div id="export-root">
-                Export
+                <p>
+                    Copy the following text in a text file and save it with the exctension ".json" (.e.g resume.json).
+                </p>
+                <div>
+                    {{$parent.jsonDocument}}
+                </div>
+                <textarea rows="20" class="w3-input w3-border" type="text"></textarea>
             </div>
         </template>
 

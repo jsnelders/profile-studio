@@ -84,6 +84,12 @@ var app = new Vue({
 		// sidebarHeight: "",
 		// username: "",
 		// searchString: "",
+
+
+		/**
+		 * The complete JSON document
+		 */
+		jsonDocument: "",
 		
 		/**
 		 * Details of the  current page/route.
