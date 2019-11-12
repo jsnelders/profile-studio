@@ -27,6 +27,11 @@ var sectionVolunteerComponent = {
 	
 
 	methods: {
-
+		addHighlight: function(index)
+		{
+			var item = this.$root.getDefaulVolunteerHighlight();
+			//console.log("addHighlight(" + index + ")", this.$root.sections.volunteer[index]);
+			this.$root.sections.volunteer[index].highlights.push(item);
+		}
 	}
 };

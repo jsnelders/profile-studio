@@ -345,7 +345,7 @@ var app = new Vue({
 				startDate: "",
 				endDate: "",
 				summary: "",
-				highlights: []
+				highlights: [""]
 			};
 		},
 
@@ -363,7 +363,7 @@ var app = new Vue({
 				startDate: "",
 				endDate: "",
 				summary: "",
-				highlights: []
+				highlights: [""]
 			};
 		},
 
@@ -381,7 +381,7 @@ var app = new Vue({
 				startDate: "",
 				endDate: "",
 				gpa: "",
-				courses: []
+				courses: [""]
 			};
 		},
 				
@@ -416,7 +416,7 @@ var app = new Vue({
 			return {
 				name: "",
 				level: "",
-				keywords: []
+				keywords: [""]
 			};
 		},
 				
@@ -437,7 +437,7 @@ var app = new Vue({
 		{
 			return {
 				name: "",
-				keywords: []
+				keywords: [""]
 			};
 		},
 

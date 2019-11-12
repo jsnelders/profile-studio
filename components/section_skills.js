@@ -27,6 +27,11 @@ var sectionSkillsComponent = {
 	
 
 	methods: {
-
+		addKeyword: function(index)
+		{
+			var item = this.$root.getDefaultSkillKeywoard();
+			//console.log("addHighlight(" + index + ")", this.$root.sections.volunteer[index]);
+			this.$root.sections.skills[index].keywords.push(item);
+		}
 	}
 };

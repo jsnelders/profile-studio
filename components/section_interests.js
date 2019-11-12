@@ -27,6 +27,11 @@ var sectionInterestsComponent = {
 	
 
 	methods: {
-
+		addKeyword: function(index)
+		{
+			var item = this.$root.getDefaultInterestKeywoard();
+			//console.log("addHighlight(" + index + ")", this.$root.sections.interests[index]);
+			this.$root.sections.interests[index].keywords.push(item);
+		}
 	}
 };

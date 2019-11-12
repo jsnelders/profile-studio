@@ -73,7 +73,8 @@ var sectionBasicsComponent = {
 	methods: {
 		addProfile: function()
 		{
-			
+			var item = this.$root.getDefaultBasicProfile();
+			this.$root.sections.basics.profiles.push(item);
 		}
 	}
 };
