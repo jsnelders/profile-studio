@@ -41,27 +41,7 @@ var sectionBasicsComponent = {
 	data: function()
 	{
 		return {
-			// name: "",
-			// label: "",
-			// picture: "",
-			// email: "",
-			// phone: "",
-			// website: "",
-			// summary: "",
-			// location: {
-			// 	address: "",
-			// 	postalCode: "",
-			// 	city: "",
-			// 	countryCode: "",
-			// 	region: "",
-			// },
-			// profiles: [
-			// 	{
-			// 		network: "",
-			// 		username: "",
-			// 		url: "",
-			// 	}
-			// ]
+
 		};
 	},
 

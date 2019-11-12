@@ -76,16 +76,16 @@ var app = new Vue({
 					}
 				]
 			},
-			work: {
+			work: [{
 				company: "",
 				position: "",
 				website: "",
 				startDate: "",
 				endDate: "",
 				summary: "",
-				highlights: []
-			},
-			volunteer: {
+				highlights: [""]
+			}],
+			volunteer: [{
 				organization: "",
 				position: "",
 				website: "",
@@ -93,8 +93,8 @@ var app = new Vue({
 				endDate: "",
 				summary: "",
 				highlights: []
-			},
-			education: {
+			}],
+			education: [{
 				institution: "",
 				area: "",
 				studyType: "",
@@ -102,7 +102,7 @@ var app = new Vue({
 				endDate: "",
 				gpa: "",
 				courses: []
-			},
+			}],
 			awards: [{
 				title: "",
 				date: "",

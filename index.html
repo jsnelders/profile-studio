@@ -224,31 +224,30 @@
                             </p>
                         </form>
                     </div>
-                    <div class="w3-col m1">
-                        &nbsp;
-                    </div>
-                    <div class="w3-col m5">
-                        <preview-field label="Full Name" v-bind:value="$root.sections.basics.name"></preview-field>
-                        <preview-field label="Label" v-bind:value="$root.sections.basics.label"></preview-field>
-                        <preview-field label="Picture" v-bind:value="$root.sections.basics.picture" format="url"></preview-field>
-
-                        <preview-field label="Email" v-bind:value="$root.sections.basics.email"></preview-field>
-                        <preview-field label="Phone" v-bind:value="$root.sections.basics.phone"></preview-field>
-                        <preview-field label="Website" v-bind:value="$root.sections.basics.website"></preview-field>
-
-                        <preview-field label="Summary" v-bind:value="$root.sections.basics.summary" format="multi-line"></preview-field>
-
-                        <h5 class="margin-top-32">Location</h5>
-                        <preview-field label="Address" v-bind:value="$root.sections.basics.location.address"></preview-field>
-                        <preview-field label="Postal/Zip Code" v-bind:value="$root.sections.basics.location.postalCode"></preview-field>
-                        <preview-field label="City" v-bind:value="$root.sections.basics.location.city"></preview-field>
-                        <preview-field label="Country Code" v-bind:value="$root.sections.basics.location.countryCode"></preview-field>
-                        <preview-field label="Region" v-bind:value="$root.sections.basics.location.region"></preview-field>
-
-                        <h5 class="margin-top-32">Social Network Profiles</h5>
-                        <preview-field label="Network" v-bind:value="$root.sections.basics.profiles[0].network"></preview-field>
-                        <preview-field label="Username" v-bind:value="$root.sections.basics.profiles[0].username"></preview-field>
-                        <preview-field label="URL" v-bind:value="$root.sections.basics.profiles[0].url"></preview-field>
+                    <div class="w3-col m6">
+                        <div class="preview w3-container w3-card-4 w3-padding-16 w3-margin-left">
+                            <preview-field label="Full Name" v-bind:value="$root.sections.basics.name"></preview-field>
+                            <preview-field label="Label" v-bind:value="$root.sections.basics.label"></preview-field>
+                            <preview-field label="Picture" v-bind:value="$root.sections.basics.picture" format="url"></preview-field>
+    
+                            <preview-field label="Email" v-bind:value="$root.sections.basics.email"></preview-field>
+                            <preview-field label="Phone" v-bind:value="$root.sections.basics.phone"></preview-field>
+                            <preview-field label="Website" v-bind:value="$root.sections.basics.website"></preview-field>
+    
+                            <preview-field label="Summary" v-bind:value="$root.sections.basics.summary" format="multi-line"></preview-field>
+    
+                            <h5 class="margin-top-32">Location</h5>
+                            <preview-field label="Address" v-bind:value="$root.sections.basics.location.address"></preview-field>
+                            <preview-field label="Postal/Zip Code" v-bind:value="$root.sections.basics.location.postalCode"></preview-field>
+                            <preview-field label="City" v-bind:value="$root.sections.basics.location.city"></preview-field>
+                            <preview-field label="Country Code" v-bind:value="$root.sections.basics.location.countryCode"></preview-field>
+                            <preview-field label="Region" v-bind:value="$root.sections.basics.location.region"></preview-field>
+    
+                            <h5 class="margin-top-32">Social Network Profiles</h5>
+                            <preview-field label="Network" v-bind:value="$root.sections.basics.profiles[0].network"></preview-field>
+                            <preview-field label="Username" v-bind:value="$root.sections.basics.profiles[0].username"></preview-field>
+                            <preview-field label="URL" v-bind:value="$root.sections.basics.profiles[0].url"></preview-field>
+                        </div>
                     </div>
                 </div>
 
@@ -259,7 +258,72 @@
 
         <template type="text/x-template" id="section-work-template" lang="html">
             <div id="section-work-root">
-                Work
+                <div class="w3-row">
+                    <div class="w3-col m6">
+                        <form class="w3-container w3-card-4">
+                            <div>
+                                <p>
+                                    <label for="company" class="w3-text-blue required-field"><b>Company</b></label>
+                                    <input id="company" class="w3-input w3-border" type="text" v-model="$root.sections.work[0].company" required>
+                                    <small id="companyHelp" class="form-help text-muted">Name of the company or organisation.</small>
+                                </p>
+                                <p>
+                                    <label for="position" class="w3-text-blue required-field"><b>Position</b></label>
+                                    <input id="position" class="w3-input w3-border" type="text" v-model="$root.sections.work[0].position" required>
+                                    <small id="positionHelp" class="form-help text-muted">Role or position title.</small>
+                                </p>
+                                <p>
+                                    <label for="website" class="w3-text-blue"><b>Website</b></label>
+                                    <input id="website" class="w3-input w3-border" type="text" v-model="$root.sections.work[0].website">
+                                    <small id="websiteHelp" class="form-help text-muted">Company website.</small>
+                                </p>
+                                <p>
+                                    <label for="startDate" class="w3-text-blue"><b>Start Date</b></label>
+                                    <input id="startDate" class="w3-input w3-border" type="text" v-model="$root.sections.work[0].startDate" required>
+                                    <small id="startDateHelp" class="form-help text-muted">Date you started work (full date or month and year)</small>
+                                </p>
+                                <p>
+                                    <label for="endDate" class="w3-text-blue"><b>End Date</b></label>
+                                    <input id="endDate" class="w3-input w3-border" type="text" v-model="$root.sections.work[0].endDate">
+                                    <small id="endDateHelp" class="form-help text-muted">End date (if not current).</small>
+                                </p>
+                                <p>
+                                    <label for="summary" class="w3-text-blue"><b>Summary</b></label>
+                                    <textarea id="summary" rows="8" class="w3-input w3-border" type="text" v-model="$root.sections.work[0].summary"></textarea>
+                                    <small id="summaryHelp" class="form-help text-muted">Details of your work, responsibilities and achievements. And a little about the company.</small>
+                                </p>
+
+
+                                <h5 class="margin-top-32">Highlights</h5>
+                                <small id="highlightsHelp" class="form-help text-muted">Short sentences and highlights of the position.</small>
+                                <ol>
+                                    <li>
+                                        <input id="highlights[0]" class="w3-input w3-border" type="text" v-model="$root.sections.work[0].highlights[0]">
+                                    </li>
+                                </ol>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="w3-col m6">
+                        <div class="preview w3-container w3-card-4 w3-padding-16 w3-margin-left">
+                            <div>
+                                <preview-field label="Company" v-bind:value="$root.sections.work[0].company"></preview-field>
+                                <preview-field label="Position" v-bind:value="$root.sections.work[0].position"></preview-field>
+                                <preview-field label="Website" v-bind:value="$root.sections.work[0].website" format="url"></preview-field>
+                                <preview-field label="Start Date" v-bind:value="$root.sections.work[0].startDate" format="date"></preview-field>
+                                <preview-field label="End Date" v-bind:value="$root.sections.work[0].endDate" format="date"></preview-field>
+                                <preview-field label="Summary" v-bind:value="$root.sections.work[0].summary" format="multi-line"></preview-field>
+        
+                                <h5 class="margin-top-32">Highlights</h5>
+                                <ol>
+                                    <li>
+                                        <preview-field label="" v-bind:value="$root.sections.work[0].highlights[0]" format="list-item"></preview-field>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </template>
 
@@ -267,7 +331,68 @@
 
         <template type="text/x-template" id="section-volunteer-template" lang="html">
             <div id="section-volunteer-root">
-                Volunteer
+                <div class="w3-row">
+                    <div class="w3-col m6">
+                        <form class="w3-container w3-card-4">
+                            <div>
+                                <p>
+                                    <label for="organization" class="w3-text-blue required-field"><b>Organisation</b></label>
+                                    <input id="organization" class="w3-input w3-border" type="text" v-model="$root.sections.volunteer[0].organization" required>
+                                    <small id="organizationHelp" class="form-help text-muted">Name of the organisation you volunteered for.</small>
+                                </p>
+                                <p>
+                                    <label for="position" class="w3-text-blue required-field"><b>Position</b></label>
+                                    <input id="position" class="w3-input w3-border" type="text" v-model="$root.sections.volunteer[0].position" required>
+                                    <small id="positionHelp" class="form-help text-muted">Role or position title.</small>
+                                </p>
+                                <p>
+                                    <label for="website" class="w3-text-blue"><b>Website</b></label>
+                                    <input id="website" class="w3-input w3-border" type="text" v-model="$root.sections.volunteer[0].website">
+                                    <small id="websiteHelp" class="form-help text-muted">Company website.</small>
+                                </p>
+                                <p>
+                                    <label for="startDate" class="w3-text-blue"><b>Start Date</b></label>
+                                    <input id="startDate" class="w3-input w3-border" type="text" v-model="$root.sections.volunteer[0].startDate" required>
+                                    <small id="startDateHelp" class="form-help text-muted">Date you started work (full date or month and year)</small>
+                                </p>
+                                <p>
+                                    <label for="endDate" class="w3-text-blue"><b>End Date</b></label>
+                                    <input id="endDate" class="w3-input w3-border" type="text" v-model="$root.sections.volunteer[0].endDate">
+                                    <small id="endDateHelp" class="form-help text-muted">End date (if not current).</small>
+                                </p>
+                                <p>
+                                    <label for="summary" class="w3-text-blue"><b>Summary</b></label>
+                                    <textarea id="summary" rows="8" class="w3-input w3-border" type="text" v-model="$root.sections.volunteer[0].summary"></textarea>
+                                    <small id="summaryHelp" class="form-help text-muted">Details of your work, responsibilities and achievements. And a little about the company.</small>
+                                </p>
+
+
+                                <h5 class="margin-top-32">Highlights</h5>
+                                <small id="highlightsHelp" class="form-help text-muted">Short sentences and highlights of the position.</small>
+                                <ol>
+                                    <li>
+                                            <input id="highlights[0]" class="w3-input w3-border" type="text" v-model="$root.sections.work[0].highlights[0]">
+                                    </li>
+                                </ol>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="w3-col m6">
+                        <div class="preview w3-container w3-card-4 w3-padding-16 w3-margin-left">
+                            <div>
+                                <preview-field label="Organisation" v-bind:value="$root.sections.volunteer[0].organization"></preview-field>
+                                <preview-field label="Position" v-bind:value="$root.sections.volunteer[0].position"></preview-field>
+                                <preview-field label="Website" v-bind:value="$root.sections.volunteer[0].website" format="url"></preview-field>
+                                <preview-field label="Start Date" v-bind:value="$root.sections.volunteer[0].startDate"></preview-field>
+                                <preview-field label="End Date" v-bind:value="$root.sections.volunteer[0].endDate"></preview-field>
+                                <preview-field label="Summary" v-bind:value="$root.sections.volunteer[0].summary" format="multi-line"></preview-field>
+        
+                                <h5 class="margin-top-32">Highlights</h5>
+                                <preview-field label="" v-bind:value="$root.sections.volunteer[0].highlights[0]" format="list-item"></preview-field>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </template>
 
@@ -275,7 +400,71 @@
 
         <template type="text/x-template" id="section-education-template" lang="html">
             <div id="section-education-root">
-                Education
+                <div class="w3-row">
+                    <div class="w3-col m6">
+                        <form class="w3-container w3-card-4">
+                            <div>
+                                <p>
+                                    <label for="institution" class="w3-text-blue required-field"><b>Institution</b></label>
+                                    <input id="institution" class="w3-input w3-border" type="text" v-model="$root.sections.education[0].institution" required>
+                                    <small id="institutionHelp" class="form-help text-muted">Name of the institution.</small>
+                                </p>
+                                <p>
+                                    <label for="area" class="w3-text-blue required-field"><b>Area</b></label>
+                                    <input id="area" class="w3-input w3-border" type="text" v-model="$root.sections.education[0].area" required>
+                                    <small id="areaHelp" class="form-help text-muted">Area of interest.</small>
+                                </p>
+                                <p>
+                                    <label for="studyType" class="w3-text-blue"><b>Study Type</b></label>
+                                    <input id="studyType" class="w3-input w3-border" type="text" v-model="$root.sections.education[0].studyType">
+                                    <small id="studyTypeeHelp" class="form-help text-muted">Type of study.</small>
+                                </p>
+                                <p>
+                                    <label for="startDate" class="w3-text-blue"><b>Start Date</b></label>
+                                    <input id="startDate" class="w3-input w3-border" type="text" v-model="$root.sections.education[0].startDate" required>
+                                    <small id="startDateHelp" class="form-help text-muted">Date you started</small>
+                                </p>
+                                <p>
+                                    <label for="endDate" class="w3-text-blue"><b>End Date</b></label>
+                                    <input id="endDate" class="w3-input w3-border" type="text" v-model="$root.sections.education[0].endDate">
+                                    <small id="endDateHelp" class="form-help text-muted">Date completed study.</small>
+                                </p>
+                                <p>
+                                    <label for="gpa" class="w3-text-blue"><b>GPA</b></label>
+                                    <input id="gpa" class="w3-input w3-border" type="text" v-model="$root.sections.education[0].gpa">
+                                    <small id="gpaHelp" class="form-help text-muted">GPA</small>
+                                </p>
+
+                                <h5 class="margin-top-32">Courses</h5>
+                                <small id="highlightsHelp" class="form-help text-muted">Names of any courses taken.</small>
+                                <ol>
+                                    <li>
+                                        <input id="courses[0]" class="w3-input w3-border" type="text" v-model="$root.sections.education[0].courses[0]">
+                                    </li>
+                                </ol>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="w3-col m6">
+                        <div class="preview w3-container w3-card-4 w3-padding-16 w3-margin-left">
+                            <div>
+                                <preview-field label="Institution" v-bind:value="$root.sections.education[0].institution"></preview-field>
+                                <preview-field label="Area" v-bind:value="$root.sections.education[0].area"></preview-field>
+                                <preview-field label="Study Type" v-bind:value="$root.sections.education[0].studyType"></preview-field>
+                                <preview-field label="Start Date" v-bind:value="$root.sections.education[0].startDate" format="date"></preview-field>
+                                <preview-field label="End Date" v-bind:value="$root.sections.education[0].endDate" format="date"></preview-field>
+                                <preview-field label="GPA" v-bind:value="$root.sections.education[0].gpa"></preview-field>
+        
+                                <h5 class="margin-top-32">Courses</h5>
+                                <ol>
+                                    <li>
+                                        <preview-field label="" v-bind:value="$root.sections.education[0].courses[0]" format="list-item"></preview-field>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </template>
 
@@ -283,7 +472,44 @@
 
         <template type="text/x-template" id="section-awards-template" lang="html">
             <div id="section-awards-root">
-                Awards
+                <div class="w3-row">
+                    <div class="w3-col m6">
+                        <form class="w3-container w3-card-4">
+                            <div>
+                                <p>
+                                    <label for="title" class="w3-text-blue required-field"><b>Title</b></label>
+                                    <input id="title" class="w3-input w3-border" type="text" v-model="$root.sections.awards[0].title" required>
+                                    <small id="titleHelp" class="form-help text-muted">Name of the award.</small>
+                                </p>
+                                <p>
+                                    <label for="date" class="w3-text-blue required-field"><b>Date</b></label>
+                                    <input id="date" class="w3-input w3-border" type="text" v-model="$root.sections.awards[0].date" required>
+                                    <small id="dateHelp" class="form-help text-muted">When the award was received</small>
+                                </p>
+                                <p>
+                                    <label for="awarder" class="w3-text-blue"><b>Awarder</b></label>
+                                    <input id="awarder" class="w3-input w3-border" type="text" v-model="$root.sections.awards[0].awarder">
+                                    <small id="awarderHelp" class="form-help text-muted">Who gave the aware.</small>
+                                </p>
+                                <p>
+                                    <label for="summary" class="w3-text-blue"><b>Summary</b></label>
+                                    <textarea id="summary" rows="8" class="w3-input w3-border" type="text" v-model="$root.sections.awards[0].summary"></textarea>
+                                    <small id="summaryHelp" class="form-help text-muted">Describe the award and circumstances.</small>
+                                </p>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="w3-col m6">
+                        <div class="preview w3-container w3-card-4 w3-padding-16 w3-margin-left">
+                            <div>
+                                <preview-field label="Title" v-bind:value="$root.sections.awards[0].title"></preview-field>
+                                <preview-field label="Date" v-bind:value="$root.sections.awards[0].date"></preview-field>
+                                <preview-field label="Awarder" v-bind:value="$root.sections.awards[0].awarder" format="url"></preview-field>
+                                <preview-field label="Summary" v-bind:value="$root.sections.awards[0].summary" format="multi-line"></preview-field>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </template>
 
@@ -291,7 +517,50 @@
 
         <template type="text/x-template" id="section-publications-template" lang="html">
             <div id="section-publications-root">
-                Publications
+                <div class="w3-row">
+                    <div class="w3-col m6">
+                        <form class="w3-container w3-card-4">
+                            <div>
+                                <p>
+                                    <label for="name" class="w3-text-blue required-field"><b>Name</b></label>
+                                    <input id="name" class="w3-input w3-border" type="text" v-model="$root.sections.publications[0].name" required>
+                                    <small id="nameHelp" class="form-help text-muted">Name of the article.</small>
+                                </p>
+                                <p>
+                                    <label for="publisher" class="w3-text-blue required-field"><b>Publisher</b></label>
+                                    <input id="publisher" class="w3-input w3-border" type="text" v-model="$root.sections.publications[0].publisher" required>
+                                    <small id="publisherHelp" class="form-help text-muted">Name of the publication.</small>
+                                </p>
+                                <p>
+                                    <label for="releaseDate" class="w3-text-blue"><b>Release Date</b></label>
+                                    <input id="releaseDate" class="w3-input w3-border" type="text" v-model="$root.sections.publications[0].releaseDate" required>
+                                    <small id="releaseDateDateHelp" class="form-help text-muted">When it was published (full date or month and year)</small>
+                                </p>
+                                <p>
+                                    <label for="website" class="w3-text-blue"><b>Website</b></label>
+                                    <input id="website" class="w3-input w3-border" type="text" v-model="$root.sections.publications[0].website">
+                                    <small id="websiteHelp" class="form-help text-muted">Publication website.</small>
+                                </p>
+                                <p>
+                                    <label for="summary" class="w3-text-blue"><b>Summary</b></label>
+                                    <textarea id="summary" rows="8" class="w3-input w3-border" type="text" v-model="$root.sections.work[0].summary"></textarea>
+                                    <small id="summaryHelp" class="form-help text-muted">Details of the article.</small>
+                                </p>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="w3-col m6">
+                        <div class="preview w3-container w3-card-4 w3-padding-16 w3-margin-left">
+                            <div>
+                                <preview-field label="Name" v-bind:value="$root.sections.publications[0].name"></preview-field>
+                                <preview-field label="Publisher" v-bind:value="$root.sections.publications[0].publisher"></preview-field>
+                                <preview-field label="Release Date" v-bind:value="$root.sections.publications[0].releaseDate"></preview-field>
+                                <preview-field label="Website" v-bind:value="$root.sections.publications[0].website" format="url"></preview-field>
+                                <preview-field label="Summary" v-bind:value="$root.sections.work[0].summary" format="multi-line"></preview-field>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </template>
 
@@ -299,7 +568,47 @@
 
         <template type="text/x-template" id="section-skills-template" lang="html">
             <div id="section-skills-root">
-                Skills
+                <div class="w3-row">
+                    <div class="w3-col m6">
+                        <form class="w3-container w3-card-4">
+                            <div>
+                                <p>
+                                    <label for="name" class="w3-text-blue required-field"><b>Name</b></label>
+                                    <input id="name" class="w3-input w3-border" type="text" v-model="$root.sections.skills[0].name" required>
+                                    <small id="nameHelp" class="form-help text-muted">Name of a particular skill or a group of skills.</small>
+                                </p>
+                                <p>
+                                    <label for="level" class="w3-text-blue required-field"><b>Level</b></label>
+                                    <input id="level" class="w3-input w3-border" type="text" v-model="$root.sections.skills[0].level" required>
+                                    <small id="levelHelp" class="form-help text-muted">Your level of experience.</small>
+                                </p>
+
+                                <h5 class="margin-top-32">Keywords</h5>
+                                <small id="keywordsHelp" class="form-help text-muted">Sub-skills.</small>
+                                <ol>
+                                    <li>
+                                        <input id="keywords[0]" class="w3-input w3-border" type="text" v-model="$root.sections.skills[0].keywords[0]">
+                                    </li>
+                                </ol>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="w3-col m6">
+                        <div class="preview w3-container w3-card-4 w3-padding-16 w3-margin-left">
+                            <div>
+                                <preview-field label="Name" v-bind:value="$root.sections.skills[0].name"></preview-field>
+                                <preview-field label="Level" v-bind:value="$root.sections.skills[0].level"></preview-field>
+        
+                                <h5 class="margin-top-32">Keywords</h5>
+                                <ol>
+                                    <li>
+                                        <preview-field label="" v-bind:value="$root.sections.skills[0].keywords[0]" format="list-item"></preview-field>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </template>
 
@@ -307,7 +616,32 @@
 
         <template type="text/x-template" id="section-languages-template" lang="html">
             <div id="section-languages-root">
-                Languages
+                <div class="w3-row">
+                    <div class="w3-col m6">
+                        <form class="w3-container w3-card-4">
+                            <div>
+                                <p>
+                                    <label for="language" class="w3-text-blue required-field"><b>Language</b></label>
+                                    <input id="language" class="w3-input w3-border" type="text" v-model="$root.sections.languages[0].language" required>
+                                    <small id="languageHelp" class="form-help text-muted">Name of the language.</small>
+                                </p>
+                                <p>
+                                    <label for="fluency" class="w3-text-blue required-field"><b>Fluency</b></label>
+                                    <input id="fluency" class="w3-input w3-border" type="text" v-model="$root.sections.languages[0].fluency" required>
+                                    <small id="fluencyHelp" class="form-help text-muted">Fluency in the language.</small>
+                                </p>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="w3-col m6">
+                        <div class="preview w3-container w3-card-4 w3-padding-16 w3-margin-left">
+                            <div>
+                                <preview-field label="Language" v-bind:value="$root.sections.languages[0].language"></preview-field>
+                                <preview-field label="Fluency" v-bind:value="$root.sections.languages[0].fluency"></preview-field>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </template>
 
@@ -315,7 +649,42 @@
 
         <template type="text/x-template" id="section-interests-template" lang="html">
             <div id="section-interests-root">
-                Interests
+                <div class="w3-row">
+                    <div class="w3-col m6">
+                        <form class="w3-container w3-card-4">
+                            <div>
+                                <p>
+                                    <label for="name" class="w3-text-blue required-field"><b>Name</b></label>
+                                    <input id="name" class="w3-input w3-border" type="text" v-model="$root.sections.interests[0].name" required>
+                                    <small id="nameHelp" class="form-help text-muted">Name of the intest.</small>
+                                </p>
+
+
+                                <h5 class="margin-top-32">Keywords</h5>
+                                <small id="keywordsHelp" class="form-help text-muted">Keywords relating to the interest.</small>
+                                <ol>
+                                    <li>
+                                        <input id="keywords[0]" class="w3-input w3-border" type="text" v-model="$root.sections.interests[0].keywords[0]">
+                                    </li>
+                                </ol>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="w3-col m6">
+                        <div class="preview w3-container w3-card-4 w3-padding-16 w3-margin-left">
+                            <div>
+                                <preview-field label="Name" v-bind:value="$root.sections.interests[0].name"></preview-field>
+
+                                <h5 class="margin-top-32">Keywords</h5>
+                                <ol>
+                                    <li>
+                                        <preview-field label="" v-bind:value="$root.sections.interests[0].keywords[0]" format="list-item"></preview-field>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </template>
 
@@ -323,7 +692,32 @@
 
         <template type="text/x-template" id="section-references-template" lang="html">
             <div id="section-references-root">
-                References
+                <div class="w3-row">
+                    <div class="w3-col m6">
+                        <form class="w3-container w3-card-4">
+                            <div>
+                                <p>
+                                    <label for="name" class="w3-text-blue required-field"><b>Name</b></label>
+                                    <input id="name" class="w3-input w3-border" type="text" v-model="$root.sections.references[0].name" required>
+                                    <small id="nameHelp" class="form-help text-muted">Name of the person.</small>
+                                </p>
+                                <p>
+                                    <label for="reference" class="w3-text-blue required-field"><b>Reference</b></label>
+                                    <input id="reference" class="w3-input w3-border" type="text" v-model="$root.sections.references[0].reference" required>
+                                    <small id="referenceHelp" class="form-help text-muted">The reference given by the person.</small>
+                                </p>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="w3-col m6">
+                        <div class="preview w3-container w3-card-4 w3-padding-16 w3-margin-left">
+                            <div>
+                                <preview-field label="Name" v-bind:value="$root.sections.references[0].name"></preview-field>
+                                <preview-field label="Reference" v-bind:value="$root.sections.references[0].reference"></preview-field>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </template>
 
