@@ -27,6 +27,19 @@ var importComponent = {
 	
 
 	methods: {
+		importJson: function()
+		{
+			console.log("import JSON: " + this.json);
 
+			var data = JSON.parse(this.json);
+
+			this.$root.populateSections(data);
+		},
+
+
+		validateJson: function(value)
+		{
+
+		}
 	}
 };

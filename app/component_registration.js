@@ -139,7 +139,7 @@ var components = {
             id: "skills",
             path: "#/section/skills",
             type: "page",
-            title: "Publications",
+            title: "Skills",
             description: "",
             fontAwesomeIcon: "fas fa-tools"  
         });

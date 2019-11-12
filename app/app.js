@@ -52,89 +52,10 @@ var app = new Vue({
 
     data: 
     {
-		sections: {
-			basics: {
-				name: "",
-				label: "",
-				picture: "",
-				email: "",
-				phone: "",
-				website: "",
-				summary: "",
-				location: {
-					address: "",
-					postalCode: "",
-					city: "",
-					countryCode: "",
-					region: "",
-				},
-				profiles: [
-					{
-						network: "",
-						username: "",
-						url: "",
-					}
-				]
-			},
-			work: [{
-				company: "",
-				position: "",
-				website: "",
-				startDate: "",
-				endDate: "",
-				summary: "",
-				highlights: [""]
-			}],
-			volunteer: [{
-				organization: "",
-				position: "",
-				website: "",
-				startDate: "",
-				endDate: "",
-				summary: "",
-				highlights: []
-			}],
-			education: [{
-				institution: "",
-				area: "",
-				studyType: "",
-				startDate: "",
-				endDate: "",
-				gpa: "",
-				courses: []
-			}],
-			awards: [{
-				title: "",
-				date: "",
-				awarder: "",
-				summary: ""
-			}],
-			publications: [{
-				name: "",
-				publisher: "",
-				releaseDate: "",
-				website: "",
-				summary: ""
-			}],
-			skills: [{
-				name: "",
-				level: "",
-				keywords: []
-			}],
-			languages: [{
-				language: "",
-				fluency: ""
-			}],
-			interests: [{
-				name: "",
-				keywords: [
-				]
-			}],
-			references: [{
-				name: "",
-				reference: ""
-			}]
-		},
+		status: "laading",
+
+		sections: {},
+
 
 
 		/**
@@ -153,6 +74,8 @@ var app = new Vue({
 
     created()
     {
+		this.sections = this.getDefaultSections();
+
         //-- Register all components
         components.registerComponents();
 
@@ -176,52 +99,15 @@ var app = new Vue({
 
     mounted() 
     {
-		// var savedData = helpers.getLocalStorage("sections.basics");
-
-		// console.log("savedData=", savedData);
-
-		// if (savedData)
-		// {
-		// 	// Data previously saved.
-		// 	//this.sections = savedData;
-
-		// 	for (var key in savedData) 
-		// 	{
-		// 		if (savedData.hasOwnProperty(key)) 
-		// 		{
-		// 			console.log(key + " > " + savedData[key]);
-		// 			this.sections.basics[key] = savedData[key];
-		// 		}
-		// 	}
-		// }
-
-
-		//var savedData = helpers.getLocalStorage("sections").sections;
-		var savedData = helpers.getLocalStorage("sections");
-
-		console.log("get saved data[sections]=", savedData);
-
-		if (savedData)
-		{
-			// Data previously saved.
-			//this.sections = savedData;
-
-			for (var key in savedData) 
-			{
-				if (savedData.hasOwnProperty(key)) 
-				{
-					console.log(key + " > ", savedData[key]);
-					this.sections[key] = savedData[key];
-				}
-			}
-		}
-
+		this.loadFromStorage();
 
 		// Set the "current" main navigation item based on the current route.
 		helpers.selectMenuItemForCurrentUrl();
 
 		// Once the app is fully displayed, hide the overlay.
 		helpers.hideFullPageOverlay();
+
+		this.status = "loaded";	// Now we can start watching for changes in 'sections' data.
 	},
 
 
@@ -255,34 +141,137 @@ var app = new Vue({
 
 
 
-		// /**
-		//  * When a component is activated (loaded) it will pass data back to this app (ID, title, icons, etc).
-		//  * 
-		//  * @param object eventValue 
-		//  */
-		// componentActivated: function(eventValue)
-		// {
-		// 	//alert("Hello was clicked" + "\n" + "Who=" + eventValue.whoWasIt + "\n" + "What=" + eventValue.whatWasIt);
-		// 	console.log("componentActivated(): eventValue.component=", eventValue.component);
-		// }
+		getDefaultSections: function()
+		{
+			return {
+				basics: {
+					name: "",
+					label: "",
+					picture: "",
+					email: "",
+					phone: "",
+					website: "",
+					summary: "",
+					location: {
+						address: "",
+						postalCode: "",
+						city: "",
+						countryCode: "",
+						region: "",
+					},
+					profiles: [
+						{
+							network: "",
+							username: "",
+							url: "",
+						}
+					]
+				},
+				work: [{
+					company: "",
+					position: "",
+					website: "",
+					startDate: "",
+					endDate: "",
+					summary: "",
+					highlights: [""]
+				}],
+				volunteer: [{
+					organization: "",
+					position: "",
+					website: "",
+					startDate: "",
+					endDate: "",
+					summary: "",
+					highlights: []
+				}],
+				education: [{
+					institution: "",
+					area: "",
+					studyType: "",
+					startDate: "",
+					endDate: "",
+					gpa: "",
+					courses: []
+				}],
+				awards: [{
+					title: "",
+					date: "",
+					awarder: "",
+					summary: ""
+				}],
+				publications: [{
+					name: "",
+					publisher: "",
+					releaseDate: "",
+					website: "",
+					summary: ""
+				}],
+				skills: [{
+					name: "",
+					level: "",
+					keywords: []
+				}],
+				languages: [{
+					language: "",
+					fluency: ""
+				}],
+				interests: [{
+					name: "",
+					keywords: [
+					]
+				}],
+				references: [{
+					name: "",
+					reference: ""
+				}]
+			};
+		},
+
+
+
+		loadFromStorage: function()
+		{
+			var savedData = helpers.getLocalStorage("sections");
+
+			this.populateSections(savedData);
+		},
+
+
+
+		populateSections: function(data)
+		{
+			if (data)
+			{
+				// Data previously saved.
+				for (var key in data) 
+				{
+					if (data.hasOwnProperty(key)) 
+					{
+						this.sections[key] = data[key];
+					}
+				}
+			}
+		},
+
+
+
+		/**
+		 * Clear save data and reset the sections structure.
+		 */
+		resetResume: function()
+		{
+			var response = confirm("Are you sure you want to clear your saved resume?");
+
+			if (response == true)
+			{
+				this.sections = this.getDefaultSections();
+				alert("Your resume has been cleared.");
+			}
+
+			return false;
+		}
 	},
-
-
-
-
-
-	// watch: {
-	// 	/**
-	// 	 * Watch all data for changes
-	// 	 */
-	// 	'sections.basics':  function(val) 
-	// 	{
-	// 		// Save the data to localStorage
-	// 		//NOTE: I'm initially not concerned about performance here/
-	// 		console.log("watch section", val);
-	// 	}
-	// }
-
 
 
 
@@ -311,10 +300,12 @@ var app = new Vue({
 		$data: {
 			handler: function(val, oldVal) 
 			{
-				console.log("val=", val.sections);
 				// Save the data to localStorage
 				//NOTE: I'm initially not concerned about performance here.
-				helpers.setLocalStorage("sections", val.sections);
+				if (val.status == "loaded")
+				{
+					helpers.setLocalStorage("sections", val.sections);
+				}
 			},
 			deep: true
 		}
