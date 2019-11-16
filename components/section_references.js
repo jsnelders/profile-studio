@@ -29,7 +29,7 @@ var sectionReferencesComponent = {
 	methods: {
 		addReference: function()
 		{
-			var item = this.$root.getDefaultReference();
+			var item = sections.getDefaultReference();
 			this.$root.sections.references.push(item);
 		}
 	}

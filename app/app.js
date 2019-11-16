@@ -74,7 +74,7 @@ var app = new Vue({
 
     created()
     {
-		this.sections = this.getDefaultSections();
+		this.sections = sections.getDefaultSections();
 
         //-- Register all components
         components.registerComponents();
@@ -166,6 +166,75 @@ var app = new Vue({
 		},
 
 
+		displayLocation: function()
+		{
+			/*
+			<preview-field label="Address" v-bind:value="$root.sections.basics.location.address"></preview-field>
+                            <preview-field label="Postal/Zip Code" v-bind:value="$root.sections.basics.location.postalCode"></preview-field>
+                            <preview-field label="City" v-bind:value="$root.sections.basics.location.city"></preview-field>
+                            <preview-field label="Country Code" v-bind:value="$root.sections.basics.location.countryCode"></preview-field>
+                            <preview-field label="Region" v-bind:value="$root.sections.basics.location.region"></preview-field>
+			*/
+
+			return this.sections.basics.location.city + ", " + this.sections.basics.location.countryCode;
+		},
+
+
+		skillLevelAsPercent: function(index)
+		{
+			var level = this.$root.sections.skills[index].level;
+
+			if (level.toLowerCase() == "master" || level.toLowerCase() == "expert")
+			{
+				return 100;
+			}
+			else if (level.toLowerCase() == "proficient")
+			{
+				return 75;
+			}
+			else if (level.toLowerCase() == "basic" || level.toLowerCase() == "beginner")
+			{
+				return 25;
+			}
+			else
+			{
+				return 50;
+			}
+		},
+
+		languageFluencyAsPercent: function(index)
+		{
+			var fluency = this.$root.sections.skills[index].level;
+
+			if (fluency.toLowerCase() == "master" || fluency.toLowerCase() == "expert")
+			{
+				return 100;
+			}
+			else if (fluency.toLowerCase() == "proficient")
+			{
+				return 75;
+			}
+			else if (fluency.toLowerCase() == "basic" || fluency.toLowerCase() == "beginner")
+			{
+				return 25;
+			}
+			else
+			{
+				return 50;
+			}
+		},
+
+
+		workEndDate: function(index)
+		{
+			var endDate = this.$root.sections.work[index].endDate;
+
+			if (endDate == "") return "Current";
+
+			return endDate;
+		},
+
+
 
 		/**
 		 * Clear save data and reset the sections structure.
@@ -176,7 +245,7 @@ var app = new Vue({
 
 			if (response == true)
 			{
-				this.sections = this.getDefaultSections();
+				this.sections = sections.getDefaultSections();
 				alert("Your resume has been cleared.");
 			}
 
@@ -303,192 +372,6 @@ var app = new Vue({
 					element.classList.add("w3-blue");
 				}
 			}
-		},
-
-		
-
-		getDefaultSections: function()
-		{
-			var structure = {
-				basics: {},
-				work: [],
-				volunteer: [],
-				education: [],
-				awards: [],
-				publications: [],
-				skills: [],
-				languages: [],
-				interests: [],
-				references: []
-			};
-
-			structure.basics = this.getDefaultBasic();
-			structure.work.push(this.getDefaultWork());
-			structure.volunteer.push(this.getDefaultVolunteer());
-			structure.education.push(this.getDefaultEducation());
-			structure.awards.push(this.getDefaultAward());
-			structure.publications.push(this.getDefaultPublication());
-			structure.skills.push(this.getDefaultSkill());
-			structure.languages.push(this.getDefaultLanguage());
-			structure.interests.push(this.getDefaultInterest());
-			structure.references.push(this.getDefaultReference());
-
-
-			return structure;
-		},
-
-		getDefaultBasic: function()
-		{
-			return {
-				name: "",
-				label: "",
-				picture: "",
-				email: "",
-				phone: "",
-				website: "",
-				summary: "",
-				location: {
-					address: "",
-					postalCode: "",
-					city: "",
-					countryCode: "",
-					region: "",
-				},
-				profiles: [
-					{
-						network: "",
-						username: "",
-						url: "",
-					}
-				]
-			};
-		},
-
-		getDefaultBasicProfile: function()
-		{
-			return {
-				network: "",
-				username: "",
-				url: "",
-			};
-		},
-
-		getDefaultWork: function()
-		{
-			return {
-				company: "",
-				position: "",
-				website: "",
-				startDate: "",
-				endDate: "",
-				summary: "",
-				highlights: [""]
-			};
-		},
-
-		getDefaultWorkHighlight: function()
-		{
-			return "";
-		},
-		
-		getDefaultVolunteer: function()
-		{
-			return {
-				organization: "",
-				position: "",
-				website: "",
-				startDate: "",
-				endDate: "",
-				summary: "",
-				highlights: [""]
-			};
-		},
-
-		getDefaulVolunteerHighlight: function()
-		{
-			return "";
-		},
-
-		getDefaultEducation: function()
-		{
-			return {
-				institution: "",
-				area: "",
-				studyType: "",
-				startDate: "",
-				endDate: "",
-				gpa: "",
-				courses: [""]
-			};
-		},
-				
-		getDefaultEducationCourse: function()
-		{
-			return "";
-		},
-		
-		getDefaultAward: function()
-		{
-			return {
-				title: "",
-				date: "",
-				awarder: "",
-				summary: ""
-			};
-		},
-
-		getDefaultPublication: function()
-		{
-			return {
-				name: "",
-				publisher: "",
-				releaseDate: "",
-				website: "",
-				summary: ""
-			};
-		},
-
-		getDefaultSkill: function()
-		{
-			return {
-				name: "",
-				level: "",
-				keywords: [""]
-			};
-		},
-				
-		getDefaultSkillKeywoard: function()
-		{
-			return "";
-		},
-
-		getDefaultLanguage: function()
-		{
-			return {
-				language: "",
-				fluency: ""
-			};
-		},
-
-		getDefaultInterest: function()
-		{
-			return {
-				name: "",
-				keywords: [""]
-			};
-		},
-
-		getDefaultInterestKeywoard: function()
-		{
-			return "";
-		},
-
-		getDefaultReference: function()
-		{
-			return {
-				name: "",
-				reference: ""
-			};
 		}
 
 	},
@@ -515,18 +398,19 @@ var app = new Vue({
 		},
 
 
-		$data: {
-			handler: function(val, oldVal) 
-			{
-				//TODO: Disbled
-				// // Save the data to localStorage
-				// //NOTE: I'm initially not concerned about performance here.
-				// if (val.status == "loaded")
-				// {
-				// 	helpers.setLocalStorage("sections", val.sections);
-				// }
-			},
-			deep: true
-		}
+		//TODO: Disbled
+		// $data: {
+		// 	handler: function(val, oldVal) 
+		// 	{
+				
+		// 		// Save the data to localStorage
+		// 		//NOTE: I'm initially not concerned about performance here.
+		// 		if (val.status == "loaded")
+		// 		{
+		// 			helpers.setLocalStorage("sections", val.sections);
+		// 		}
+		// 	},
+		// 	deep: true
+		// }
     }
 });

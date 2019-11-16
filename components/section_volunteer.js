@@ -29,13 +29,13 @@ var sectionVolunteerComponent = {
 	methods: {
 		addPosition: function()
 		{
-			var item = this.$root.getDefaultVolunteer();
+			var item = sections.getDefaultVolunteer();
 			this.$root.sections.volunteer.push(item);
 		},
 
 		addHighlight: function(index)
 		{
-			var item = this.$root.getDefaulVolunteerHighlight();
+			var item = sections.getDefaulVolunteerHighlight();
 			//console.log("addHighlight(" + index + ")", this.$root.sections.volunteer[index]);
 			this.$root.sections.volunteer[index].highlights.push(item);
 		}

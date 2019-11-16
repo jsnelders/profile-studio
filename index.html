@@ -766,53 +766,36 @@
 
                             <div class="w3-white w3-text-grey w3-card-4">
                                 <div class="w3-display-container">
-                                    <img src="https://www.w3schools.com/w3images/avatar_hat.jpg" style="width:100%" alt="Avatar">
-                                    <div class="w3-display-bottomleft w3-container w3-text-black">
-                                        <h2>Jane Doe</h2>
+                                    <img v-bind:src="$root.sections.basics.picture" style="width:100%" alt="Avatar">
+                                    <div class="w3-display-bottomleft w3-container w3-text-white">
+                                        <h2>{{$root.sections.basics.name}}</h2>
                                     </div>
                                 </div>
                                 <div class="w3-container">
-                                    <p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>Designer</p>
-                                    <p><i class="fa fa-home fa-fw w3-margin-right w3-large w3-text-teal"></i>London, UK</p>
-                                    <p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i>ex@mail.com</p>
-                                    <p><i class="fa fa-phone fa-fw w3-margin-right w3-large w3-text-teal"></i>1224435534</p>
+                                    <p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>{{$root.sections.basics.label}}</p>
+                                    <p><i class="fa fa-home fa-fw w3-margin-right w3-large w3-text-teal"></i>{{$root.displayLocation()}}</p>
+                                    <p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i>{{$root.sections.basics.email}}</p>
+                                    <p><i class="fa fa-phone fa-fw w3-margin-right w3-large w3-text-teal"></i>{{$root.sections.basics.phone}}</p>
                                     <hr>
 
+                                    <!-- Skills -->
                                     <p class="w3-large"><b><i class="fa fa-asterisk fa-fw w3-margin-right w3-text-teal"></i>Skills</b>
                                     </p>
-                                    <p>Adobe Photoshop</p>
-                                    <div class="w3-light-grey w3-round-xlarge w3-small">
-                                        <div class="w3-container w3-center w3-round-xlarge w3-teal" style="width:90%">90%</div>
-                                    </div>
-                                    <p>Photography</p>
-                                    <div class="w3-light-grey w3-round-xlarge w3-small">
-                                        <div class="w3-container w3-center w3-round-xlarge w3-teal" style="width:80%">
-                                            <div class="w3-center w3-text-white">80%</div>
+                                    <div v-if="$root.sections.skills.length > 0" v-for="(skill, index) in $root.sections.skills">
+                                        <p>{{skill.name}}</p>
+                                        <div class="w3-light-grey w3-round-xlarge w3-small">
+                                            <div class="w3-container w3-center w3-round-xlarge w3-teal" v-bind:style="{ width: $root.skillLevelAsPercent(index) + '%' }">{{skill.level}}</div>
                                         </div>
-                                    </div>
-                                    <p>Illustrator</p>
-                                    <div class="w3-light-grey w3-round-xlarge w3-small">
-                                        <div class="w3-container w3-center w3-round-xlarge w3-teal" style="width:75%">75%</div>
-                                    </div>
-                                    <p>Media</p>
-                                    <div class="w3-light-grey w3-round-xlarge w3-small">
-                                        <div class="w3-container w3-center w3-round-xlarge w3-teal" style="width:50%">50%</div>
                                     </div>
                                     <br>
 
-                                    <p class="w3-large w3-text-theme"><b><i
-                                                class="fa fa-globe fa-fw w3-margin-right w3-text-teal"></i>Languages</b></p>
-                                    <p>English</p>
-                                    <div class="w3-light-grey w3-round-xlarge">
-                                        <div class="w3-round-xlarge w3-teal" style="height:24px;width:100%"></div>
-                                    </div>
-                                    <p>Spanish</p>
-                                    <div class="w3-light-grey w3-round-xlarge">
-                                        <div class="w3-round-xlarge w3-teal" style="height:24px;width:55%"></div>
-                                    </div>
-                                    <p>German</p>
-                                    <div class="w3-light-grey w3-round-xlarge">
-                                        <div class="w3-round-xlarge w3-teal" style="height:24px;width:25%"></div>
+                                    <!-- Languages -->
+                                    <p class="w3-large w3-text-theme"><b><i class="fa fa-globe fa-fw w3-margin-right w3-text-teal"></i>Languages</b></p>
+                                    <div v-if="$root.sections.languages.length > 0" v-for="(language, index) in $root.sections.languages">
+                                        <p>{{language.language}}</p>
+                                        <div class="w3-light-grey w3-round-xlarge">
+                                            <div class="w3-round-xlarge w3-teal w3-center" v-bind:style="{ height: '24px', width: $root.languageFluencyAsPercent(index) + '%' }">{{language.fluency}}</div>
+                                        </div>
                                     </div>
                                     <br>
                                 </div>
@@ -823,66 +806,176 @@
 
                         <!-- Right Column -->
                         <div class="w3-twothird">
+                            <!-- Work -->
+                            <div class="w3-container w3-card w3-white w3-margin-bottom w3-padding-32" v-if="$root.sections.work.length > 0">
+                                <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Work</h2>
 
-                            <div class="w3-container w3-card w3-white w3-margin-bottom">
-                                <h2 class="w3-text-grey w3-padding-16"><i
-                                        class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Work Experience</h2>
-                                <div class="w3-container">
-                                    <h5 class="w3-opacity"><b>Front End Developer / w3schools.com</b></h5>
-                                    <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>Jan 2015 - <span
-                                            class="w3-tag w3-teal w3-round">Current</span></h6>
-                                    <p>Lorem ipsum dolor sit amet. Praesentium magnam consectetur vel in deserunt aspernatur est
-                                        reprehenderit sunt hic. Nulla tempora soluta ea et odio, unde doloremque repellendus iure, iste.
-                                    </p>
-                                    <hr>
-                                </div>
-                                <div class="w3-container">
-                                    <h5 class="w3-opacity"><b>Web Developer / something.com</b></h5>
-                                    <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>Mar 2012 - Dec 2014
+                                <div class="w3-container" v-for="(work, w_index) in $root.sections.work">
+                                    <h5 class="w3-opacity"><b>{{work.position}}</b></h5>
+                                    <a v-bind:href="work.website" target="_blank">{{work.company}}</a>
+                                    <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>
+                                        {{work.startDate}} - 
+                                        <span class="w3-tag w3-teal w3-round" v-if="$root.workEndDate(w_index) == 'Current'">{{$root.workEndDate(w_index)}}</span>
+                                        <span v-if="$root.workEndDate(w_index) != 'Current'">{{$root.workEndDate(w_index)}}</span>
                                     </h6>
-                                    <p>Consectetur adipisicing elit. Praesentium magnam consectetur vel in deserunt aspernatur est
-                                        reprehenderit sunt hic. Nulla tempora soluta ea et odio, unde doloremque repellendus iure, iste.
-                                    </p>
-                                    <hr>
-                                </div>
-                                <div class="w3-container">
-                                    <h5 class="w3-opacity"><b>Graphic Designer / designsomething.com</b></h5>
-                                    <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>Jun 2010 - Mar 2012
-                                    </h6>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. </p><br>
+                                    <div v-html="work.summary"></div>
+
+                                    <h5 class="margin-top-32">Highlights</h5>
+                                    <ol>
+                                        <li v-for="(highlight, h_index) in work.highlights">
+                                            {{highlight}}
+                                        </li>
+                                    </ol>
+
+                                    <hr v-if="w_index < $root.sections.work.length - 1">
                                 </div>
                             </div>
+                            <!-- /Work -->
 
-                            <div class="w3-container w3-card w3-white">
-                                <h2 class="w3-text-grey w3-padding-16"><i
-                                        class="fa fa-certificate fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Education</h2>
-                                <div class="w3-container">
-                                    <h5 class="w3-opacity"><b>W3Schools.com</b></h5>
-                                    <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>Forever</h6>
-                                    <p>Web Development! All I need to know in one place</p>
-                                    <hr>
-                                </div>
-                                <div class="w3-container">
-                                    <h5 class="w3-opacity"><b>London Business School</b></h5>
-                                    <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>2013 - 2015</h6>
-                                    <p>Master Degree</p>
-                                    <hr>
-                                </div>
-                                <div class="w3-container">
-                                    <h5 class="w3-opacity"><b>School of Coding</b></h5>
-                                    <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>2010 - 2013</h6>
-                                    <p>Bachelor Degree</p><br>
+                            <!-- Volunteering -->
+                            <div class="w3-container w3-card w3-white w3-margin-bottom w3-padding-32" v-if="$root.sections.volunteer.length > 0">
+                                <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-certificate fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Volunteering</h2>
+
+                                <div class="w3-container" v-for="(vol, v_index) in $root.sections.volunteer">
+                                    <div class="w3-container">
+                                        <h5 class="w3-opacity"><b>{{vol.organization}}</b></h5>
+                                        <p>{{vol.position}}</p>
+                                        <p><a v-bind:href="vol.website">{{vol.website}}</a></p>
+                                        <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>{{vol.startDate}} - {{vol.endDate}}</h6>
+                                        <div v-html="vol.summary"></div>
+
+                                        <h5 class="margin-top-32">Highlights</h5>
+                                        <ol>
+                                            <li v-for="(highlight, h_index) in vol.highlights">
+                                                {{highlight}}
+                                            </li>
+                                        </ol>
+                                        <hr v-if="v_index < $root.sections.volunteer.length - 1">
+                                    </div>
                                 </div>
                             </div>
+                            <!-- /Volunteering -->
 
-                            <!-- End Right Column -->
+                            <!-- Education -->
+                            <div class="w3-container w3-card w3-white w3-margin-bottom w3-padding-32" v-if="$root.sections.education.length > 0">
+                                <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-certificate fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Education</h2>
+
+                                <div class="w3-container" v-for="(edu, e_index) in $root.sections.education">
+                                    <div class="w3-container">
+                                        <h5 class="w3-opacity"><b>{{edu.institution}}</b></h5>
+                                        <p>{{edu.area}}, {{edu.studyType}}</p>
+                                        <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>{{edu.startDate}} - {{edu.endDate}}</h6>
+                                        <p v-if="edu.gpa != ''">GPA: {{edu.gpa}}</p>
+                                        <div v-html="edu.summary"></div>
+
+                                        <h5 class="margin-top-32">Courses</h5>
+                                        <ol>
+                                            <li v-for="(course, c_index) in edu.courses">
+                                                {{course}}
+                                            </li>
+                                        </ol>
+                                        <hr v-if="e_index < $root.sections.education.length - 1">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /Education -->
+
+                            <!-- Awards -->
+                            <div class="w3-container w3-card w3-white w3-margin-bottom w3-padding-32">
+                                <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-certificate fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Awards</h2>
+
+                                <div class="w3-container" v-for="(award, a_index) in $root.sections.awards">
+                                    <div class="w3-container">
+                                        <h5 class="w3-opacity"><b>{{award.title}}</b></h5>
+                                        <p>{{award.awarder}}</p>
+                                        <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>{{award.date}}</h6>
+                                        <div v-html="award.summary"></div>
+
+                                        <hr v-if="a_index < $root.sections.awards.length - 1">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /Awards -->
+
+                            <!-- Publications -->
+                            <div class="w3-container w3-card w3-white w3-margin-bottom w3-padding-32">
+                                <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-certificate fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Publications</h2>
+
+                                <div class="w3-container" v-for="(publication, p_index) in $root.sections.publications">
+                                    <div class="w3-container">
+                                        <h5 class="w3-opacity"><b>{{publication.name}}</b></h5>
+                                        <p><a v-bind:href="publication.website">{{publication.publisher}}</a></p>
+                                        <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>{{publication.releaseDate}}</h6>
+                                        <div v-html="publication.summary"></div>
+                                        <hr v-if="p_index < $root.sections.publications.length - 1">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /Publications -->
+
+                            <!-- Skills -->
+                            <div class="w3-container w3-card w3-white w3-margin-bottom w3-padding-32">
+                                <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-certificate fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Skills</h2>
+
+                                <div class="w3-container" v-for="(skill, s_index) in $root.sections.skills">
+                                    <div class="w3-container">
+                                        <h5 class="w3-opacity"><b>{{skill.name}}</b></h5>
+                                        <p>{{skill.level}}</p>
+
+                                        <ol>
+                                            <li v-for="(keyword, k_index) in skill.keywords">
+                                                {{keyword}}
+                                            </li>
+                                        </ol>
+                                        <hr v-if="s_index < $root.sections.skills.length - 1">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /Skills -->
+
+                            <!-- Interests -->
+                            <div class="w3-container w3-card w3-white w3-margin-bottom w3-padding-32">
+                                <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-certificate fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Interests</h2>
+
+                                <div class="w3-container" v-for="(interest, i_index) in $root.sections.interests">
+                                    <div class="w3-container">
+                                        <h5 class="w3-opacity"><b>{{interest.name}}</b></h5>
+
+                                        <ol>
+                                            <li v-for="(keyword, k_index) in interest.keywords">
+                                                {{keyword}}
+                                            </li>
+                                        </ol>
+                                        <hr v-if="i_index < $root.sections.education.length - 1">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /Interests -->
+                            
+                            <!-- References -->
+                            <div class="w3-container w3-card w3-white w3-margin-bottom w3-padding-32">
+                                <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-certificate fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>References</h2>
+
+                                <div class="w3-container" v-for="(reference, index) in $root.sections.references">
+                                    <div class="w3-container">
+                                        <h5 class="w3-opacity"><b>{{reference.name}}</b></h5>
+                                        <div v-html="reference.reference"></div>
+
+                                        <hr v-if="index < $root.sections.references.length - 1">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /References -->
+
                         </div>
-
-                        <!-- End Grid -->
+                        <!-- /Right Column -->
+                        
                     </div>
-
-                    <!-- End Page Container -->
+                    <!-- /Grid -->
+                    
                 </div>
+                <!-- /Page Container -->
+
             </div>
         </template>
 

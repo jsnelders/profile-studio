@@ -29,13 +29,13 @@ var sectionEducationComponent = {
 	methods: {
 		addEducation: function()
 		{
-			var item = this.$root.getDefaultEducation();
+			var item = sections.getDefaultEducation();
 			this.$root.sections.education.push(item);
 		},
 
 		addCourse: function(index)
 		{
-			var item = this.$root.getDefaultEducationCourse();
+			var item = sections.getDefaultEducationCourse();
 			this.$root.sections.education[index].courses.push(item);
 		}
 	}
