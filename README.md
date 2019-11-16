@@ -16,7 +16,7 @@ Status:
 
 Deployed but under deployment.
 
-Use it at (https://profilestudio.co)[https://profilestudio.co/#/]
+Use it at [https://profilestudio.co](https://profilestudio.co/#/)
 
 
 Dependencies:
