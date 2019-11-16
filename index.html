@@ -55,9 +55,13 @@
             </div>
             <hr>
             <div class="w3-bar-block">
-                <a href="#/preview" class="w3-bar-item w3-button w3-padding"><i class="fas fa-print"></i>&nbsp; Preview</a>
+                    <a href="#/preview" class="w3-bar-item w3-button w3-padding"><i class="fas fa-print"></i>&nbsp; Preview</a>
+            </div>
+            <hr>
+            <div class="w3-bar-block">
                 <a href="#/import" class="w3-bar-item w3-button w3-padding"><i class="fas fa-file-upload"></i>&nbsp; Import</a>
                 <a href="#/export" class="w3-bar-item w3-button w3-padding"><i class="fas fa-file-download"></i>&nbsp; Export</a>
+                <span class="w3-bar-item w3-button w3-padding" v-on:click="saveResume"><i class="fas fa-sync-alt"></i>&nbsp; Save</span>
                 <span class="w3-bar-item w3-button w3-padding" v-on:click="resetResume"><i class="fas fa-sync-alt"></i>&nbsp; Reset Resume</span>
             </div>
             <hr>
@@ -238,10 +242,11 @@
                             <preview-field label="Full Name" v-bind:value="$root.sections.basics.name"></preview-field>
                             <preview-field label="Label" v-bind:value="$root.sections.basics.label"></preview-field>
                             <preview-field label="Picture" v-bind:value="$root.sections.basics.picture" format="url"></preview-field>
+                            <preview-field label="" v-bind:value="$root.sections.basics.picture" format="image"></preview-field>
     
-                            <preview-field label="Email" v-bind:value="$root.sections.basics.email"></preview-field>
-                            <preview-field label="Phone" v-bind:value="$root.sections.basics.phone"></preview-field>
-                            <preview-field label="Website" v-bind:value="$root.sections.basics.website"></preview-field>
+                            <preview-field label="Email" v-bind:value="$root.sections.basics.email" format="email"></preview-field>
+                            <preview-field label="Phone" v-bind:value="$root.sections.basics.phone" format="phone"></preview-field>
+                            <preview-field label="Website" v-bind:value="$root.sections.basics.website" format="url"></preview-field>
     
                             <preview-field label="Summary" v-bind:value="$root.sections.basics.summary" format="multi-line"></preview-field>
     
@@ -258,7 +263,7 @@
                         <div class="preview w3-container w3-card-4 w3-padding-16 w3-margin-left w3-margin-top" v-for="profile in $root.sections.basics.profiles">
                             <preview-field label="Network" v-bind:value="profile.network"></preview-field>
                             <preview-field label="Username" v-bind:value="profile.username"></preview-field>
-                            <preview-field label="URL" v-bind:value="profile.url"></preview-field>
+                            <preview-field label="URL" v-bind:value="profile.url" format="url"></preview-field>
                         </div>
                     </div>
                 </div>
@@ -885,17 +890,26 @@
 
         <template type="text/x-template" id="preview-single-field-template" lang="html">
             <div id="preview-single-field-root">
-                <div class="w3-row w3-margin-bottom" v-if="format != 'list-item'">
+                <div class="w3-row w3-margin-bottom" v-if="displayFormat == '' || displayFormat == 'url' || displayFormat == 'email' || displayFormat == 'phone'">
                     <div class="w3-col m3">
-                        <span>{{label}}</span>
+                        <span v-html="getLabel()"></span>
                     </div>
                     <div class="w3-col m9">
                         <span v-html="getValue()"></span>
                     </div>
                 </div>
 
-                <span v-if="format == 'list-item'">
+                <span class="w3-margin-bottom" v-if="displayFormat == 'list-item'">
                     <span v-html="getValue()"></span>
+                </span>
+
+                <span class="w3-row w3-margin-bottom" v-if="displayFormat == 'image'">
+                    <div class="w3-col m3">
+                        <span v-html="getLabel()"></span>
+                    </div>
+                    <div class="w3-col m9">
+                        <span v-html="getValue()"></span>
+                    </div>
                 </span>
             </div>
         </template>

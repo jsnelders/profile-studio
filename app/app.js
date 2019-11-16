@@ -99,7 +99,7 @@ var app = new Vue({
 
     mounted() 
     {
-		//this.loadFromStorage();
+		this.loadFromStorage();
 
 		// Set the "current" main navigation item based on the current route.
 		this.selectMenuItemForCurrentUrl();
@@ -183,6 +183,16 @@ var app = new Vue({
 			return false;
 		},
 
+
+		saveResume: function()
+		{
+			var response = confirm("Resume saved");
+
+			helpers.setLocalStorage("sections", this.$root.sections);
+
+			alert("Resume saved");
+			return false;
+		},
 
 
 		/**
@@ -508,12 +518,13 @@ var app = new Vue({
 		$data: {
 			handler: function(val, oldVal) 
 			{
-				// Save the data to localStorage
-				//NOTE: I'm initially not concerned about performance here.
-				if (val.status == "loaded")
-				{
-					helpers.setLocalStorage("sections", val.sections);
-				}
+				//TODO: Disbled
+				// // Save the data to localStorage
+				// //NOTE: I'm initially not concerned about performance here.
+				// if (val.status == "loaded")
+				// {
+				// 	helpers.setLocalStorage("sections", val.sections);
+				// }
 			},
 			deep: true
 		}

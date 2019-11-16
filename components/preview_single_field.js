@@ -14,7 +14,7 @@ Vue.component("preview-field", {
 
 	mounted: function()
 	{
-		
+		this.displayFormat = (this.format ? this.format : "");
 	},
 
 
@@ -29,6 +29,7 @@ Vue.component("preview-field", {
 	data: function()
 	{
 		return {
+			displayFormat: "",	// Refine the "format" so we don't mutate the prop.
 			item: {}
 		};
 	},
@@ -36,21 +37,41 @@ Vue.component("preview-field", {
 	
 
 	methods: {
+		getLabel: function()
+		{
+			return (this.label ? this.label : "&nbsp;");
+		},
+
 		getValue: function()
 		{
 			// Return the value formatted.
 
-			if (this.format == "url")
+			if (this.displayFormat == "url")
 			{
 				return "<a href='" + this.value + "' target='_blank'>" + this.value + "</a>";
 			}
 
-			if (this.format == "multi-line")
+			if (this.displayFormat == "email")
+			{
+				return "<a href='mailto:" + this.value + "' target='_blank'>" + this.value + "</a>";
+			}
+
+			if (this.displayFormat == "phone")
+			{
+				return "<a href='tel:" + this.value + "' target='_blank'>" + this.value + "</a>";
+			}
+
+			if (this.displayFormat == "multi-line")
 			{
 				return this.replaceLineBreaks(this.value);
 			}
 
-			return this.value;
+			if (this.displayFormat == "image")
+			{
+				return "<img src='" + this.value + "' style='max-width: 100px;'></img>";
+			}
+
+			return (this.value ? this.value : "&nbsp;");
 		},
 
 

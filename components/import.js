@@ -34,6 +34,8 @@ var importComponent = {
 			var data = JSON.parse(this.json);
 
 			this.$root.populateSections(data);
+
+			helpers.setLocalStorage("sections", this.$root.sections);
 		},
 
 
