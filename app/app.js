@@ -239,6 +239,32 @@ var app = new Vue({
 		},
 
 
+		dateMonthYear: function(dateString)
+		{
+			var dt = new Date(dateString);
+
+			return dt.getFullYear() + ", " + this.getMonthName(dt.getMonth() + 1);
+		},
+
+
+		getMonthName: function(monthNumber)
+		{
+			if (monthNumber == 1) return "January";
+			if (monthNumber == 2) return "February";
+			if (monthNumber == 3) return "March";
+			if (monthNumber == 4) return "April";
+			if (monthNumber == 5) return "May";
+			if (monthNumber == 6) return "June";
+			if (monthNumber == 7) return "July";
+			if (monthNumber == 8) return "August";
+			if (monthNumber == 9) return "September";
+			if (monthNumber == 10) return "October";
+			if (monthNumber == 11) return "November";
+			if (monthNumber == 12) return "December";
+
+			return "";
+		},
+
 
 		/**
 		 * Clear save data and reset the sections structure.
@@ -376,6 +402,69 @@ var app = new Vue({
 					element.classList.add("w3-blue");
 				}
 			}
+		},
+
+
+		/**
+		 * Collapse or un-collapse a content element by setting its collapse state to opposite of current state.
+		 * @param {string} id ID of the content element to collapse/un-collapse.
+		 */
+		invertCollapse: function(id) 
+		{
+			var x = document.getElementById(id);
+			if (x.className.indexOf("w3-show") == -1) 
+			{
+			  x.className += " w3-show";
+			} 
+			else 
+			{
+			  x.className = x.className.replace(" w3-show", "");
+			}
+		  },
+
+
+
+		/**
+		 * Move the position of an element in an array.
+		 * 
+		 * @param array arr The array to move an element in.
+		 * @param int old_index Current position of the element.
+		 * @param int new_index New position of the element.
+		 * 
+		 * @return array Updated array.
+		 */
+		moveArrayPosition: function(arr, old_index, new_index)
+		{
+			if (new_index == old_index)
+			{
+				// No change
+				return ;
+			}
+
+			if (new_index > old_index)
+			{
+				// Moving forward in array
+				if (old_index == this.$root.sections.work.length - 1) return;	// Cannot move beyond the end of the array
+			}
+			if (new_index < old_index)
+			{
+				// Moving back in array
+				if (old_index == 0) return;	// Cannot move beyond the start of the array
+			}
+
+
+			if (new_index >= arr.length) 
+			{
+				var k = new_index - arr.length + 1;
+				while (k--)
+				{
+					arr.push(undefined);
+				}
+			}
+
+			arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
+
+			return arr; // for testing
 		}
 
 	},

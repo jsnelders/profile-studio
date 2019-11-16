@@ -31,6 +31,29 @@ var sectionLanguagesComponent = {
 		{
 			var item = sections.getDefaultInterest();
 			this.$root.sections.languages.push(item);
+		},
+		
+
+		deleteClicked: function(index)
+		{
+			var response = confirm("Are you sure you want to delete this language?");
+
+			if (response == true)
+			{
+				this.$root.sections.languages.splice(index, 1);
+			}
+		},
+
+
+		moveUpClicked: function(index)
+		{
+			this.$root.moveArrayPosition(this.$root.sections.languages, index, index - 1);
+		},
+
+
+		moveDownClicked: function(index)
+		{
+			this.$root.moveArrayPosition(this.$root.sections.languages, index, index + 1);
 		}
 	}
 };

@@ -38,6 +38,29 @@ var sectionInterestsComponent = {
 			var item = sections.getDefaultInterestKeywoard();
 			//console.log("addHighlight(" + index + ")", this.$root.sections.interests[index]);
 			this.$root.sections.interests[index].keywords.push(item);
+		},
+
+
+		deleteClicked: function(index)
+		{
+			var response = confirm("Are you sure you want to delete this interest?");
+
+			if (response == true)
+			{
+				this.$root.sections.interests.splice(index, 1);
+			}
+		},
+
+
+		moveUpClicked: function(index)
+		{
+			this.$root.moveArrayPosition(this.$root.sections.interests, index, index - 1);
+		},
+
+
+		moveDownClicked: function(index)
+		{
+			this.$root.moveArrayPosition(this.$root.sections.interests, index, index + 1);
 		}
 	}
 };
