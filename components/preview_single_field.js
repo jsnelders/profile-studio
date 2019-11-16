@@ -63,7 +63,11 @@ Vue.component("preview-field", {
 
 			if (this.displayFormat == "multi-line")
 			{
-				return this.replaceLineBreaks(this.value);
+				var md = window.markdownit();
+				var result = md.render(this.value);
+				return result;
+
+				//return this.replaceLineBreaks(this.value);
 			}
 
 			if (this.displayFormat == "image")

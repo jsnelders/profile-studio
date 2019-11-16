@@ -1021,7 +1021,7 @@
 
         <template type="text/x-template" id="preview-single-field-template" lang="html">
             <div id="preview-single-field-root">
-                <div class="w3-row w3-margin-bottom" v-if="displayFormat == '' || displayFormat == 'url' || displayFormat == 'email' || displayFormat == 'phone'">
+                <div class="w3-row w3-margin-bottom" v-if="displayFormat == '' || displayFormat == 'url' || displayFormat == 'multi-line' || displayFormat == 'email' || displayFormat == 'phone' || displayFormat == 'date'">
                     <div class="w3-col m3">
                         <span v-html="getLabel()"></span>
                     </div>
@@ -1034,14 +1034,13 @@
                     <span v-html="getValue()"></span>
                 </span>
 
-                <span class="w3-row w3-margin-bottom" v-if="displayFormat == 'image'">
+                <div class="w3-row w3-margin-bottom" v-if="displayFormat == 'image'">
                     <div class="w3-col m3">
                         <span v-html="getLabel()"></span>
                     </div>
-                    <div class="w3-col m9">
-                        <span v-html="getValue()"></span>
+                    <div class="w3-col m9"v-html="getValue()">
                     </div>
-                </span>
+                </div>
             </div>
         </template>
 
@@ -1144,6 +1143,8 @@
 
         <script type="text/javascript" src="vendor/vue.2.6.10.js"></script>
         <script type="text/javascript" src="vendor/vue-router.3.1.3.js"></script>
+
+        <script type="text/javascript" src="vendor/markdown-it-10.0.0.js"></script>
 
         <script type="text/javascript" src="app/page_registration.js"></script>
         <script type="text/javascript" src="components/home.js"></script>
