@@ -76,7 +76,7 @@ var components = {
             id: "home",
             path: "#/",
             type: "page",
-            title: "Home",
+            title: "Welcome",
             description: "",
             fontAwesomeIcon: "fas fa-home"  
         });

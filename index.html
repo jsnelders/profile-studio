@@ -17,7 +17,7 @@
         <!-- Top container -->
         <div class="w3-bar w3-top w3-black w3-large" style="z-index:4">
             <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" v-on:click="w3_open"><i class="fa fa-bars"></i> &nbsp;Menu</button>
-            <span class="w3-bar-item w3-right">JSON Resume Editor</span>
+            <span class="w3-bar-item"><i class="far fa-user"></i> Profile Studio</span>
         </div>
 
         <!-- Sidebar/menu -->
@@ -109,29 +109,32 @@
         <template type="text/x-template" id="home-template" lang="html">
             <div id="home-root">
                 <p>
-                    Welcome to the <a href="https://jsonresume.org/">JSON Resume</a> editor.
+                    Welcome to Profile Studio - a generator and editor for <a href="https://jsonresume.org/">JSON Resume</a> files.
                 </p>
                 <p>
-                    No registratioon required. No data stored.
+                    No registration required. No data stored.
                 </p>
                 <p>
+                    To create a JSON resume file:
                     <ol>
-                        <li>To create your JSON resume, fill in the details under each section.</li>
+                        <li>Fill in the details under each section.</li>
                         <li>At any time <a href="#/preview">Preview</a> how your resume could look.</li>
-                        <li>When you're finished <a href="">export</a> your resume by copying the JSON output into a texdt file.</li>
+                        <li>When you're finished <a href="">export</a> your resume by copying the JSON output into a text file.</li>
                         <li>
-                            Create a public Gist in your <a href="https://github.com/">GitHub</a> account (create a new account for free) with a filenane "resume.json".<br>
+                            Create a public Gist in your <a href="https://github.com/">GitHub</a> account (create a new account for free) with a filename "resume.json".<br>
                             (See an <a href="https://gist.github.com/jsnelders/cab89beb9bc0e677ef3f5ec30ef4260b">example here</a>.)
                         </li>
                         <li>
-                            View your live resume on jsonresume.org by browsing to https://registry.jsonresume.org/{your_github_profile}.<br>
+                            View your live resume on jsonresume.org by browsing to https://registry.jsonresume.org/{your_github_username}.<br>
                             (see an <a href="https://registry.jsonresume.org/jsnelders">example here</a>.)
                         </li>
                     </ol>
                 </p>
                 <p>
-                    Don't worry about saving. All information is automatically saved in your browser, which means you can close your browser, come back tomorrow and everything will be as you left it.
+                    All information is automatically saved in your browser as you type, which means you can close your browser, come back tomorrow and everything will be as you left it.
                 </p>
+                <p>Enjoy!</p>
+                <p><a href="https://jsnelders.com">Jason Snelders</a></p>
             </div>
         </template>
 
@@ -924,32 +927,26 @@
 
         <template type="text/x-template" id="about-template" lang="html">
             <div id="export-root">
-                <h5 class="w3-bottombar w3-border-green">JSON Resume Editor</h5>
                 <p>
-                    <h4>What is it?</h4>
+                    <h4 class="margin-top-32">What is it?</h4>
                     An editor for creating and updating <a href="https://jsonresume.org/">JSON Resume</a> files.
 
-                    <h4>Why?</h4>
-                    <p>
-                        For 2 reasons:
-                    </p>
+                    <h4 class="margin-top-32">Why?</h4>
                     <ol>
-                        <li>To provide an easy interface to creating and updating JSON Resume files. Working with raw JSON files is not difficult, but it's also not fun. This editor makes life easy.</li>
+                        <li>Provide an easy interface to creating and updating JSON Resume files. Working with raw JSON files is not difficult, but it's also not fun. This editor makes life easy.</li>
                         <li>To act as sample application for creating VueJS training articles.</li>
                     </ol>
 
-                    <h4>Technologies used</h4>
+                    <h4 class="margin-top-32">Technologies used</h4>
                     <ul>
                         <li><a href="https://www.w3schools.com/w3css/">W3CSS (v4.13)</a></li>
                         <li><a href="https://vuejs.org/">VueJS (v2.6.10)</a></li>
                         <li><a href="https://router.vuejs.org/">Vue Router (v3.1.3)</a></li>
                     </ul>
+                    <p class="margin-top-64">
+                        Developed by <a href="https://jsnelders.com" target="_blank">Jason Snelders</a>.
+                    </p>
                 </p>
-
-                <div class="w3-container w3-padding-16 w3-dark-grey w3-margin-top">
-                    
-                    <p>Developed by <a href="https://jsnelders.com" target="_blank">Jason Snelders</a></p>
-                </div>
             </div>
         </template>
         <!-- /Component Templates -->

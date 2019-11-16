@@ -72,6 +72,13 @@ html, body, h1, h2, h3, h4, h5
     margin-top: 32px;
 }
 
+/**
+*   Create a 64px margin at the top of an element.
+*/
+.margin-top-64
+{
+    margin-top: 64px;
+}
 
 /**
 *   Bootstrap style muted helper text for form inputs.
