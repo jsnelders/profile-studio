@@ -104,8 +104,12 @@ var app = new Vue({
 		// Set the "current" main navigation item based on the current route.
 		this.selectMenuItemForCurrentUrl();
 
-		// Once the app is fully displayed, hide the overlay.
-		this.hideFullPageOverlay();
+		this.$nextTick(function () {
+			// Code that will run only after the entire view has been rendered.
+
+			// Once the app is fully rendered, hide the overlay.
+			this.hideFullPageOverlay();
+		});
 
 		this.status = "loaded";	// Now we can start watching for changes in 'sections' data.
 	},

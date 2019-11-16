@@ -13,11 +13,13 @@
         <link rel="stylesheet" href="styles.css">
     </head>
     <body class="w3-light-grey">
-
-
+        
         <!-- VueJS App -->
         <div id="app">
 
+            <div id="full-page-overlay">
+                <div id="full-page-overlay-text">Please wait while we load the goodness.</div>
+            </div>
 
             <!-- Top container -->
             <div class="w3-bar w3-top w3-black w3-large" style="z-index:4">
@@ -75,10 +77,6 @@
 
             <!-- End Page Content -->
             <div class="w3-main w3-padding-16">
-            
-                <div id="full-page-overlay">
-                    <div id="full-page-overlay-text">Please wait while we load the goodness.</div>
-                </div>
 
                 <!-- Header -->
                 <header class="w3-container">
@@ -86,7 +84,7 @@
                 </header>
 
                 <div class="w3-container">
-                    <router-view>Loading...</router-view>
+                    <router-view></router-view>
                 </div>
                     
             </div>
@@ -1047,7 +1045,8 @@
                         <li><a href="https://router.vuejs.org/">Vue Router (v3.1.3)</a></li>
                     </ul>
                     <p class="margin-top-64">
-                        Developed by <a href="https://jsnelders.com" target="_blank">Jason Snelders</a>.
+                        Developed by <a href="https://jsnelders.com" target="_blank">Jason Snelders</a>.<br>
+                        Source code at <a href="https://github.com/jsnelders/json-resume-editor" target="_blank">https://github.com/jsnelders/json-resume-editor</a>.
                     </p>
                 </p>
             </div>
