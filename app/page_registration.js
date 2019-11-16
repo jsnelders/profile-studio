@@ -2,7 +2,7 @@
  * Register and manage all components. 
  * This is not a part of VueJS. It is a helper so we can easily access information about each component.
  */
-var components = {
+var pageComponents = {
 
 
     /**

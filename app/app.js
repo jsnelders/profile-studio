@@ -77,11 +77,11 @@ var app = new Vue({
 		this.sections = sections.getDefaultSections();
 
         //-- Register all components
-        components.registerComponents();
+        pageComponents.registerComponents();
 
         //-- Get the component for the initial route path
         var initialRoute = this.$route.path;
-        var component = components.getComponentByPath(initialRoute);
+        var component = pageComponents.getComponentByPath(initialRoute);
         this.setActivePageByComponent(component);
     },
 
@@ -486,7 +486,7 @@ var app = new Vue({
             this.selectMenuItemForCurrentUrl();
 			
 			// Set the current page details based on the component mapped to the active route.
-            var component = components.getComponentByPath(to.fullPath);
+            var component = pageComponents.getComponentByPath(to.fullPath);
             this.setActivePageByComponent(component);
 		},
 
