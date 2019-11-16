@@ -12,9 +12,10 @@ This README will be updated when the project starts to stabalise.
 
 Projected completion January 2020.
 
-Status:
+**Status:**
+16 November 2019
 
-Deployed but under deployment.
+Deployed but still under deployment.
 
 Use it at [https://profilestudio.co](https://profilestudio.co/#/)
 
