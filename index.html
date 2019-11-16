@@ -22,7 +22,11 @@
             <!-- Top container -->
             <div class="w3-bar w3-top w3-black w3-large" style="z-index:4">
                 <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" v-on:click="w3_open"><i class="fa fa-bars"></i> &nbsp;Menu</button>
-                <span class="w3-bar-item"><i class="far fa-user"></i> Profile Studio</span>
+                
+                <span class="w3-bar-item">
+                    <!-- <i class="far fa-user"></i> -->
+                    <img src="favicon_black/favicon-32x32.png" style="height: 28px" class="w3-margin-right">Profile Studio
+                </span>
             </div>
 
             <!-- Sidebar/menu -->
@@ -42,8 +46,8 @@
                 <div class="w3-bar-block">
                     <a href="#/" class="w3-bar-item w3-button w3-padding w3-blue"><i class="fas fa-home"></i>&nbsp; Home</a>
                 </div>
-                <div class="w3-container">
-                    <h5>Resume Sections</h5>
+                <div class="w3-container w3-margin-top">
+                    <h5>Sections</h5>
                 </div>
                 <div class="w3-bar-block">
                     <a href="#/" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" v-on:click="w3_close" title="close menu"><i class="fas fa-times"></i>&nbsp; Close Menu</a>
@@ -66,7 +70,7 @@
                 <div class="w3-bar-block">
                     <a href="#/import" class="w3-bar-item w3-button w3-padding"><i class="fas fa-file-upload"></i>&nbsp; Import</a>
                     <a href="#/export" class="w3-bar-item w3-button w3-padding"><i class="fas fa-file-download"></i>&nbsp; Export</a>
-                    <span class="w3-bar-item w3-button w3-padding" v-on:click="saveResume"><i class="fas fa-sync-alt"></i>&nbsp; Save</span>
+                    <span class="w3-bar-item w3-button w3-padding" v-on:click="saveResume"><i class="fas fa-save"></i>&nbsp; Save</span>
                     <span class="w3-bar-item w3-button w3-padding" v-on:click="resetResume"><i class="fas fa-sync-alt"></i>&nbsp; Reset Resume</span>
                 </div>
                 <hr>
@@ -125,6 +129,9 @@
                         <li>
                             Create a public Gist in your <a href="https://github.com/">GitHub</a> account (create a new account for free) with a filename "resume.json".<br>
                             (See an <a href="https://gist.github.com/jsnelders/cab89beb9bc0e677ef3f5ec30ef4260b">example here</a>.)
+                        </li>
+                        <li>
+                            Save your resume in your browser. You can close your browser and come back to the site any time - your saved resume will re-load automatically for you to keep working.
                         </li>
                         <li>
                             View your live resume on jsonresume.org by browsing to https://registry.jsonresume.org/{your_github_username}.<br>
