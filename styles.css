@@ -71,6 +71,10 @@ html, body, h1, h2, h3, h4, h5
 {
     margin-top: 32px;
 }
+.margin-bottom-32
+{
+    margin-bottom: 32px;
+}
 
 /**
 *   Create a 64px margin at the top of an element.
@@ -78,6 +82,10 @@ html, body, h1, h2, h3, h4, h5
 .margin-top-64
 {
     margin-top: 64px;
+}
+.margin-bottom-64
+{
+    margin-bottom: 64px;
 }
 
 /**
