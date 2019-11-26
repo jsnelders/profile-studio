@@ -29,7 +29,7 @@ var sectionAwardsComponent = {
 	methods: {
 		addAward: function()
 		{
-			var item = this.$root.getDefaultAward();
+			var item = models.newDefaultAward();
 			this.$root.sections.awards.push(item);
 		},
 

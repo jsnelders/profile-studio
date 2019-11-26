@@ -29,7 +29,7 @@ var sectionPublicationsComponent = {
 	methods: {
 		addPublication: function()
 		{
-			var item = sections.getDefaultWork();
+			var item = models.newDefaultWork();
 			this.$root.sections.publications.push(item);
 		},
 

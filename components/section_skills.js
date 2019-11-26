@@ -29,13 +29,13 @@ var sectionSkillsComponent = {
 	methods: {
 		addSkill: function()
 		{
-			var item = this.$root.getDefaultSkill();
+			var item = models.newDefaultSkill();
 			this.$root.sections.skills.push(item);
 		},
 
 		addKeyword: function(index)
 		{
-			var item = sections.getDefaultSkillKeywoard();
+			var item = models.newDefaultSkillKeyword();
 			//console.log("addHighlight(" + index + ")", this.$root.sections.volunteer[index]);
 			this.$root.sections.skills[index].keywords.push(item);
 		},

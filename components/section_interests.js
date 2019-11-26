@@ -29,13 +29,13 @@ var sectionInterestsComponent = {
 	methods: {
 		addInterest: function()
 		{
-			var item = sections.getDefaultInterest();
+			var item = models.wDefaultInterest();
 			this.$root.sections.interests.push(item);
 		},
 
 		addKeyword: function(index)
 		{
-			var item = sections.getDefaultInterestKeywoard();
+			var item = models.newDefaultInterestKeyword();
 			//console.log("addHighlight(" + index + ")", this.$root.sections.interests[index]);
 			this.$root.sections.interests[index].keywords.push(item);
 		},

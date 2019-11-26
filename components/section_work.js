@@ -29,13 +29,13 @@ var sectionWorkComponent = {
 	methods: {
 		addPosition: function()
 		{
-			var item = sections.getDefaultWork();
+			var item = models.newDefaultWork();
 			this.$root.sections.work.push(item);
 		},
 
 		addHighlight: function(index)
 		{
-			var item = sections.getDefaultWorkHighlight();
+			var item = models.newDefaultWorkHighlight();
 			this.$root.sections.work[index].highlights.push(item);
 		},
 

@@ -7,7 +7,7 @@ var sectionBasicsComponent = {
 
 	mounted: function()
 	{
-		var savedData = helpers.getLocalStorage("section.basics");
+		var savedData = storage.getLocalStorage("section.basics");
 
 		if (savedData)
 		{
@@ -58,7 +58,7 @@ var sectionBasicsComponent = {
 			{
 				// Save the data to localStorage
 				//NOTE: I'm initially not concerned about performance here/
-				//helpers.setLocalStorage("section.basics", val);
+				//storage.setLocalStorage("section.basics", val);
 
 				//this.$root.sections.basics = val;
 			},
@@ -73,7 +73,7 @@ var sectionBasicsComponent = {
 	methods: {
 		addProfile: function()
 		{
-			var item = sections.getDefaultBasicProfile();
+			var item = models.newDefaultBasic();
 			this.$root.sections.basics.profiles.push(item);
 		}
 	}

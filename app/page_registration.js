@@ -172,6 +172,15 @@ var pageComponents = {
         });
         
         this.registerComponent({
+            id: "projects",
+            path: "#/section/projects",
+            type: "page",
+            title: "Projects",
+            description: "",
+            fontAwesomeIcon: "fas fa-project-diagram"  
+        });
+        
+        this.registerComponent({
             id: "previewResume",
             path: "#/preview",
             type: "page",
@@ -206,6 +215,7 @@ var pageComponents = {
             description: "About this application.",
             fontAwesomeIcon: "fas fa-info-circle"  
         });
+        
         
 
     }

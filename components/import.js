@@ -33,9 +33,14 @@ var importComponent = {
 
 			var data = JSON.parse(this.json);
 
+			// Reset first
+			this.$root.sections = models.newDefaultSections();
+
 			this.$root.populateSections(data);
 
-			helpers.setLocalStorage("sections", this.$root.sections);
+			storage.setLocalStorage("sections", this.$root.sections);
+
+			router.push("section/basics");
 		},
 
 

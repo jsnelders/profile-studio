@@ -29,7 +29,7 @@ var sectionLanguagesComponent = {
 	methods: {
 		addLanguage: function()
 		{
-			var item = sections.getDefaultInterest();
+			var item = models.wDefaultInterest();
 			this.$root.sections.languages.push(item);
 		},
 		

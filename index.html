@@ -64,6 +64,7 @@
                     <a href="#/section/languages" class="w3-bar-item w3-button w3-padding"><i class="fas fa-heart"></i>&nbsp; Languages</a>
                     <a href="#/section/interests" class="w3-bar-item w3-button w3-padding"><i class="fas fa-map"></i>&nbsp; Interests</a>
                     <a href="#/section/references" class="w3-bar-item w3-button w3-padding"><i class="fas fa-list"></i>&nbsp; References</a>
+                    <a href="#/section/projects" class="w3-bar-item w3-button w3-padding"><i class="fas fa-project-diagram"></i>&nbsp; Projects</a>
                 </div>
                 <hr>
                 <div class="w3-bar-block">
@@ -111,7 +112,7 @@
         <template type="text/x-template" id="home-template" lang="html">
             <div id="home-root">
                 <p class="margin-bottom-64">
-                    <b style="color: maroon">Status: Working & Under Development (16 Nov 2019)</b>
+                    <b style="color: maroon">Status: Working & Under Development (26 Nov 2019)</b>
                 </p>
                 <p>
                     Welcome to Profile Studio - a generator and editor for <a href="https://jsonresume.org/">JSON Resume</a> files.
@@ -140,6 +141,11 @@
                 </p>
                 <p>
                     See it in action now. Copy a resume from <a href="https://gist.github.com/jsnelders/cab89beb9bc0e677ef3f5ec30ef4260b">https://gist.github.com/jsnelders/cab89beb9bc0e677ef3f5ec30ef4260b</a>.
+                </p>
+                <p>
+                    Currently developed to use the schema defined at <a href="https://jsonresume.org/schema/">https://jsonresume.org/schema/</a>, 
+                    with additional attributes found at <a href="https://github.com/jsonresume/resume-schema/blob/v1.0.0/schema.json">https://github.com/jsonresume/resume-schema/blob/v1.0.0/schema.json</a>.<br>
+                    "url" attributes are current identified as "website" per the published shema at jsonresume.org.
                 </p>
                 <p>Enjoy!</p>
                 <p><a href="https://jsnelders.com">Jason Snelders</a></p>
@@ -791,6 +797,114 @@
 
 
 
+        <template type="text/x-template" id="section-projects-template" lang="html">
+            <div id="section-projects-root">
+                <button type="button" class="w3-btn w3-white w3-border w3-border-blue w3-round w3-padding-small" v-on:click="addProject">+ Add Project</button>
+
+                <div class="w3-row margin-top-32">
+                    <div class="w3-col m6">
+                        <form class="w3-card-4" v-for="(project, p_index) in $root.sections.projects">
+                            <card-header v-bind:label="project.name + ' (' + $root.dateMonthYear(project.startDate) + ')'" v-bind:id="p_index" v-on:delete-clicked="deleteClicked" v-on:move-up-clicked="moveUpClicked" v-on:move-down-clicked="moveDownClicked"></card-header>
+
+                            <div class="w3-container w3-hide" v-bind:id="'content' + p_index">
+                                <p>
+                                    <label for="company" class="w3-text-blue required-field"><b>Name</b></label>
+                                    <input id="company" class="w3-input w3-border" type="text" v-model="project.name" required>
+                                    <small id="companyHelp" class="form-help text-muted">Name of the company or organisation where you worked.</small>
+                                </p>
+                                <p>
+                                    <label for="position" class="w3-text-blue required-field"><b>Description</b></label>
+                                    <input id="position" class="w3-input w3-border" type="text" v-model="project.description" required>
+                                    <small id="positionHelp" class="form-help text-muted">Your role or position title.</small>
+                                </p>
+                                <p>
+                                    <label for="website" class="w3-text-blue"><b>Website</b></label>
+                                    <input id="website" class="w3-input w3-border" type="url" v-model="project.website">
+                                    <small id="websiteHelp" class="form-help text-muted">Company website.</small>
+                                </p>
+                                <p>
+                                    <label for="startDate" class="w3-text-blue"><b>Start Date</b></label>
+                                    <input id="startDate" class="w3-input w3-border" type="month" v-model="project.startDate" required>
+                                    <small id="startDateHelp" class="form-help text-muted">Date you started in the position.</small>
+                                </p>
+                                <p>
+                                    <label for="endDate" class="w3-text-blue"><b>End Date</b></label>
+                                    <input id="endDate" class="w3-input w3-border" type="month" v-model="project.endDate">
+                                    <small id="endDateHelp" class="form-help text-muted">Date you finished in the position (leave blank if you are still currently in it).</small>
+                                </p>
+    
+    
+                                <h5 class="margin-top-32">Highlights</h5>
+                                <small id="highlightsHelp" class="form-help text-muted">Briefly describe successes and outcomes (e.g. Increased profits by 20% from 2011-2012 through viral advertising).</small>
+    
+                                <button type="button" class="w3-btn w3-white w3-border w3-border-blue w3-round w3-padding-small" v-on:click="addHighlight(p_index)">+ Add Highlight</button>
+                                <span v-if="project.highlights">X: {{project.highlights.length}}</span>
+                                <ol>
+                                    <li v-for="(highlight, h_index) in project.highlights">
+                                        <input class="w3-input w3-border" type="text" v-model="$root.sections.projects[p_index].highlights[h_index]">
+                                    </li>
+                                </ol>
+
+
+                                <h5 class="margin-top-32">Keywords</h5>
+                                <small id="highlightsHelp" class="form-help text-muted">Briefly describe successes and outcomes (e.g. Increased profits by 20% from 2011-2012 through viral advertising).</small>
+    
+                                <button type="button" class="w3-btn w3-white w3-border w3-border-blue w3-round w3-padding-small" v-on:click="addKeyword(p_index)">+ Add Keyword</button>
+                                <ol>
+                                    <li v-for="(keyword, k_index) in project.keywords">
+                                        <input class="w3-input w3-border" type="text" v-model="$root.sections.projects[p_index].keywords[k_index]">
+                                    </li>
+                                </ol>
+
+
+                                <h5 class="margin-top-32">Roles</h5>
+                                <small id="highlightsHelp" class="form-help text-muted">Briefly describe successes and outcomes (e.g. Increased profits by 20% from 2011-2012 through viral advertising).</small>
+    
+                                <button type="button" class="w3-btn w3-white w3-border w3-border-blue w3-round w3-padding-small" v-on:click="addRole(p_index)">+ Add Role</button>
+                                <ol>
+                                    <li v-for="(role, r_index) in project.roles">
+                                        <input class="w3-input w3-border" type="text" v-model="$root.sections.projects[p_index].roles[r_index]">
+                                    </li>
+                                </ol>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="w3-col m6">
+                        <div class="preview w3-container w3-card-4 w3-padding-16 w3-margin-left margin-top-32" v-for="(project, p_index) in $root.sections.projects">
+                            <preview-field label="Name" v-bind:value="project.name"></preview-field>
+                            <preview-field label="Description" v-bind:value="project.description"></preview-field>
+                            <preview-field label="Website" v-bind:value="project.website" format="url"></preview-field>
+                            <preview-field label="Start Date" v-bind:value="project.startDate" format="date"></preview-field>
+                            <preview-field label="End Date" v-bind:value="project.endDate" format="date"></preview-field>
+
+                            <h5 class="margin-top-32">Highlights</h5>
+                            <ol>
+                                <li v-for="(highlight, h_index) in project.highlights">
+                                    <preview-field label="" v-bind:value="$root.sections.projects[p_index].highlights[h_index]" format="list-item"></preview-field>
+                                </li>
+                            </ol>
+
+                            <h5 class="margin-top-32">Keywords</h5>
+                            <ol>
+                                <li v-for="(keyword, k_index) in project.keywords">
+                                    <preview-field label="" v-bind:value="$root.sections.projects[p_index].keywords[k_index]" format="list-item"></preview-field>
+                                </li>
+                            </ol>
+
+                            <h5 class="margin-top-32">Roles</h5>
+                            <ol>
+                                <li v-for="(role, r_index) in project.roles">
+                                    <preview-field label="" v-bind:value="$root.sections.projects[p_index].roles[r_index]" format="list-item"></preview-field>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        
+
         <template type="text/x-template" id="preview-resume-template" lang="html">
             <div id="preview-resume-root">
                 <!-- Page Container -->
@@ -1006,6 +1120,56 @@
                             </div>
                             <!-- /References -->
 
+                            <!-- Projects -->
+                            <div class="w3-container w3-card w3-white w3-margin-bottom w3-padding-32" v-if="$root.sections.projects.length > 0">
+                                <h2 class="w3-text-grey w3-padding-16"><i class="fas fa-project-diagram fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Projects</h2>
+
+                                <div class="w3-container" v-for="(project, p_index) in $root.sections.projects">
+                                    <h5 class="w3-opacity"><b>{{project.name}}</b></h5>
+                                    <p>{{project.description}}</p>
+                                    <a v-if="project.website" v-bind:href="project.website" target="_blank" class="w3-margin-left"><i class="fas fa-globe"></i></a>
+                                    <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>
+                                        {{project.startDate}} - 
+                                        <span class="w3-tag w3-teal w3-round" v-if="$root.projectEndDate(p_index) == 'Current'">{{$root.projectEndDate(p_index)}}</span>
+                                        <span v-if="$root.projectEndDate(p_index) != 'Current'">{{$root.projectEndDate(p_index)}}</span>
+                                    </h6>
+                                    
+
+                                    <div v-if="project.highlights && project.highlights.length > 0">
+                                        <h5 class="margin-top-32">Highlights</h5>
+                                        <ol>
+                                            <li v-for="(highlight, h_index) in project.highlights">
+                                                {{highlight}}
+                                            </li>
+                                        </ol>
+                                    </div>
+                                   
+
+                                    <div v-if="project.keywords && project.keywords.length > 0">
+                                        <h5 class="margin-top-32">Keywords</h5>
+                                        <ol>
+                                            <li v-for="(keyword, k_index) in project.keywords">
+                                                {{keyword}}
+                                            </li>
+                                        </ol>
+                                    </div>
+                                    
+
+                                    <div v-if="project.roles && project.roles.length ">
+                                        <h5 class="margin-top-32">Roles</h5>
+                                        <ol>
+                                            <li v-for="(role, r_index) in project.roles">
+                                                {{role}}
+                                            </li>
+                                        </ol>
+                                    </div>
+                                    
+
+                                    <hr v-if="p_index < $root.sections.projects.length - 1">
+                                </div>
+                            </div>
+                            <!-- /Projects -->
+
                         </div>
                         <!-- /Right Column -->
                         
@@ -1140,7 +1304,8 @@
 
 
         <!-- Scripts -->
-        <script type="text/javascript" src="scripts.js"></script>
+        <script type="text/javascript" src="scripts/storage.js"></script>
+        <script type="text/javascript" src="scripts/models.js"></script>
 
         <script type="text/javascript" src="vendor/vue.2.6.10.js"></script>
         <script type="text/javascript" src="vendor/vue-router.3.1.3.js"></script>
@@ -1159,6 +1324,7 @@
         <script type="text/javascript" src="components/section_languages.js"></script>
         <script type="text/javascript" src="components/section_interests.js"></script>
         <script type="text/javascript" src="components/section_references.js"></script>
+        <script type="text/javascript" src="components/section_projects.js"></script>
         <script type="text/javascript" src="components/preview_resume.js"></script>
         <script type="text/javascript" src="components/preview_single_field.js"></script>
         <script type="text/javascript" src="components/card_header.js"></script>

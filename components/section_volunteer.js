@@ -29,13 +29,13 @@ var sectionVolunteerComponent = {
 	methods: {
 		addPosition: function()
 		{
-			var item = sections.getDefaultVolunteer();
+			var item = models.newDefaultVolunteer();
 			this.$root.sections.volunteer.push(item);
 		},
 
 		addHighlight: function(index)
 		{
-			var item = sections.getDefaulVolunteerHighlight();
+			var item = models.newDefaultVolunteerHighlight();
 			//console.log("addHighlight(" + index + ")", this.$root.sections.volunteer[index]);
 			this.$root.sections.volunteer[index].highlights.push(item);
 		},

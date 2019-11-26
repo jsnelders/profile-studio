@@ -21,6 +21,7 @@ var router = new VueRouter({
 		{ path: '/section/languages', component: sectionLanguagesComponent },
 		{ path: '/section/interests', component: sectionInterestsComponent },
 		{ path: '/section/references', component: sectionReferencesComponent },
+		{ path: '/section/projects', component: sectionProjectsComponent },
 
 		{ path: '/preview', component: previewResumeComponent },
 		{ path: '/import', component: importComponent },
@@ -74,7 +75,9 @@ var app = new Vue({
 
     created()
     {
-		this.sections = sections.getDefaultSections();
+		this.sections = models.newDefaultSections();
+
+		console.log("this.sections=", this.sections);
 
         //-- Register all components
         pageComponents.registerComponents();
@@ -147,7 +150,7 @@ var app = new Vue({
 
 		loadFromStorage: function()
 		{
-			var savedData = helpers.getLocalStorage("sections");
+			var savedData = storage.getLocalStorage("sections");
 
 			this.populateSections(savedData);
 		},
@@ -239,6 +242,16 @@ var app = new Vue({
 		},
 
 
+		projectEndDate: function(index)
+		{
+			var endDate = this.$root.sections.projects[index].endDate;
+
+			if (endDate == "") return "Current";
+
+			return endDate;
+		},
+
+
 		dateMonthYear: function(dateString)
 		{
 			var dt = new Date(dateString);
@@ -275,7 +288,7 @@ var app = new Vue({
 
 			if (response == true)
 			{
-				this.sections = sections.getDefaultSections();
+				this.sections = models.newDefaultSections();
 				alert("Your resume has been cleared.");
 			}
 
@@ -287,7 +300,7 @@ var app = new Vue({
 		{
 			var response = confirm("Resume saved");
 
-			helpers.setLocalStorage("sections", this.$root.sections);
+			storage.setLocalStorage("sections", this.$root.sections);
 
 			alert("Resume saved");
 			return false;
@@ -500,7 +513,7 @@ var app = new Vue({
 		// 		//NOTE: I'm initially not concerned about performance here.
 		// 		if (val.status == "loaded")
 		// 		{
-		// 			helpers.setLocalStorage("sections", val.sections);
+		// 			storage.setLocalStorage("sections", val.sections);
 		// 		}
 		// 	},
 		// 	deep: true
