@@ -199,14 +199,12 @@ var app = new Vue({
 
 		getCountryName: function(countryCode)
 		{
-			//console.log("getCountryName(" + countryCode + "/" + this.countryCodes.length +"): this.countryCodes=", this.countryCodes);
 			for (var i = 0; i < this.countryCodes.length; i++)
 			{
 				var country = this.countryCodes[i];
-				//console.log("country.code=" + country.code);
+
 				if (country.code == countryCode)
 				{
-					//console.log("country.name=" + country.name);
 					return country.name;
 				}
 			}
@@ -215,16 +213,9 @@ var app = new Vue({
 		},
 
 
+
 		displayLocation: function()
 		{
-			/*
-			<preview-field label="Address" v-bind:value="$root.sections.basics.location.address"></preview-field>
-                            <preview-field label="Postal/Zip Code" v-bind:value="$root.sections.basics.location.postalCode"></preview-field>
-                            <preview-field label="City" v-bind:value="$root.sections.basics.location.city"></preview-field>
-                            <preview-field label="Country Code" v-bind:value="$root.sections.basics.location.countryCode"></preview-field>
-                            <preview-field label="Region" v-bind:value="$root.sections.basics.location.region"></preview-field>
-			*/
-
 			return this.sections.basics.location.city + ", " + this.getCountryName(this.sections.basics.location.countryCode);
 		},
 		
@@ -252,6 +243,8 @@ var app = new Vue({
 			}
 		},
 
+
+
 		languageFluencyAsPercent: function(index)
 		{
 			var fluency = this.$root.sections.skills[index].level;
@@ -275,6 +268,7 @@ var app = new Vue({
 		},
 
 
+
 		workEndDate: function(index)
 		{
 			var endDate = this.$root.sections.work[index].endDate;
@@ -283,6 +277,7 @@ var app = new Vue({
 
 			return endDate;
 		},
+
 
 
 		projectEndDate: function(index)
@@ -295,12 +290,14 @@ var app = new Vue({
 		},
 
 
+
 		dateMonthYear: function(dateString)
 		{
 			var dt = new Date(dateString);
 
 			return dt.getFullYear() + ", " + this.getMonthName(dt.getMonth() + 1);
 		},
+
 
 
 		getMonthName: function(monthNumber)
@@ -322,6 +319,7 @@ var app = new Vue({
 		},
 
 
+
 		/**
 		 * Clear save data and reset the sections structure.
 		 */
@@ -339,6 +337,7 @@ var app = new Vue({
 		},
 
 
+
 		saveResume: function()
 		{
 			var response = confirm("Resume saved");
@@ -348,6 +347,7 @@ var app = new Vue({
 			alert("Resume saved");
 			return false;
 		},
+
 
 
 		/**
@@ -371,6 +371,7 @@ var app = new Vue({
 				overlayBg.style.display = "block";
 			}
 		},
+
 
 
 
@@ -461,6 +462,7 @@ var app = new Vue({
 		},
 
 
+
 		/**
 		 * Collapse or un-collapse a content element by setting its collapse state to opposite of current state.
 		 * @param {string} id ID of the content element to collapse/un-collapse.
@@ -476,7 +478,7 @@ var app = new Vue({
 			{
 			  x.className = x.className.replace(" w3-show", "");
 			}
-		  },
+		},
 
 
 
@@ -547,6 +549,7 @@ var app = new Vue({
 		},
 
 
+		
 		//TODO: Disbled
 		// $data: {
 		// 	handler: function(val, oldVal) 
