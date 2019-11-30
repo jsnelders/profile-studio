@@ -924,10 +924,10 @@
                                     </div>
                                 </div>
                                 <div class="w3-container">
-                                    <p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>{{$root.sections.basics.label}}</p>
-                                    <p><i class="fa fa-home fa-fw w3-margin-right w3-large w3-text-teal"></i>{{$root.displayLocation()}}</p>
-                                    <p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i>{{$root.sections.basics.email}}</p>
-                                    <p><i class="fa fa-phone fa-fw w3-margin-right w3-large w3-text-teal"></i>{{$root.sections.basics.phone}}</p>
+                                    <p title="Professional Title"><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>{{$root.sections.basics.label}}</p>
+                                    <p title="Location"><i class="fa fa-home fa-fw w3-margin-right w3-large w3-text-teal"></i>{{$root.displayLocation()}}</p>
+                                    <p title="Email" v-if="$root.sections.basics.email"><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i>{{$root.sections.basics.email}}</p>
+                                    <p title="Phone" v-if="$root.sections.basics.phone"><i class="fa fa-phone fa-fw w3-margin-right w3-large w3-text-teal"></i>{{$root.sections.basics.phone}}</p>
                                     <hr>
 
                                     <!-- Skills -->
