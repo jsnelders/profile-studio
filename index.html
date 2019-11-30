@@ -165,12 +165,12 @@
                                 <small id="nameHelp" class="form-help text-muted">Your full name.</small>
                             </p>
                             <p>      
-                                <label for="label" class="w3-text-blue required-field"><b>Label</b></label>
+                                <label for="label" class="w3-text-blue required-field"><b>Professional Title</b></label>
                                 <input id="label" class="w3-input w3-border" type="text" v-model="$root.sections.basics.label" required>
-                                <small id="labelHelp" class="form-help text-muted">Job or professional title (e.g. software developer, IT manager, graphic designer).</small>
+                                <small id="labelHelp" class="form-help text-muted">e.g. software developer, IT manager, graphic designer.</small>
                             </p>
                             <p>      
-                                <label for="picture" class="w3-text-blue"><b>Picture</b></label>
+                                <label for="picture" class="w3-text-blue"><b>Profile Picture</b></label>
                                 <input id="picture" class="w3-input w3-border" type="text" v-model="$root.sections.basics.picture">
                                 <small id="pictureHelp" class="form-help text-muted">URL (as per RFC 3986) to a image in JPEG or PNG format of your profile photo.</small>
                             </p>
@@ -197,7 +197,7 @@
 
 
                             <h5 class="margin-top-32">Location</h5>
-                            <small id="locationHelp" class="form-help text-muted">Where are you located?</small>
+                            <small id="locationHelp" class="form-help text-muted">Where do you primarily live or work from?</small>
                             <p>      
                                 <label for="location.address" class="w3-text-blue"><b>Address</b></label>
                                 <input id="location.address" class="w3-input w3-border" type="text" v-model="$root.sections.basics.location.address">
@@ -215,7 +215,10 @@
                             </p>
                             <p>      
                                 <label for="location.countryCode" class="w3-text-blue"><b>Country Code</b></label>
-                                <input id="location.countryCode" class="w3-input w3-border" type="text" v-model="$root.sections.basics.location.countryCode">
+                                <!-- <input id="location.countryCode" class="w3-input w3-border" type="text" v-model="$root.sections.basics.location.countryCode"> -->
+                                <select class="w3-select" v-model="$root.sections.basics.location.countryCode">
+                                    <option v-for="countryCode in $root.countryCodes" v-bind:value="countryCode.code">{{countryCode.name}}</option>
+                                </select>
                                 <small id="countryCodeHelp" class="form-help text-muted">The 2-character country code per ISO-3166-1 ALPHA-2, e.g. US, AU, IN (https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes)</small>
                             </p>
                             <p>      
@@ -226,7 +229,7 @@
                         </form>
 
                         <h5 class="margin-top-32">Social Network Profiles</h5>
-                        Specify any number of social networks that you participate in.
+                        Any social networks that you participate in.
                         <button type="button" class="w3-btn w3-white w3-border w3-border-blue w3-round w3-padding-small" v-on:click="addProfile">+ Add Profile</button>
                         
                         <form class="w3-container w3-card-4 w3-margin-top" v-for="profile in $root.sections.basics.profiles">
@@ -250,8 +253,8 @@
                     <div class="w3-col m6">
                         <div class="preview w3-container w3-card-4 w3-padding-16 w3-margin-left">
                             <preview-field label="Full Name" v-bind:value="$root.sections.basics.name"></preview-field>
-                            <preview-field label="Label" v-bind:value="$root.sections.basics.label"></preview-field>
-                            <preview-field label="Picture" v-bind:value="$root.sections.basics.picture" format="url"></preview-field>
+                            <preview-field label="Professional Title" v-bind:value="$root.sections.basics.label"></preview-field>
+                            <preview-field label="Profile Picture" v-bind:value="$root.sections.basics.picture" format="url"></preview-field>
                             <preview-field label="" v-bind:value="$root.sections.basics.picture" format="image"></preview-field>
     
                             <preview-field label="Email" v-bind:value="$root.sections.basics.email" format="email"></preview-field>
@@ -1304,6 +1307,8 @@
 
 
         <!-- Scripts -->
+        <script type="text/javascript" src="data/data.js"></script>
+
         <script type="text/javascript" src="scripts/storage.js"></script>
         <script type="text/javascript" src="scripts/models.js"></script>
 

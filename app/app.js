@@ -66,7 +66,10 @@ var app = new Vue({
 			id: "",
 			title: "",
 			fontAwesomeIconCss: ""
-		}
+		},
+
+
+		countryCodes: []
     },    
 
 
@@ -102,6 +105,7 @@ var app = new Vue({
 
     mounted() 
     {
+		this.loadCountryCodes();
 		this.loadFromStorage();
 
 		// Set the "current" main navigation item based on the current route.
@@ -169,6 +173,26 @@ var app = new Vue({
 						this.sections[key] = data[key];
 					}
 				}
+			}
+		},
+
+
+
+		loadCountryCodes: function()
+		{
+			console.log("loadCountryCodes(): data", countryCodes);
+
+			this.countryCodes.push({
+				"code": "",
+				"name": "--Select a country--"
+			});
+			
+			for (var property in countryCodes)
+			{
+				this.countryCodes.push({
+					"code": property,
+					"name": countryCodes[property]
+				});
 			}
 		},
 
