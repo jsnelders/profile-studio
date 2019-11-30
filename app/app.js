@@ -197,6 +197,24 @@ var app = new Vue({
 		},
 
 
+		getCountryName: function(countryCode)
+		{
+			//console.log("getCountryName(" + countryCode + "/" + this.countryCodes.length +"): this.countryCodes=", this.countryCodes);
+			for (var i = 0; i < this.countryCodes.length; i++)
+			{
+				var country = this.countryCodes[i];
+				//console.log("country.code=" + country.code);
+				if (country.code == countryCode)
+				{
+					//console.log("country.name=" + country.name);
+					return country.name;
+				}
+			}
+
+			return "";
+		},
+
+
 		displayLocation: function()
 		{
 			/*
@@ -207,8 +225,9 @@ var app = new Vue({
                             <preview-field label="Region" v-bind:value="$root.sections.basics.location.region"></preview-field>
 			*/
 
-			return this.sections.basics.location.city + ", " + this.sections.basics.location.countryCode;
+			return this.sections.basics.location.city + ", " + this.getCountryName(this.sections.basics.location.countryCode);
 		},
+		
 
 
 		skillLevelAsPercent: function(index)

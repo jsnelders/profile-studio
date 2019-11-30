@@ -197,16 +197,14 @@
 
 
                             <h5 class="margin-top-32">Location</h5>
-                            <small id="locationHelp" class="form-help text-muted">Where do you primarily live or work from?</small>
+                            <small id="locationHelp" class="form-help text-muted">
+                                Where do you primarily live or work from?<br>
+                                All field are optional but City and/or Country are recommended.
+                            </small>
                             <p>      
-                                <label for="location.address" class="w3-text-blue"><b>Address</b></label>
+                                <label for="location.address" class="w3-text-blue"><b>Street Address</b></label>
                                 <input id="location.address" class="w3-input w3-border" type="text" v-model="$root.sections.basics.location.address">
-                                <small id="addressHelp" class="form-help text-muted">Your street address</small>
-                            </p>
-                            <p>      
-                                <label for="location.postalCode" class="w3-text-blue"><b>Postal Code</b></label>
-                                <input id="location.postalCode" class="w3-input w3-border" type="text" v-model="$root.sections.basics.location.postalCode">
-                                <small id="postalCodeHelp" class="form-help text-muted">Post or Zip cod</small>
+                                <!-- <small id="addressHelp" class="form-help text-muted">Your street address</small> -->
                             </p>
                             <p>      
                                 <label for="location.city" class="w3-text-blue"><b>City</b></label>
@@ -214,17 +212,22 @@
                                 <small id="cityHelp" class="form-help text-muted">City or town</small>
                             </p>
                             <p>      
-                                <label for="location.countryCode" class="w3-text-blue"><b>Country Code</b></label>
+                                <label for="location.postalCode" class="w3-text-blue"><b>Postal/Zip Code</b></label>
+                                <input id="location.postalCode" class="w3-input w3-border" type="text" v-model="$root.sections.basics.location.postalCode">
+                                <!-- <small id="postalCodeHelp" class="form-help text-muted">Postal or Zip code</small> -->
+                            </p>
+                            <p>      
+                                <label for="location.region" class="w3-text-blue"><b>Region/State/Province</b></label>
+                                <input id="location.region" class="w3-input w3-border" type="text" v-model="$root.sections.basics.location.region">
+                                <!-- <small id="regionHelp" class="form-help text-muted">e.g. a state or province.</small> -->
+                            </p>
+                            <p>      
+                                <label for="location.countryCode" class="w3-text-blue"><b>Country</b></label>
                                 <!-- <input id="location.countryCode" class="w3-input w3-border" type="text" v-model="$root.sections.basics.location.countryCode"> -->
                                 <select class="w3-select" v-model="$root.sections.basics.location.countryCode">
                                     <option v-for="countryCode in $root.countryCodes" v-bind:value="countryCode.code">{{countryCode.name}}</option>
                                 </select>
-                                <small id="countryCodeHelp" class="form-help text-muted">The 2-character country code per ISO-3166-1 ALPHA-2, e.g. US, AU, IN (https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes)</small>
-                            </p>
-                            <p>      
-                                <label for="location.region" class="w3-text-blue"><b>Region</b></label>
-                                <input id="location.region" class="w3-input w3-border" type="text" v-model="$root.sections.basics.location.region">
-                                <small id="regionHelp" class="form-help text-muted">The general region or status where you live - e.g. a US state, or a province, for instance.</small>
+                                <!-- <small id="countryCodeHelp" class="form-help text-muted">Country</small> -->
                             </p>
                         </form>
 
@@ -267,8 +270,8 @@
                             <preview-field label="Address" v-bind:value="$root.sections.basics.location.address"></preview-field>
                             <preview-field label="Postal/Zip Code" v-bind:value="$root.sections.basics.location.postalCode"></preview-field>
                             <preview-field label="City" v-bind:value="$root.sections.basics.location.city"></preview-field>
-                            <preview-field label="Country Code" v-bind:value="$root.sections.basics.location.countryCode"></preview-field>
-                            <preview-field label="Region" v-bind:value="$root.sections.basics.location.region"></preview-field>
+                            <preview-field label="Country Code" v-bind:value="$root.getCountryName($root.sections.basics.location.countryCode)"></preview-field>
+                            <preview-field label="Region/State/Province" v-bind:value="$root.sections.basics.location.region"></preview-field>
                         </div>
                         <div class="w3-container">
                             <h5 class="margin-top-32">Social Network Profiles</h5>
@@ -292,7 +295,7 @@
 
                 <div class="w3-row margin-top-32">
                     <div class="w3-col m6">
-                        <form class="w3-card-4" v-for="(work, w_index) in $root.sections.work">
+                        <form class="w3-card-4  margin-top-32" v-for="(work, w_index) in $root.sections.work">
                             <card-header v-bind:label="work.company + ' - ' + work.position + ' (' + $root.dateMonthYear(work.startDate) + ')'" v-bind:id="w_index" v-on:delete-clicked="deleteClicked" v-on:move-up-clicked="moveUpClicked" v-on:move-down-clicked="moveDownClicked"></card-header>
 
                             <div class="w3-container w3-hide" v-bind:id="'content' + w_index">
@@ -806,7 +809,7 @@
 
                 <div class="w3-row margin-top-32">
                     <div class="w3-col m6">
-                        <form class="w3-card-4" v-for="(project, p_index) in $root.sections.projects">
+                        <form class="w3-card-4  margin-top-32" v-for="(project, p_index) in $root.sections.projects">
                             <card-header v-bind:label="project.name + ' (' + $root.dateMonthYear(project.startDate) + ')'" v-bind:id="p_index" v-on:delete-clicked="deleteClicked" v-on:move-up-clicked="moveUpClicked" v-on:move-down-clicked="moveDownClicked"></card-header>
 
                             <div class="w3-container w3-hide" v-bind:id="'content' + p_index">
