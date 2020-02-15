@@ -12,6 +12,9 @@ This README will be updated when the project starts to stabalise.
 
 Projected completion January 2020.
 
+![Dope](https://img.shields.io/badge/It%20is-Dope!-blue)
+
+
 **Status:**
 16 November 2019
 
