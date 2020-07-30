@@ -29,7 +29,7 @@ var sectionInterestsComponent = {
 	methods: {
 		addInterest: function()
 		{
-			var item = models.getDefaultInterest();
+			var item = models.newDefaultInterest;
 			this.$root.sections.interests.push(item);
 		},
 
