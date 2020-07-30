@@ -1,24 +1,26 @@
 # JSON Resume Editor 
 Editor for JSON Resume (https://jsonresume.org/)
 
-Project started 11 November 2019. This is a work in progress over the coming months.
+Project started 11 November 2019. This is a work in progress.
 
-Aims:
+Aim:
 
-1) Create an editor for JSON Resume (which I now use as my primary professional profile).
-2) Create a VueJS (https://vuejs.org/) application to use as a foundation for teaching "VueJS by Example".
+Create an editor for JSON Resume (which I was using as my primary professional profile for a while).
 
 This README will be updated when the project starts to stabalise.
 
-Projected completion January 2020.
-
 ![Dope](https://img.shields.io/badge/It%20is-Dope!-blue)
+![Dope](https://img.shields.io/badge/Vue.js-Rocks!-green)
 
 
 **Status:**
-16 November 2019
+30 July 2020
 
-Deployed but still under deployment.
+Deployed but still under deployment. I meant to have this finished 6 months agao but start new work and everything dropp off the priority list.  
+However, a recent PR has prompted me to chip away at it again on the weekends.
+
+Next stage of development will "modernise" the code to ES6, introduce Vue single file components and use Parcel.js for compilation. 
+I started this with pure in-browser scripts to cut down on screwing around with build tools but it's now large enough to need them for better code architecture.
 
 Use it at [https://profilestudio.co](https://profilestudio.co/#/)
 
