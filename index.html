@@ -48,6 +48,9 @@
             <nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar">
                 <div class="w3-bar-block">
                     <a href="#/" class="w3-bar-item w3-button w3-padding w3-blue"><i class="fas fa-home"></i>&nbsp; Home</a>
+                    <preview-field label="V." v-bind:value="$root.sections.meta.version"></preview-field>
+                    <preview-field label="Canonical" v-bind:value="$root.sections.meta.canonical"></preview-field>
+                    <preview-field label="Date" v-bind:value="$root.sections.meta.lastModified"></preview-field>
                 </div>
                 <div class="w3-container w3-margin-top">
                     <h5>Sections</h5>
@@ -155,6 +158,7 @@
 
 
         <template type="text/x-template" id="section-basics-template" lang="html">
+            <preview-field label="Full Name" v-bind:value="$root.sections.meta.canonical"></preview-field>
             <div id="section-basics-root">
                 <div class="w3-row">
                     <div class="w3-col m6">
