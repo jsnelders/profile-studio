@@ -1,7 +1,6 @@
 Vue.component("preview-field", {
 	template: '#preview-single-field-template',
 
-
 	props: [
 		'label',
 		'value',
@@ -10,22 +9,16 @@ Vue.component("preview-field", {
 		'format',
 	],
 
-	
-
 	mounted: function()
 	{
 		this.displayFormat = (this.format ? this.format : "");
 	},
-
-
 
 	destroyed: function()
 	{
 		
 	},
 
-
-	
 	data: function()
 	{
 		return {
@@ -33,8 +26,6 @@ Vue.component("preview-field", {
 			item: {}
 		};
 	},
-
-	
 
 	methods: {
 		getLabel: function()
