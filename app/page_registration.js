@@ -163,6 +163,15 @@ var pageComponents = {
         });
 
         this.registerComponent({
+            id: "meta",
+            path: "#/section/meta",
+            type: "page",
+            title: "Meta",
+            description: "",
+            fontAwesomeIcon: "fas fa-info"  
+        });
+
+        this.registerComponent({
             id: "references",
             path: "#/section/references",
             type: "page",
