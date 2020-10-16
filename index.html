@@ -366,6 +366,9 @@
                                 <ol>
                                     <li v-for="(highlight, h_index) in work.highlights">
                                         <input class="w3-input w3-border" type="text" v-model="$root.sections.work[w_index].highlights[h_index]">
+                                        <button type="button" class="w3-btn w3-white w3-border w3-border-blue w3-round w3-padding-small" v-on:click="moveUpClickedHighlight(w_index,h_index)">^ Highlight</button>
+                                        <button type="button" class="w3-btn w3-white w3-border w3-border-blue w3-round w3-padding-small" v-on:click="moveDownClickedHighlight(w_index,h_index)">v Highlight</button>
+                                        <button type="button" class="w3-btn w3-white w3-border w3-border-blue w3-round w3-padding-small" v-on:click="deleteClickedHighlight(w_index,h_index)">X Highlight</button>
                                     </li>
                                 </ol>
                             </div>
@@ -872,7 +875,6 @@
                                 <small id="highlightsHelp" class="form-help text-muted">Briefly describe successes and outcomes (e.g. Increased profits by 20% from 2011-2012 through viral advertising).</small>
     
                                 <button type="button" class="w3-btn w3-white w3-border w3-border-blue w3-round w3-padding-small" v-on:click="addHighlight(p_index)">+ Add Highlight</button>
-                                <span v-if="project.highlights">X: {{project.highlights.length}}</span>
                                 <ol>
                                     <li v-for="(highlight, h_index) in project.highlights">
                                         <input class="w3-input w3-border" type="text" v-model="$root.sections.projects[p_index].highlights[h_index]">
@@ -999,7 +1001,7 @@
                             <div class="w3-container w3-card w3-white w3-margin-bottom w3-padding-32" v-if="$root.sections.work.length > 0">
                                 <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Work</h2>
 
-                                <div class="w3-container" v-for="(work, w_index) in $root.sections.work">
+                                <div class="w3-container" v-for="(work, w_index) in $root.sections.work" v-bind:id="'content' + w_index">
                                     <h5 class="w3-opacity"><b>{{work.position}}</b></h5>
                                     <b>{{work.company}}</b>
                                     <a v-if="work.website" v-bind:href="work.website" target="_blank" class="w3-margin-left"><i class="fas fa-globe"></i></a>

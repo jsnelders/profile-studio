@@ -37,6 +37,9 @@ var sectionSkillsComponent = {
 		{
 			var item = models.newDefaultSkillKeyword();
 			//console.log("addHighlight(" + index + ")", this.$root.sections.volunteer[index]);
+			if (!this.$root.sections.skills[index].keywords) {
+				this.$set(this.$root.sections.skills[index], "keywords", []);
+			}
 			this.$root.sections.skills[index].keywords.push(item);
 		},
 		
