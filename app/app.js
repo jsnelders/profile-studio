@@ -20,6 +20,7 @@ var router = new VueRouter({
 		{ path: '/section/skills', component: sectionSkillsComponent },
 		{ path: '/section/languages', component: sectionLanguagesComponent },
 		{ path: '/section/interests', component: sectionInterestsComponent },
+		{ path: '/section/meta', component: sectionMetaComponent },
 		{ path: '/section/references', component: sectionReferencesComponent },
 		{ path: '/section/projects', component: sectionProjectsComponent },
 

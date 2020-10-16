@@ -1,9 +1,9 @@
-var sectionBasicsComponent = {
-	template: '#section-basics-template',
+var sectionMetaComponent = {
+	template: '#section-meta-template',
 
 	mounted: function()
 	{
-		var savedData = storage.getLocalStorage("section.basics");
+		var savedData = storage.getLocalStorage("section.meta");
 
 		if (savedData)
 		{
@@ -53,8 +53,8 @@ var sectionBasicsComponent = {
 	methods: {
 		addProfile: function()
 		{
-			var item = models.newDefaultBasic();
-			this.$root.sections.basics.profiles.push(item);
+			var item = models.newDefaultMeta();
+			this.$root.sections.meta.profiles.push(item);
 		}
 	}
 };

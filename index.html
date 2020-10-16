@@ -47,7 +47,8 @@
             <nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar">
                 <div class="w3-bar-block">
                     <a href="#/" class="w3-bar-item w3-button w3-padding w3-blue"><i class="fas fa-home"></i>&nbsp; Home</a>
-                    <a v-bind:href="this.sections.meta.canonical" target="_new" class="w3-bar-item w3-button w3-padding w3-blue">{{ this.sections.meta.version }} ({{ this.sections.meta.lastModified}})</a>
+                    <a v-bind:href="this.sections.meta.canonical" v-if="this.sections.meta.canonical != ''" target="_new" class="w3-bar-item w3-button w3-padding w3-blue">{{ this.sections.meta.version }}</a>
+                    <span v-else  class="w3-bar-item w3-button w3-padding w3-blue">{{ this.sections.meta.version }}</span><span  v-if="this.sections.meta.lastModified != ''"  class="w3-bar-item w3-button w3-padding w3-blue">({{ this.sections.meta.lastModified}})</span>
                 </div>
                 <div class="w3-container w3-margin-top">
                     <h5>Sections</h5>
@@ -65,6 +66,7 @@
                     <a href="#/section/interests" class="w3-bar-item w3-button w3-padding"><i class="fas fa-map"></i>&nbsp; Interests</a>
                     <a href="#/section/references" class="w3-bar-item w3-button w3-padding"><i class="fas fa-list"></i>&nbsp; References</a>
                     <a href="#/section/projects" class="w3-bar-item w3-button w3-padding"><i class="fas fa-project-diagram"></i>&nbsp; Projects</a>
+                    <a href="#/section/meta" class="w3-bar-item w3-button w3-padding"><i class="fas fa-info-circle"></i>&nbsp; Meta</a>
                 </div>
                 <hr>
                 <div class="w3-bar-block">
@@ -287,7 +289,32 @@
             </div>
         </template>
 
-
+        <template type="text/x-template" id="section-meta-template" lang="html">
+            <div id="section-meta-root">
+                <div class="w3-row">
+                    <div class="w3-col m6">
+                        <form class="w3-container w3-card-4">
+                            <p>      
+                                <label for="version" class="w3-text-blue"><b>Version</b></label>
+                                <input id="version" class="w3-input w3-border" type="text" v-model="$root.sections.meta.version" required>
+                                <small id="versionHelp" class="form-help text-muted">Version of this CV.</small>
+                            </p>
+                            <p>      
+                                <label for="canonical" class="w3-text-blue"><b>URL</b></label>
+                                <input id="canonical" class="w3-input w3-border" type="text" v-model="$root.sections.meta.canonical" required>
+                                <small id="canonicalHelp" class="form-help text-muted">Canonical of this JSON file.</small>
+                            </p>
+                            <p>   
+                                <label for="lastModified" class="w3-text-blue"><b>Modified</b></label>
+                                <input id="lastModified" readonly class="w3-input w3-border" type="text" v-model="$root.sections.meta.lastModified" required>
+                                <small id="lastModifiedHelp" class="form-help text-muted">Read-only date and timme of export.</small>
+                              <!-- <preview-field label="Last Exported" v-bind:value="meta.lastModified"></preview-field>  -->
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </template>
 
         <template type="text/x-template" id="section-work-template" lang="html">
             <div id="section-work-root">
@@ -1334,6 +1361,7 @@
         <script type="text/javascript" src="components/section_skills.js"></script>
         <script type="text/javascript" src="components/section_languages.js"></script>
         <script type="text/javascript" src="components/section_interests.js"></script>
+        <script type="text/javascript" src="components/section_meta.js"></script>
         <script type="text/javascript" src="components/section_references.js"></script>
         <script type="text/javascript" src="components/section_projects.js"></script>
         <script type="text/javascript" src="components/preview_resume.js"></script>
