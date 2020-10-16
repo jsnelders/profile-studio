@@ -5,7 +5,6 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
         <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
         <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
@@ -48,6 +47,8 @@
             <nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar">
                 <div class="w3-bar-block">
                     <a href="#/" class="w3-bar-item w3-button w3-padding w3-blue"><i class="fas fa-home"></i>&nbsp; Home</a>
+                    <a v-bind:href="this.sections.meta.canonical" v-if="this.sections.meta.canonical != ''" target="_new" class="w3-bar-item w3-button w3-padding w3-blue">{{ this.sections.meta.version }}</a>
+                    <span v-else  class="w3-bar-item w3-button w3-padding w3-blue">{{ this.sections.meta.version }}</span><span  v-if="this.sections.meta.lastModified != ''"  class="w3-bar-item w3-button w3-padding w3-blue">({{ this.sections.meta.lastModified}})</span>
                 </div>
                 <div class="w3-container w3-margin-top">
                     <h5>Sections</h5>
@@ -65,6 +66,7 @@
                     <a href="#/section/interests" class="w3-bar-item w3-button w3-padding"><i class="fas fa-map"></i>&nbsp; Interests</a>
                     <a href="#/section/references" class="w3-bar-item w3-button w3-padding"><i class="fas fa-list"></i>&nbsp; References</a>
                     <a href="#/section/projects" class="w3-bar-item w3-button w3-padding"><i class="fas fa-project-diagram"></i>&nbsp; Projects</a>
+                    <a href="#/section/meta" class="w3-bar-item w3-button w3-padding"><i class="fas fa-info"></i>&nbsp; Meta</a>
                 </div>
                 <hr>
                 <div class="w3-bar-block">
@@ -235,7 +237,8 @@
                         Any social networks that you participate in.
                         <button type="button" class="w3-btn w3-white w3-border w3-border-blue w3-round w3-padding-small" v-on:click="addProfile">+ Add Profile</button>
                         
-                        <form class="w3-container w3-card-4 w3-margin-top" v-for="profile in $root.sections.basics.profiles">
+                        <form class="w3-container w3-card-4 w3-margin-top" v-for="(profile, pr_index) in $root.sections.basics.profiles">
+                            <card-header v-bind:label="profile.network" v-bind:id="pr_index" v-on:delete-clicked="deleteClicked" v-on:move-up-clicked="moveUpClicked" v-on:move-down-clicked="moveDownClicked"></card-header>
                             <p>      
                                 <label for="profiles.network" class="w3-text-blue"><b>Network</b></label>
                                 <input id="profiles.network" class="w3-input w3-border" type="text" v-model="profile.network">
@@ -287,7 +290,32 @@
             </div>
         </template>
 
-
+        <template type="text/x-template" id="section-meta-template" lang="html">
+            <div id="section-meta-root">
+                <div class="w3-row">
+                    <div class="w3-col m6">
+                        <form class="w3-container w3-card-4">
+                            <p>      
+                                <label for="version" class="w3-text-blue"><b>Version</b></label>
+                                <input id="version" class="w3-input w3-border" type="text" v-model="$root.sections.meta.version" required>
+                                <small id="versionHelp" class="form-help text-muted">Version of this CV.</small>
+                            </p>
+                            <p>      
+                                <label for="canonical" class="w3-text-blue"><b>URL</b></label>
+                                <input id="canonical" class="w3-input w3-border" type="text" v-model="$root.sections.meta.canonical" required>
+                                <small id="canonicalHelp" class="form-help text-muted">Canonical of this JSON file.</small>
+                            </p>
+                            <p>   
+                                <label for="lastModified" class="w3-text-blue"><b>Modified</b></label>
+                                <input id="lastModified" readonly class="w3-input w3-border" type="text" v-model="$root.sections.meta.lastModified" required>
+                                <small id="lastModifiedHelp" class="form-help text-muted">Read-only date and timme of export.</small>
+                              <!-- <preview-field label="Last Exported" v-bind:value="meta.lastModified"></preview-field>  -->
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </template>
 
         <template type="text/x-template" id="section-work-template" lang="html">
             <div id="section-work-root">
@@ -338,6 +366,9 @@
                                 <ol>
                                     <li v-for="(highlight, h_index) in work.highlights">
                                         <input class="w3-input w3-border" type="text" v-model="$root.sections.work[w_index].highlights[h_index]">
+                                        <button type="button" class="w3-btn w3-white w3-border w3-border-blue w3-round w3-padding-small" v-on:click="moveUpClickedHighlight(w_index,h_index)">^ Highlight</button>
+                                        <button type="button" class="w3-btn w3-white w3-border w3-border-blue w3-round w3-padding-small" v-on:click="moveDownClickedHighlight(w_index,h_index)">v Highlight</button>
+                                        <button type="button" class="w3-btn w3-white w3-border w3-border-blue w3-round w3-padding-small" v-on:click="deleteClickedHighlight(w_index,h_index)">X Highlight</button>
                                     </li>
                                 </ol>
                             </div>
@@ -844,7 +875,6 @@
                                 <small id="highlightsHelp" class="form-help text-muted">Briefly describe successes and outcomes (e.g. Increased profits by 20% from 2011-2012 through viral advertising).</small>
     
                                 <button type="button" class="w3-btn w3-white w3-border w3-border-blue w3-round w3-padding-small" v-on:click="addHighlight(p_index)">+ Add Highlight</button>
-                                <span v-if="project.highlights">X: {{project.highlights.length}}</span>
                                 <ol>
                                     <li v-for="(highlight, h_index) in project.highlights">
                                         <input class="w3-input w3-border" type="text" v-model="$root.sections.projects[p_index].highlights[h_index]">
@@ -942,6 +972,7 @@
                                     <div v-if="$root.sections.skills.length > 0" v-for="(skill, index) in $root.sections.skills">
                                         <p>{{skill.name}}</p>
                                         <div class="w3-light-grey w3-round-xlarge w3-small">
+                                            <div class="w3-container w3-center w3-round-xlarge w3-teal" v-bind:style="{ width: $root.skillLevelAsPercent(index) + '%' }">{{skill.level}}</div>
                                         </div>
                                     </div>
                                     <br>
@@ -949,6 +980,7 @@
                                     <!-- Languages -->
                                     <div v-if="$root.sections.languages && $root.sections.languages.length > 0" >
                                         <p class="w3-large w3-text-theme"><b><i class="fa fa-globe fa-fw w3-margin-right w3-text-teal"></i>Languages</b></p>
+                                        <div v-if="$root.sections.languages.length > 0" v-for="(language, index) in $root.sections.languages">
                                         <div v-for="(language, index) in $root.sections.languages">
                                             <p>{{language.language}}</p>
                                             <div class="w3-light-grey w3-round-xlarge">
@@ -969,7 +1001,7 @@
                             <div class="w3-container w3-card w3-white w3-margin-bottom w3-padding-32" v-if="$root.sections.work.length > 0">
                                 <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Work</h2>
 
-                                <div class="w3-container" v-for="(work, w_index) in $root.sections.work">
+                                <div class="w3-container" v-for="(work, w_index) in $root.sections.work" v-bind:id="'content' + w_index">
                                     <h5 class="w3-opacity"><b>{{work.position}}</b></h5>
                                     <b>{{work.company}}</b>
                                     <a v-if="work.website" v-bind:href="work.website" target="_blank" class="w3-margin-left"><i class="fas fa-globe"></i></a>
@@ -1332,6 +1364,7 @@
         <script type="text/javascript" src="components/section_skills.js"></script>
         <script type="text/javascript" src="components/section_languages.js"></script>
         <script type="text/javascript" src="components/section_interests.js"></script>
+        <script type="text/javascript" src="components/section_meta.js"></script>
         <script type="text/javascript" src="components/section_references.js"></script>
         <script type="text/javascript" src="components/section_projects.js"></script>
         <script type="text/javascript" src="components/preview_resume.js"></script>
