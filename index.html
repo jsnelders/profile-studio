@@ -237,7 +237,8 @@
                         Any social networks that you participate in.
                         <button type="button" class="w3-btn w3-white w3-border w3-border-blue w3-round w3-padding-small" v-on:click="addProfile">+ Add Profile</button>
                         
-                        <form class="w3-container w3-card-4 w3-margin-top" v-for="profile in $root.sections.basics.profiles">
+                        <form class="w3-container w3-card-4 w3-margin-top" v-for="(profile, pr_index) in $root.sections.basics.profiles">
+                            <card-header v-bind:label="profile.network" v-bind:id="pr_index" v-on:delete-clicked="deleteClicked" v-on:move-up-clicked="moveUpClicked" v-on:move-down-clicked="moveDownClicked"></card-header>
                             <p>      
                                 <label for="profiles.network" class="w3-text-blue"><b>Network</b></label>
                                 <input id="profiles.network" class="w3-input w3-border" type="text" v-model="profile.network">
