@@ -1,9 +1,9 @@
-var sectionBasicsComponent = {
-	template: '#section-basics-template',
+var sectionMetaComponent = {
+	template: '#section-meta-template',
 
 	mounted: function()
 	{
-		var savedData = storage.getLocalStorage("section.basics");
+		var savedData = storage.getLocalStorage("section.meta");
 
 		if (savedData)
 		{
@@ -53,31 +53,8 @@ var sectionBasicsComponent = {
 	methods: {
 		addProfile: function()
 		{
-			var item = models.newDefaultBasic();
-			this.$root.sections.basics.profiles.push(item);
-		},
-
-		deleteClicked: function(index)
-		{
-			var response = confirm("Are you sure you want to delete this interest?");
-
-			if (response == true)
-			{
-				this.$root.sections.basics.profiles.splice(index, 1);
-			}
-		},
-
-
-		moveUpClicked: function(index)
-		{
-			this.$root.moveArrayPosition(this.$root.sections.basics.profiles, index, index - 1);
-		},
-
-
-		moveDownClicked: function(index)
-		{
-			this.$root.moveArrayPosition(this.$root.sections.basics.profiles, index, index + 1);
+			var item = models.newDefaultMeta();
+			this.$root.sections.meta.profiles.push(item);
 		}
-	
 	}
 };

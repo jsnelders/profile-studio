@@ -20,6 +20,7 @@ var router = new VueRouter({
 		{ path: '/section/skills', component: sectionSkillsComponent },
 		{ path: '/section/languages', component: sectionLanguagesComponent },
 		{ path: '/section/interests', component: sectionInterestsComponent },
+		{ path: '/section/meta', component: sectionMetaComponent },
 		{ path: '/section/references', component: sectionReferencesComponent },
 		{ path: '/section/projects', component: sectionProjectsComponent },
 
@@ -32,75 +33,48 @@ var router = new VueRouter({
 });
 
 
-
 var app = new Vue({
 	el: '#app',
-
 	router: router,
-    
-
-
-
-
     components: 
     {
-
-	},
-
-
-
-
+		},
 
     data: 
     {
-		status: "laading",
+			status: "loading",
 
-		sections: {},
+			sections: {},
+			/**
+			 * Details of the  current page/route.
+			 */
+			activePage: {
+				id: "",
+				title: "",
+				fontAwesomeIconCss: ""
+			},
 
-
-
-		/**
-		 * Details of the  current page/route.
-		 */
-		activePage: {
-			id: "",
-			title: "",
-			fontAwesomeIconCss: ""
-		},
-
-
-		countryCodes: []
+			countryCodes: []
     },    
 
-
-
-
-
     created()
-    {
-		this.sections = models.newDefaultSections();
+		{
+			this.sections = models.newDefaultSections();
+			console.log("this.sections=", this.sections);
 
-		console.log("this.sections=", this.sections);
+			//-- Register all components
+			pageComponents.registerComponents();
 
-        //-- Register all components
-        pageComponents.registerComponents();
-
-        //-- Get the component for the initial route path
-        var initialRoute = this.$route.path;
-        var component = pageComponents.getComponentByPath(initialRoute);
-        this.setActivePageByComponent(component);
+			//-- Get the component for the initial route path
+			var initialRoute = this.$route.path;
+			var component = pageComponents.getComponentByPath(initialRoute);
+			this.setActivePageByComponent(component);
     },
-
-
-
 	
 
     destroyed() 
     {
-	},
-
-
-
+		},
 
 
     mounted() 
@@ -122,9 +96,6 @@ var app = new Vue({
 	},
 
 
-
-
-
 	methods: {
 		/**
 		 * Set details of the currently selected "page" (route) from a registered component.
@@ -136,7 +107,7 @@ var app = new Vue({
 			this.activePage.id = component.id;
 			this.activePage.title = component.title;
 			this.activePage.fontAwesomeIconCss = component.fontAwesomeIcon;
-        },
+    },
 		
 		
 
@@ -150,16 +121,11 @@ var app = new Vue({
 			this.activePage.fontAwesomeIconCss = "";
 		},
 
-
-
 		loadFromStorage: function()
 		{
 			var savedData = storage.getLocalStorage("sections");
-
 			this.populateSections(savedData);
 		},
-
-
 
 		populateSections: function(data)
 		{
@@ -175,9 +141,6 @@ var app = new Vue({
 				}
 			}
 		},
-
-
-
 		loadCountryCodes: function()
 		{
 			console.log("loadCountryCodes(): data", countryCodes);
@@ -211,9 +174,6 @@ var app = new Vue({
 
 			return "";
 		},
-
-
-
 		displayLocation: function()
 		{
 			return this.sections.basics.location.city + ", " + this.getCountryName(this.sections.basics.location.countryCode);
@@ -242,11 +202,11 @@ var app = new Vue({
 				return 50;
 			}
 		},
-
-
-
 		languageFluencyAsPercent: function(index)
 		{
+			if (!this.$root.sections.skills[index]) {
+				return 100;
+			}
 			var fluency = this.$root.sections.skills[index].level;
 
 			if (fluency.toLowerCase() == "master" || fluency.toLowerCase() == "expert")
@@ -266,9 +226,6 @@ var app = new Vue({
 				return 50;
 			}
 		},
-
-
-
 		workEndDate: function(index)
 		{
 			var endDate = this.$root.sections.work[index].endDate;
@@ -277,9 +234,6 @@ var app = new Vue({
 
 			return endDate;
 		},
-
-
-
 		projectEndDate: function(index)
 		{
 			var endDate = this.$root.sections.projects[index].endDate;
@@ -288,18 +242,12 @@ var app = new Vue({
 
 			return endDate;
 		},
-
-
-
 		dateMonthYear: function(dateString)
 		{
 			var dt = new Date(dateString);
 
 			return dt.getFullYear() + ", " + this.getMonthName(dt.getMonth() + 1);
 		},
-
-
-
 		getMonthName: function(monthNumber)
 		{
 			if (monthNumber == 1) return "January";
@@ -317,9 +265,6 @@ var app = new Vue({
 
 			return "";
 		},
-
-
-
 		/**
 		 * Clear save data and reset the sections structure.
 		 */
@@ -335,9 +280,6 @@ var app = new Vue({
 
 			return false;
 		},
-
-
-
 		saveResume: function()
 		{
 			var response = confirm("Resume saved");
@@ -347,9 +289,6 @@ var app = new Vue({
 			alert("Resume saved");
 			return false;
 		},
-
-
-
 		/**
 		 * Open the sidebar on smaller screens.
 		 */
@@ -372,9 +311,6 @@ var app = new Vue({
 			}
 		},
 
-
-
-
 		/**
 		 * Open the sidebar on smaller screens.
 		 */
@@ -386,9 +322,6 @@ var app = new Vue({
 			mySidebar.style.display = "none";
 			overlayBg.style.display = "none";
 		},
-
-
-
 		/**
 		 * Show the full-page loading overlay.
 		 */
@@ -406,9 +339,6 @@ var app = new Vue({
 		{
 			document.getElementById("full-page-overlay").style.display = "none";
 		},
-
-
-
 		/**
 		 * Find and mark the main navigation item for the selected "current" page/route
 		 */
@@ -460,9 +390,6 @@ var app = new Vue({
 				}
 			}
 		},
-
-
-
 		/**
 		 * Collapse or un-collapse a content element by setting its collapse state to opposite of current state.
 		 * @param {string} id ID of the content element to collapse/un-collapse.
@@ -479,9 +406,6 @@ var app = new Vue({
 			  x.className = x.className.replace(" w3-show", "");
 			}
 		},
-
-
-
 		/**
 		 * Move the position of an element in an array.
 		 * 
@@ -526,9 +450,6 @@ var app = new Vue({
 		}
 
 	},
-
-
-
 
 
 	watch: {
