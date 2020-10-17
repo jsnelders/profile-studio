@@ -354,7 +354,7 @@
                                 </p>
                                 <p>
                                     <label for="summary" class="w3-text-blue"><b>Summary</b></label>
-                                    <textarea id="summary" rows="8" class="w3-input w3-border" type="text" v-model="work.summary"></textarea>
+                                    <textarea id="summary" rows="8" class="w3-input w3-border" type="text" v-model="work.summary" format="multi-line"></textarea>
                                     <small id="summaryHelp" class="form-help text-muted">Details of your work, responsibilities and achievements. And a little about the company.</small>
                                 </p>
     
@@ -1012,7 +1012,10 @@
                                         <span class="w3-tag w3-teal w3-round" v-if="$root.workEndDate(w_index) == 'Current'">{{$root.workEndDate(w_index)}}</span>
                                         <span v-if="$root.workEndDate(w_index) != 'Current'">{{$root.workEndDate(w_index)}}</span>
                                     </h6>
-                                    <div v-html="work.summary"></div>
+                                    <!--
+                                    <div v-html="work.summary" ></div>
+                                    -->
+                                    <preview-field :label="''" :value="work.summary" :format="'multi-line'" :datatype="'text'" />
 
                                     <h5 class="margin-top-32">Highlights</h5>
                                     <ol>
@@ -1228,10 +1231,13 @@
         <template type="text/x-template" id="preview-single-field-template" lang="html">
             <div id="preview-single-field-root">
                 <div class="w3-row w3-margin-bottom" v-if="displayFormat == '' || displayFormat == 'url' || displayFormat == 'multi-line' || displayFormat == 'email' || displayFormat == 'phone' || displayFormat == 'date'">
-                    <div class="w3-col m3">
+                    <div class="w3-col m3" v-if="label != ''">
                         <span v-html="getLabel()"></span>
                     </div>
-                    <div class="w3-col m9">
+                    <div class="w3-col m9" v-if="label != ''">
+                        <span v-html="getValue()"></span>
+                    </div>
+                    <div class="w3-col m12" v-else>
                         <span v-html="getValue()"></span>
                     </div>
                 </div>
