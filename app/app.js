@@ -204,6 +204,9 @@ var app = new Vue({
 		},
 		languageFluencyAsPercent: function(index)
 		{
+			if (!this.$root.sections.skills[index]) {
+				return 100;
+			}
 			var fluency = this.$root.sections.skills[index].level;
 
 			if (fluency.toLowerCase() == "master" || fluency.toLowerCase() == "expert")
