@@ -36,6 +36,7 @@ Vue.component("preview-field", {
 		getValue: function()
 		{
 			// Return the value formatted.
+			// console.log("Display Format > " + this.displayFormat)
 
 			if (this.displayFormat == "url")
 			{
