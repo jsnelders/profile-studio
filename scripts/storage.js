@@ -41,7 +41,7 @@ var storage = {
 
     getLocalStorage: function(key)
     {
-        // console.log(key);
+        console.log(key);
         return this.parseJSON2Native(localStorage.getItem(key));
     },
     /*

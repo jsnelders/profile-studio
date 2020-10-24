@@ -47,8 +47,14 @@
             <nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar">
                 <div class="w3-bar-block">
                     <a href="#/" class="w3-bar-item w3-button w3-padding w3-blue"><i class="fas fa-home"></i>&nbsp; Home</a>
-                    <a v-bind:href="this.sections.meta.canonical" v-if="this.sections.meta.canonical != ''" target="_new" class="w3-bar-item w3-button w3-padding w3-blue">{{ this.sections.meta.version }}</a>
-                    <span v-else  class="w3-bar-item w3-button w3-padding w3-blue">{{ this.sections.meta.version }}</span><span  v-if="this.sections.meta.lastModified != ''"  class="w3-bar-item w3-button w3-padding w3-blue">({{ this.sections.meta.lastModified}})</span>
+                    <form>
+                    <select name="currentVersion" v-model="currentVersion" @change="onVersionChange()">
+                    <option v-for="(version, v_index) in this.$root.versions">
+                            {{ version }}
+                    </option>
+                    </select>
+                    </form>
+                    <a v-bind:href="this.sections.meta.canonical" v-if="this.sections.meta.canonical != ''" target="_new" class="w3-bar-item w3-button w3-padding "><i class="fas fa-link"></i> link ({{ this.sections.meta.lastModified}})</a>
                 </div>
                 <div class="w3-container w3-margin-top">
                     <h5>Sections</h5>

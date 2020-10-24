@@ -58,7 +58,7 @@ var app = new Vue({
 
 		currentVersion: "",
 
-		availableVersions: []
+		versions: []
 	},    
 
 	created()
@@ -66,6 +66,7 @@ var app = new Vue({
 		this.sections = models.newDefaultSections();
 		// this.versons = [];
 		this.versions = storage.getLocalStorage("versions");
+		this.currentVersion = "";
 
 		// console.log("this.sections=", this.sections);
 
@@ -88,8 +89,9 @@ var app = new Vue({
 	{
 		this.loadCountryCodes();
 		this.loadFromStorage();
+		this.currentVersion = this.$root.sections.meta.version
 		// Quick Fix
-		storage.setVersionedLocalStorage(this.$root.sections.meta.version, "sections", this.$root.sections);
+		storage.setVersionedLocalStorage(this.currentVersion, "sections", this.$root.sections);
 		// console.log([this.$root.sections.meta.version,this.$root.sections]);
 		//if (!this.availableVersions.hasKey(this.$root.sections.meta.version))
 		//	this.availableVersions.push(this.$root.sections.meta.version);
@@ -124,7 +126,16 @@ var app = new Vue({
 			this.activePage.fontAwesomeIconCss = component.fontAwesomeIcon;
     },
 		
-		
+		onVersionChange: function() {
+			// storage.setVersionedLocalStorage(this.currentVersion,"sections",this.$root.sections);
+			console.log(["version",this.currentVersion,this.$root.sections.meta.version]);
+
+			this.$root.sections = storage.getVersionedLocalStorage(this.currentVersion,"sections");
+			
+			console.log(["version",this.currentVersion,this.$root.sections.meta.version]);
+
+			storage.setLocalStorage(this.$root.sections); // Perhaps optimisation to come
+		},
 
 		/**
 		 * Reset and clear the details of the active page.
