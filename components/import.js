@@ -67,20 +67,22 @@ var importComponent = {
 
 		deleteClicked: function(index)
 		{
-			console.log(index);
+			// console.log(index);
 			var response = confirm("Are you sure you want to delete this position? " + index);
 
 			if (response == true)
 			{
 				this.$root.versions.splice(index, 1);
 			}
+			storage.setLocalStorage("versions",this.$root.versions);
 		},
 
 
 		moveUpClicked: function(index)
 		{
-			console.log(index);
+			// console.log(index);
 			this.$root.moveArrayPosition(this.$root.versions, index, index - 1);
+			storage.setLocalStorage("versions",this.$root.versions);
 		},
 
 
