@@ -67,4 +67,16 @@ var storage = {
         localStorage.removeItem(key);
     },
 
+    updateVersion: function() 
+    {
+			
+        // console.log(["version",this.currentVersion,this.$root.sections.meta.version]);
+
+        
+        // console.log(["Root Sections",this.$root.sections]);
+        
+
+        //console.log(["version",this.currentVersion,this.$root.sections.meta.version]);
+    }
+
 }

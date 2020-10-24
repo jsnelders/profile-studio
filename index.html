@@ -317,7 +317,7 @@
                         <form class="w3-container w3-card-4">
                             <p>      
                                 <label for="version" class="w3-text-blue"><b>Version</b></label>
-                                <input id="version" class="w3-input w3-border" type="text" v-model="$root.sections.meta.version" required>
+                                <input id="version" class="w3-input w3-border" type="text" @input="versionChange" v-model="$root.sections.meta.version" required>
                                 <small id="versionHelp" class="form-help text-muted">Version of this CV.</small>
                             </p>
                             <p>      

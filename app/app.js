@@ -127,17 +127,9 @@ var app = new Vue({
     },
 		
 		onVersionChange: function() {
-			//Save previous state
 			storage.setVersionedLocalStorage(this.$root.sections.meta.version,"sections",this.$root.sections);
-			
-			// console.log(["version",this.currentVersion,this.$root.sections.meta.version]);
-
 			this.$root.sections = storage.getVersionedLocalStorage(this.currentVersion,"sections");
-			// console.log(["Root Sections",this.$root.sections]);
-			storage.setLocalStorage(this.$root.sections); // Perhaps optimisation to come
-
-			//console.log(["version",this.currentVersion,this.$root.sections.meta.version]);
-
+			storage.setLocalStorage(this.$root.sections);// Perhaps optimisation to come
 		},
 
 		/**
