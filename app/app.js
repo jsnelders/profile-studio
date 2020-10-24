@@ -90,7 +90,7 @@ var app = new Vue({
 		this.loadFromStorage();
 		// Quick Fix
 		storage.setVersionedLocalStorage(this.$root.sections.meta.version, "sections", this.$root.sections);
-		console.log([this.$root.sections.meta.version,this.$root.sections]);
+		// console.log([this.$root.sections.meta.version,this.$root.sections]);
 		//if (!this.availableVersions.hasKey(this.$root.sections.meta.version))
 		//	this.availableVersions.push(this.$root.sections.meta.version);
 		// console.log([this.versions[0],storage.getVersionedLocalStorage(this.versions[0])]);
@@ -167,7 +167,7 @@ var app = new Vue({
 
 		loadCountryCodes: function()
 		{
-			console.log("loadCountryCodes(): data", countryCodes);
+			// console.log("loadCountryCodes(): data", countryCodes);
 
 			this.countryCodes.push({
 				"code": "",

@@ -1269,14 +1269,24 @@
         <template type="text/x-template" id="import-template" lang="html">
             <div id="import-root">
                 <p>
-                    Past existing resume JSON and import to continue editing.
+                    Paste existing resume JSON and import to continue editing.
                 </p>
                 <textarea rows="20" class="w3-input w3-border" type="text" v-model="json"></textarea>
                 <button class="w3-btn w3-white w3-border w3-border-blue w3-round" v-on:click="importJson">Import</button>
                 <br/>
-                <button class="w3-btn w3-white w3-border w3-border-blue w3-round" v-on:click="importVersion" v-bind:version="version" v-for="(version, v_index) in $root.versions">
-                    {{ version }}
-                </button>
+                <BR/>
+                <form class="w3-card-4  margin-top-32" v-for="(version, v_index) in this.$root.versions">
+                    <card-header v-bind:label="version" v-bind:id="v_index" v-on:delete-clicked="deleteClicked" v-on:move-up-clicked="moveUpClicked" v-on:move-down-clicked="moveDownClicked"></card-header>
+
+                    <div class="w3-container w3-hide" v-bind:id="'content' + v_index">
+                        <button class="w3-btn w3-white w3-border w3-border-blue w3-round" v-on:click="importVersion(version,$event)">
+                            Load {{ version }}
+                        </button>
+                        <button class="w3-btn w3-white w3-border w3-border-blue w3-round" v-on:click="deleteVersion(version,$event)">
+                            Delete {{ version }}
+                        </button>
+                    </div>
+                </form>
             </div>
         </template>
 
