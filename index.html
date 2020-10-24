@@ -1273,6 +1273,10 @@
                 </p>
                 <textarea rows="20" class="w3-input w3-border" type="text" v-model="json"></textarea>
                 <button class="w3-btn w3-white w3-border w3-border-blue w3-round" v-on:click="importJson">Import</button>
+                <br/>
+                <button class="w3-btn w3-white w3-border w3-border-blue w3-round" v-on:click="importVersion" v-bind:version="version" v-for="(version, v_index) in $root.versions">
+                    {{ version }}
+                </button>
             </div>
         </template>
 

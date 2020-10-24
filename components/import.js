@@ -1,22 +1,17 @@
 var importComponent = {
 	template: '#import-template',
 
-	
-
 	mounted: function()
 	{
+
 		
 	},
-
-
 
 	destroyed: function()
 	{
 		
 	},
 
-
-	
 	data: function()
 	{
 		return {
@@ -24,12 +19,10 @@ var importComponent = {
 		};
 	},
 
-	
-
 	methods: {
 		importJson: function()
 		{
-			console.log("import JSON: " + this.json);
+			// console.log("import JSON: " + this.json);
 
 			var data = JSON.parse(this.json);
 
@@ -43,10 +36,14 @@ var importComponent = {
 			router.push("section/basics");
 		},
 
-
 		validateJson: function(value)
 		{
 
+		},
+
+		importVersion: function(version) {
+			this.sections = storage.getVersionedLocalStorage(version,"sections");
+			router.push("section/basics");
 		}
 	}
 };

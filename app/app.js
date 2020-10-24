@@ -36,51 +36,66 @@ var router = new VueRouter({
 var app = new Vue({
 	el: '#app',
 	router: router,
-    components: 
-    {
+	components: 
+	{
+	},
+
+	data: 
+	{
+		status: "loading",
+
+		sections: {},
+		/**
+		 * Details of the  current page/route.
+		 */
+		activePage: {
+			id: "",
+			title: "",
+			fontAwesomeIconCss: ""
 		},
 
-    data: 
-    {
-			status: "loading",
+		countryCodes: [],
 
-			sections: {},
-			/**
-			 * Details of the  current page/route.
-			 */
-			activePage: {
-				id: "",
-				title: "",
-				fontAwesomeIconCss: ""
-			},
+		currentVersion: "",
 
-			countryCodes: []
-    },    
+		availableVersions: []
+	},    
 
-    created()
-		{
-			this.sections = models.newDefaultSections();
-			console.log("this.sections=", this.sections);
+	created()
+	{
+		this.sections = models.newDefaultSections();
+		// this.versons = [];
+		this.versions = storage.getLocalStorage("versions");
 
-			//-- Register all components
-			pageComponents.registerComponents();
+		// console.log("this.sections=", this.sections);
 
-			//-- Get the component for the initial route path
-			var initialRoute = this.$route.path;
-			var component = pageComponents.getComponentByPath(initialRoute);
-			this.setActivePageByComponent(component);
-    },
-	
+		//-- Register all components
+		pageComponents.registerComponents();
 
-    destroyed() 
-    {
-		},
+		//-- Get the component for the initial route path
+		var initialRoute = this.$route.path;
+		var component = pageComponents.getComponentByPath(initialRoute);
+		this.setActivePageByComponent(component);
+	},
 
 
-    mounted() 
-    {
+	destroyed() 
+	{
+	},
+
+
+	mounted() 
+	{
 		this.loadCountryCodes();
 		this.loadFromStorage();
+		// Quick Fix
+		storage.setVersionedLocalStorage(this.$root.sections.meta.version, "sections", this.$root.sections);
+		console.log([this.$root.sections.meta.version,this.$root.sections]);
+		//if (!this.availableVersions.hasKey(this.$root.sections.meta.version))
+		//	this.availableVersions.push(this.$root.sections.meta.version);
+		// console.log([this.versions[0],storage.getVersionedLocalStorage(this.versions[0])]);
+
+		// this.availableVersions = this.$root.availableVersions;
 
 		// Set the "current" main navigation item based on the current route.
 		this.selectMenuItemForCurrentUrl();
@@ -120,10 +135,18 @@ var app = new Vue({
 			this.activePage.title = "";
 			this.activePage.fontAwesomeIconCss = "";
 		},
-
+		/*
+		 *
+		 */
 		loadFromStorage: function()
 		{
 			var savedData = storage.getLocalStorage("sections");
+			this.populateSections(savedData);
+		},
+
+		loadVersionFromStorage: function(version)
+		{
+			var savedData = storage.getLocalStorageVersion(version,"sections");
 			this.populateSections(savedData);
 		},
 
@@ -141,6 +164,7 @@ var app = new Vue({
 				}
 			}
 		},
+
 		loadCountryCodes: function()
 		{
 			console.log("loadCountryCodes(): data", countryCodes);
@@ -159,7 +183,6 @@ var app = new Vue({
 			}
 		},
 
-
 		getCountryName: function(countryCode)
 		{
 			for (var i = 0; i < this.countryCodes.length; i++)
@@ -174,12 +197,11 @@ var app = new Vue({
 
 			return "";
 		},
+
 		displayLocation: function()
 		{
 			return this.sections.basics.location.city + ", " + this.getCountryName(this.sections.basics.location.countryCode);
 		},
-		
-
 
 		skillLevelAsPercent: function(index)
 		{
@@ -202,6 +224,7 @@ var app = new Vue({
 				return 50;
 			}
 		},
+
 		languageFluencyAsPercent: function(index)
 		{
 			if (!this.$root.sections.skills[index]) {
@@ -280,6 +303,7 @@ var app = new Vue({
 
 			return false;
 		},
+
 		saveResume: function()
 		{
 			var response = confirm("Resume saved");
