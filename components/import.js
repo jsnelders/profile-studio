@@ -88,8 +88,8 @@ var importComponent = {
 
 		moveDownClicked: function(index)
 		{
-			console.log(index);
 			this.$root.moveArrayPosition(this.$root.versions, index, index + 1);
+			storage.setLocalStorage("versions",this.$root.versions);
 		}
 
 	}
