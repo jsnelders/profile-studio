@@ -57,8 +57,14 @@
             <nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar">
                 <div class="w3-bar-block">
                     <a href="#/" class="w3-bar-item w3-button w3-padding w3-blue"><i class="fas fa-home"></i>&nbsp; Home</a>
-                    <a v-bind:href="this.sections.meta.canonical" v-if="this.sections.meta.canonical != ''" target="_new" class="w3-bar-item w3-button w3-padding w3-blue">{{ this.sections.meta.version }}</a>
-                    <span v-else  class="w3-bar-item w3-button w3-padding w3-blue">{{ this.sections.meta.version }}</span><span  v-if="this.sections.meta.lastModified != ''"  class="w3-bar-item w3-button w3-padding w3-blue">({{ this.sections.meta.lastModified}})</span>
+                    <form>
+                    <select name="currentVersion" v-model="currentVersion" @change="onVersionChange()">
+                    <option v-for="(version, v_index) in this.$root.versions">
+                            {{ version }}
+                    </option>
+                    </select>
+                    </form>
+                    <a v-bind:href="this.sections.meta.canonical" v-if="this.sections.meta.canonical != ''" target="_new" class="w3-bar-item w3-button w3-padding "><i class="fas fa-link"></i> link ({{ this.sections.meta.lastModified}})</a>
                 </div>
                 <div class="w3-container w3-margin-top">
                     <h5>Sections</h5>
@@ -163,8 +169,6 @@
                 <p><a href="https://jsnelders.com">Jason Snelders</a></p>
             </div>
         </template>
-
-
 
         <template type="text/x-template" id="section-basics-template" lang="html">
             <div id="section-basics-root">
@@ -405,8 +409,6 @@
             </div>
         </template>
 
-
-
         <template type="text/x-template" id="section-volunteer-template" lang="html">
             <div id="section-volunteer-root">
                 <button type="button" class="w3-btn w3-white w3-border w3-border-blue w3-round w3-padding-small" v-on:click="addPosition">+ Add Position</button>
@@ -482,8 +484,6 @@
             </div>
         </template>
 
-
-
         <template type="text/x-template" id="section-education-template" lang="html">
             <div id="section-education-root">
                 <button type="button" class="w3-btn w3-white w3-border w3-border-blue w3-round w3-padding-small" v-on:click="addEducation">+ Add Education</button>
@@ -558,8 +558,6 @@
             </div>
         </template>
 
-
-
         <template type="text/x-template" id="section-awards-template" lang="html">
             <div id="section-awards-root">
                 <p>
@@ -607,8 +605,6 @@
                 </div>
             </div>
         </template>
-
-
 
         <template type="text/x-template" id="section-publications-template" lang="html">
             <div id="section-publications-root">
@@ -664,8 +660,6 @@
             </div>
         </template>
 
-
-
         <template type="text/x-template" id="section-skills-template" lang="html">
             <div id="section-skills-root">
                 <p>
@@ -719,8 +713,6 @@
             </div>
         </template>
 
-
-
         <template type="text/x-template" id="section-languages-template" lang="html">
             <div id="section-languages-root">
                 <p>
@@ -756,8 +748,6 @@
                 </div>
             </div>
         </template>
-
-
 
         <template type="text/x-template" id="section-interests-template" lang="html">
             <div id="section-interests-root">
@@ -804,8 +794,6 @@
             </div>
         </template> 
 
-
-
         <template type="text/x-template" id="section-references-template" lang="html">
             <div id="section-references-root">
                 <p>
@@ -841,8 +829,6 @@
                 </div>
             </div>
         </template>
-
-
 
         <template type="text/x-template" id="section-projects-template" lang="html">
             <div id="section-projects-root">
@@ -948,8 +934,6 @@
                 </div>
             </div>
         </template>
-
-        
 
         <template type="text/x-template" id="preview-resume-template" lang="html">
             <div id="preview-resume-root">
@@ -1236,8 +1220,6 @@
             </div>
         </template>
 
-
-
         <template type="text/x-template" id="preview-single-field-template" lang="html">
             <div id="preview-single-field-root">
                 <div class="w3-row w3-margin-bottom" v-if="displayFormat == '' || displayFormat == 'url' || displayFormat == 'multi-line' || displayFormat == 'email' || displayFormat == 'phone' || displayFormat == 'date'">
@@ -1266,8 +1248,6 @@
             </div>
         </template>
 
-
-
         <template type="text/x-template" id="card-header-template" lang="html">
             <div id="card-header-root">
                 <header class="w3-container w3-dark-grey w3-padding-16" v-bind:id="'header' + id">
@@ -1284,8 +1264,6 @@
                 </header>
             </div>
         </template>
-
-
 
         <template type="text/x-template" id="sorted-input-item-template" lang="html">
             <div id="sorted-input-item-root">
@@ -1304,19 +1282,29 @@
             </div>
         </template>
 
-
-
         <template type="text/x-template" id="import-template" lang="html">
             <div id="import-root">
                 <p>
-                    Past existing resume JSON and import to continue editing.
+                    Paste existing resume JSON and import to continue editing.
                 </p>
                 <textarea rows="20" class="w3-input w3-border" type="text" v-model="json"></textarea>
                 <button class="w3-btn w3-white w3-border w3-border-blue w3-round" v-on:click="importJson">Import</button>
+                <br/>
+                <BR/>
+                <form class="w3-card-4  margin-top-32" v-for="(version, v_index) in this.$root.versions">
+                    <card-header v-bind:label="version" v-bind:id="v_index" v-on:delete-clicked="deleteClicked" v-on:move-up-clicked="moveUpClicked" v-on:move-down-clicked="moveDownClicked"></card-header>
+
+                    <div class="w3-container w3-hide" v-bind:id="'content' + v_index">
+                        <button class="w3-btn w3-white w3-border w3-border-blue w3-round" v-on:click="importVersion(version,$event)">
+                            Load {{ version }}
+                        </button>
+                        <button class="w3-btn w3-white w3-border w3-border-blue w3-round" v-on:click="deleteVersion(version,$event)">
+                            Delete {{ version }}
+                        </button>
+                    </div>
+                </form>
             </div>
         </template>
-
-
 
         <template type="text/x-template" id="export-template" lang="html">
             <div id="export-root">
@@ -1326,8 +1314,6 @@
                 <textarea rows="20" class="w3-input w3-border" type="text" v-model="json"></textarea>
             </div>
         </template>
-
-
 
         <template type="text/x-template" id="about-template" lang="html">
             <div id="export-root">
@@ -1368,10 +1354,10 @@
 
         <script type="text/javascript" src="vendor/vue.2.6.10.js"></script>
         <script type="text/javascript" src="vendor/vue-router.3.1.3.js"></script>
-
         <script type="text/javascript" src="vendor/markdown-it-10.0.0.js"></script>
 
         <script type="text/javascript" src="app/page_registration.js"></script>
+
         <script type="text/javascript" src="components/home.js"></script>
         <script type="text/javascript" src="components/section_basics.js"></script>
         <script type="text/javascript" src="components/section_work.js"></script>
@@ -1391,6 +1377,7 @@
         <script type="text/javascript" src="components/import.js"></script>
         <script type="text/javascript" src="components/export.js"></script>
         <script type="text/javascript" src="components/about.js"></script>
+
         <script type="text/javascript" src="app/app.js"></script>
         
         <!-- /Scripts -->
