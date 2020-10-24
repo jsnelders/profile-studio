@@ -323,6 +323,7 @@ var app = new Vue({
 			var response = confirm("Resume saved");
 
 			storage.setLocalStorage("sections", this.$root.sections);
+			storage.setVersionedLocalStorage(this.$root.currentVersion,"sections", this.$root.sections);
 
 			alert("Resume saved");
 			return false;
