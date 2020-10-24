@@ -41,8 +41,18 @@ var storage = {
 
     getLocalStorage: function(key)
     {
-        console.log(key);
-        return this.parseJSON2Native(localStorage.getItem(key));
+        // console.log(key);
+
+        var value = null;
+        
+        if (key)
+        {
+            value = JSON.parse(localStorage.getItem(key));
+        }
+        // console.log(value);
+        return value;
+
+        //return this.parseJSON2Native(localStorage.getItem(key));
     },
     /*
     * @TODO optimize
@@ -56,16 +66,5 @@ var storage = {
     {
         localStorage.removeItem(key);
     },
-
-    parseJSON2Native: function(jsonValue) {
-        var value = null;
-        
-        if (jsonValue)
-        {
-            value = JSON.parse(jsonValue);
-        }
-        
-        return value;
-    }
 
 }

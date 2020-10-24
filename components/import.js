@@ -48,10 +48,10 @@ var importComponent = {
 			//console.log(version);
 			this.$root.sections = storage.getVersionedLocalStorage(version,"sections");
 			storage.setLocalStorage("sections",this.$root.sections);
+			this.$root.currentVersion = version;
+			this.$root.loadFromStorage();
 
-			// this.loadFromStorage();
-
-			// router.push("section/basics");
+			router.push("section/basics");
 		},
 
 		deleteVersion: function(version) {
@@ -59,7 +59,7 @@ var importComponent = {
 			var index = versions.indexOf(version);
 			if (index > -1 && confirm("Are you sure you wish to delete " + version + "?")) {
 				versions.splice(index, 1);
-				// storage.setVersionedLocalStorage(version,"sections",null)
+				storage.setVersionedLocalStorage(version,"sections",null);
 				storage.setLocalStorage("versions",versions);
 				this.$root.versions = versions;
 			}
