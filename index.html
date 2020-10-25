@@ -373,14 +373,25 @@
                                 <small id="highlightsHelp" class="form-help text-muted">Briefly describe successes and outcomes (e.g. Increased profits by 20% from 2011-2012 through viral advertising).</small>
     
                                 <button type="button" class="w3-btn w3-white w3-border w3-border-blue w3-round w3-padding-small" v-on:click="addHighlight(w_index)">+ Add Highlight</button>
-                                <ol>
-                                    <li v-for="(highlight, h_index) in work.highlights">
-                                        <input class="w3-input w3-border" type="text" v-model="$root.sections.work[w_index].highlights[h_index]">
-                                        <button type="button" class="w3-btn w3-white w3-border w3-border-blue w3-round w3-padding-small" v-on:click="moveUpClickedHighlight(w_index,h_index)">^ Highlight</button>
-                                        <button type="button" class="w3-btn w3-white w3-border w3-border-blue w3-round w3-padding-small" v-on:click="moveDownClickedHighlight(w_index,h_index)">v Highlight</button>
-                                        <button type="button" class="w3-btn w3-white w3-border w3-border-blue w3-round w3-padding-small" v-on:click="deleteClickedHighlight(w_index,h_index)">X Highlight</button>
-                                    </li>
-                                </ol>
+
+                                
+
+                                <form class="margin-top-32" v-for="(highlight, h_index) in work.highlights">
+                                <simple-list-item v-bind:modelitem="$root.sections.work[w_index].highlights" v-bind:id="h_index" v-on:delete-clicked="deleteClickedHighlight(w_index,h_index)" v-on:move-up-clicked="moveUpClickedHighlight(w_index,h_index)" v-on:move-down-clicked="moveDownClickedHighlight(w_index,h_index)"></simple-list-item>
+                                </form>
+<!--
+                                <div class="w3-row" v-for="(highlight, h_index) in work.highlights">
+                                    <div class="w3-col s9">
+                                        <input class="w3-input w3-border" type="text" v-model="$root.sections.work[w_index].highlights[h_index]"/>
+                                    </div>
+                                    <div class="w3-col s3 w3-right-align">
+                                        <i class="fas fa-times w3-margin-right" style="cursor: pointer;" v-on:click="deleteClickedHighlight(w_index,h_index)"></i>
+                                        <i class="fas fa-chevron-up" style="cursor: pointer;" v-on:click="moveUpClickedHighlight(w_index,h_index)"></i>
+                                        <i class="fas fa-chevron-down" style="cursor: pointer;" v-on:click="moveDownClickedHighlight(w_index,h_index)"></i>
+                                    </div>
+                                </div>
+-->
+
                             </div>
                         </form>
                     </div>
@@ -525,11 +536,11 @@
                                 <small id="highlightsHelp" class="form-help text-muted">List notable courses/subjects (e.g. H1302 - Introduction to American history).</small>
     
                                 <button type="button" class="w3-btn w3-white w3-border w3-border-blue w3-round w3-padding-small" v-on:click="addCourse(e_index)">+ Add Course</button>
-                                <ol>
-                                    <li v-for="(course, c_index) in edu.courses">
-                                        <input class="w3-input w3-border" type="text" v-model="$root.sections.education[e_index].courses[c_index]">
-                                    </li>
-                                </ol>
+
+                                
+                                <form class="margin-top-32" v-for="(course, c_index) in edu.courses">
+                                    <simple-list-item v-bind:modelitem="$root.sections.education[e_index].courses" v-bind:id="c_index" v-on:delete-clicked="deleteClickedCourse(e_index,c_index)" v-on:move-up-clicked="moveUpClickedCourse(e_index,c_index)" v-on:move-down-clicked="moveDownClickedCourse(e_index,c_index)"></simple-list-item>
+                                    </form>
                             </div>
                         </form>
                     </div>
@@ -1244,6 +1255,22 @@
             </div>
         </template>
 
+        <template type="text/x-template" id="simple-list-item-template" lang="html">
+            <div id="simple-list-item-root">
+
+            <div class="w3-row">
+                <div class="w3-col s9">
+                    <input class="w3-input w3-border" type="text" v-model="modelitem[id]"/>
+                </div>
+                <div class="w3-col s3 w3-right-align">
+                    <i class="fas fa-times w3-margin-right" style="cursor: pointer;" v-on:click="deleteClick"></i>
+                    <i class="fas fa-chevron-up" style="cursor: pointer;" v-on:click="moveUpClick"></i>
+                    <i class="fas fa-chevron-down" style="cursor: pointer;" v-on:click="moveDownClick"></i>
+                </div>
+            </div>
+            </div>
+        </template>
+
         <template type="text/x-template" id="card-header-template" lang="html">
             <div id="card-header-root">
                 <header class="w3-container w3-dark-grey w3-padding-16" v-bind:id="'header' + id">
@@ -1370,6 +1397,7 @@
         <script type="text/javascript" src="components/preview_resume.js"></script>
         <script type="text/javascript" src="components/preview_single_field.js"></script>
         <script type="text/javascript" src="components/card_header.js"></script>
+        <script type="text/javascript" src="components/simple_list_item.js"></script>
         <script type="text/javascript" src="components/import.js"></script>
         <script type="text/javascript" src="components/export.js"></script>
         <script type="text/javascript" src="components/about.js"></script>

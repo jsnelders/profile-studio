@@ -1,8 +1,6 @@
 var sectionEducationComponent = {
 	template: '#section-education-template',
 
-	
-
 	mounted: function()
 	{
 		
@@ -60,6 +58,30 @@ var sectionEducationComponent = {
 		moveDownClicked: function(index)
 		{
 			this.$root.moveArrayPosition(this.$root.sections.education, index, index + 1);
+		},
+
+		deleteClickedCourse: function(eIndex, index)
+		{
+			var response = confirm("Are you sure you want to delete this Course?");
+
+			if (response == true)
+			{
+				this.$root.sections.education[eIndex].courses.splice(index, 1);
+			}
+		},
+
+		moveUpClickedCourse: function(eIndex,index)
+		{
+			if (index > 0)
+				this.$root.moveArrayPosition(this.$root.sections.education[eIndex].courses, index, index - 1);
+		},
+
+
+		moveDownClickedCourse: function(eIndex,index)
+		{
+			if (index < this.$root.sections.education[eIndex].courses.length)
+				this.$root.moveArrayPosition(this.$root.sections.education[eIndex].courses, index, index + 1);
 		}
+
 	}
 };

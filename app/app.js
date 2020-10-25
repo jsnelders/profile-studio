@@ -448,6 +448,7 @@ var app = new Vue({
 		 */
 		moveArrayPosition: function(arr, old_index, new_index)
 		{
+
 			if (new_index == old_index)
 			{
 				// No change
@@ -457,7 +458,7 @@ var app = new Vue({
 			if (new_index > old_index)
 			{
 				// Moving forward in array
-				if (old_index == this.$root.sections.work.length - 1) return;	// Cannot move beyond the end of the array
+				if (old_index == arr - 1) return;	// Cannot move beyond the end of the array
 			}
 			if (new_index < old_index)
 			{
@@ -474,6 +475,8 @@ var app = new Vue({
 					arr.push(undefined);
 				}
 			}
+
+			
 
 			arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
 
