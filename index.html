@@ -537,10 +537,9 @@
     
                                 <button type="button" class="w3-btn w3-white w3-border w3-border-blue w3-round w3-padding-small" v-on:click="addCourse(e_index)">+ Add Course</button>
 
-                                
                                 <form class="margin-top-32" v-for="(course, c_index) in edu.courses">
                                     <simple-list-item v-bind:modelitem="$root.sections.education[e_index].courses" v-bind:id="c_index" v-on:delete-clicked="deleteClickedCourse(e_index,c_index)" v-on:move-up-clicked="moveUpClickedCourse(e_index,c_index)" v-on:move-down-clicked="moveDownClickedCourse(e_index,c_index)"></simple-list-item>
-                                    </form>
+                                </form>
                             </div>
                         </form>
                     </div>
@@ -777,11 +776,11 @@
                                 <small id="keywordsHelp" class="form-help text-muted">Keywords relating to the interest.</small>
     
                                 <button type="button" class="w3-btn w3-white w3-border w3-border-blue w3-round w3-padding-small" v-on:click="addKeyword(i_index)">+ Add Keyword</button>
-                                <ol>
-                                    <li v-for="(keyword, k_index) in interest.keywords">
-                                        <input id="keywords[0]" class="w3-input w3-border" type="text" v-model="$root.sections.interests[i_index].keywords[k_index]">
-                                    </li>
-                                </ol>
+                                
+                                <form class="margin-top-32" v-for="(keyword, k_index) in interest.keywords">
+                                    <simple-list-item v-bind:modelitem="$root.sections.interests[i_index].keywords" v-bind:id="k_index" v-on:delete-clicked="deleteClickedKeyword(i_index,k_index)" v-on:move-up-clicked="moveUpClickedKeyword(i_index,k_index)" v-on:move-down-clicked="moveDownClickedKeyword(i_index,k_index)"></simple-list-item>
+                                </form>
+                                
                             </div>
                         </form>
                     </div>
