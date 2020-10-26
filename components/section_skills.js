@@ -64,6 +64,29 @@ var sectionSkillsComponent = {
 		moveDownClicked: function(index)
 		{
 			this.$root.moveArrayPosition(this.$root.sections.skills, index, index + 1);
+		},
+
+		deleteClickedKeyword: function(kIndex, index)
+		{
+			var response = confirm("Are you sure you want to delete this keyword?");
+	
+			if (response == true)
+			{
+				this.$root.sections.skills[kIndex].keywords.splice(index, 1);
+			}
+		},
+	
+		moveUpClickedKeyword: function(kIndex,index)
+		{
+			if (index > 0)
+				this.$root.moveArrayPosition(this.$root.sections.skills[kIndex].keywords, index, index - 1);
+		},
+	
+	
+		moveDownClickedKeyword: function(kIndex,index)
+		{
+			if (index < this.$root.sections.skills[kIndex].keywords.length)
+				this.$root.moveArrayPosition(this.$root.sections.skills[kIndex].keywords, index, index + 1);
 		}
 	}
 };

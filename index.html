@@ -694,11 +694,9 @@
                                 <small id="keywordsHelp" class="form-help text-muted">Keywords (e.g. HTML, CSS, JavaScript).</small>
     
                                 <button type="button" class="w3-btn w3-white w3-border w3-border-blue w3-round w3-padding-small" v-on:click="addKeyword(s_index)">+ Add Keyword</button>
-                                <ol>
-                                    <li v-for="(keyword, k_index) in skill.keywords">
-                                        <input id="keywords[0]" class="w3-input w3-border" type="text" v-model="$root.sections.skills[s_index].keywords[k_index]">
-                                    </li>
-                                </ol>
+                                <form class="margin-top-32" v-for="(keyword, k_index) in skill.keywords">
+                                    <simple-list-item v-bind:modelitem="$root.sections.skills[s_index].keywords" v-bind:id="k_index" v-on:delete-clicked="deleteClickedKeyword(s_index,k_index)" v-on:move-up-clicked="moveUpClickedKeyword(s_index,k_index)" v-on:move-down-clicked="moveDownClickedKeyword(s_index,k_index)"></simple-list-item>
+                                </form>
                             </div>
                         </form>
                     </div>
