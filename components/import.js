@@ -16,8 +16,9 @@ var importComponent = {
 	{
 		return {
 			item: {},
-			json: ""
-		};
+			json: "",
+			versions: []
+		}
 	},
 
 	methods: {
@@ -34,7 +35,13 @@ var importComponent = {
 
 			storage.setLocalStorage("sections", this.$root.sections);
 
-			storage.setVersionedLocalStorage(this.$root.sections.meta.version, "sections", this.$root.sections);
+			this.$root.currentVersion = this.$root.sections.meta.version;
+
+			storage.setVersionedLocalStorage(this.$root.currentVersion, "sections", this.$root.sections);
+
+			if (this.$root.versions.indexOf(this.$root.currentVersion) < 0) {
+				this.$root.versions.push(this.$root.currentVersion)
+			}
 
 			router.push("section/basics");
 		},
