@@ -61,31 +61,7 @@ var sectionInterestsComponent = {
 		moveDownClicked: function(index)
 		{
 			this.$root.moveArrayPosition(this.$root.sections.interests, index, index + 1);
-		},
-
-
-	deleteClickedKeyword: function(kIndex, index)
-	{
-		var response = confirm("Are you sure you want to delete this keyword?");
-
-		if (response == true)
-		{
-			this.$root.sections.interests[kIndex].keywords.splice(index, 1);
 		}
-	},
-
-	moveUpClickedKeyword: function(kIndex,index)
-	{
-		if (index > 0)
-			this.$root.moveArrayPosition(this.$root.sections.interests[kIndex].keywords, index, index - 1);
-	},
-
-
-	moveDownClickedKeyword: function(kIndex,index)
-	{
-		if (index < this.$root.sections.interests[kIndex].keywords.length)
-			this.$root.moveArrayPosition(this.$root.sections.interests[kIndex].keywords, index, index + 1);
-	}
 
 	}
 };

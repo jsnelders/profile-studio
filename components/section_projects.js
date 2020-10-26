@@ -92,27 +92,6 @@ var sectionProjectsComponent = {
 		moveDownClicked: function(index)
 		{
 			this.$root.moveArrayPosition(this.$root.sections.work, index, index + 1);
-		},
-
-		deleteClickedSubitem: function(mainitem, index)
-		{
-			var response = confirm("Are you sure you want to delete this keyword?");
-	
-			if (response == true)
-			{
-				mainitem.splice(index, 1);
-			}
-		},
-	
-		moveUpClickedSubitem: function(mainitem,index)
-		{
-				this.$root.moveArrayPosition(mainitem, index, index - 1);
-		},
-	
-	
-		moveDownClickedSubitem: function(mainitem,index)
-		{
-				this.$root.moveArrayPosition(mainitem, index, index + 1);
 		}
 	}
 };

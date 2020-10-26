@@ -374,11 +374,10 @@
     
                                 <button type="button" class="w3-btn w3-white w3-border w3-border-blue w3-round w3-padding-small" v-on:click="addHighlight(w_index)">+ Add Highlight</button>
 
-                                
-
-                                <form class="" v-for="(highlight, h_index) in work.highlights">
-                                <simple-list-item v-bind:modelitem="$root.sections.work[w_index].highlights" v-bind:id="h_index" v-on:delete-clicked="deleteClickedHighlight(w_index,h_index)" v-on:move-up-clicked="moveUpClickedHighlight(w_index,h_index)" v-on:move-down-clicked="moveDownClickedHighlight(w_index,h_index)"></simple-list-item>
+                                <form class="" v-for="(subitem, si_index) in work.highlights">
+                                    <simple-list-item v-bind:modelitem="work.highlights" v-bind:id="si_index" v-on:delete-clicked="$root.deleteClickedSubitem(work.highlights,si_index)" v-on:move-up-clicked="$root.moveUpClickedSubitem(work.highlights,si_index)" v-on:move-down-clicked="$root.moveDownClickedSubitem(work.highlights,si_index)"></simple-list-item>
                                 </form>
+
 <!--
                                 <div class="w3-row" v-for="(highlight, h_index) in work.highlights">
                                     <div class="w3-col s9">
@@ -462,11 +461,11 @@
                                 <small id="highlightsHelp" class="form-help text-muted">Briefly describe successes and outcomes (e.g. Increased profits by 20% from 2011-2012 through viral advertising).</small>
                                 
                                 <button type="button" class="w3-btn w3-white w3-border w3-border-blue w3-round w3-padding-small" v-on:click="addHighlight(v_index)">+ Add Highlight</button>
-                                <ol>
-                                    <li v-for="(highlight, h_index) in vol.highlights">
-                                        <input class="w3-input w3-border" type="text" v-model="$root.sections.volunteer[v_index].highlights[h_index]">
-                                    </li>
-                                </ol>
+
+                                <form class="" v-for="(subitem, si_index) in vol.highlights">
+                                    <simple-list-item v-bind:modelitem="vol.highlights" v-bind:id="si_index" v-on:delete-clicked="$root.deleteClickedSubitem(vol.highlights,si_index)" v-on:move-up-clicked="$root.moveUpClickedSubitem(vol.highlights,si_index)" v-on:move-down-clicked="$root.moveDownClickedSubitem(vol.highlights,si_index)"></simple-list-item>
+                                </form>
+
                             </div>
                         </form>
                     </div>
@@ -537,9 +536,10 @@
     
                                 <button type="button" class="w3-btn w3-white w3-border w3-border-blue w3-round w3-padding-small" v-on:click="addCourse(e_index)">+ Add Course</button>
 
-                                <form class="" v-for="(course, c_index) in edu.courses">
-                                    <simple-list-item v-bind:modelitem="$root.sections.education[e_index].courses" v-bind:id="c_index" v-on:delete-clicked="deleteClickedCourse(e_index,c_index)" v-on:move-up-clicked="moveUpClickedCourse(e_index,c_index)" v-on:move-down-clicked="moveDownClickedCourse(e_index,c_index)"></simple-list-item>
+                                <form class="" v-for="(subitem, si_index) in edu.courses">
+                                    <simple-list-item v-bind:modelitem="edu.courses" v-bind:id="si_index" v-on:delete-clicked="$root.deleteClickedSubitem(edu.courses,si_index)" v-on:move-up-clicked="$root.moveUpClickedSubitem(edu.courses,si_index)" v-on:move-down-clicked="$root.moveDownClickedSubitem(edu.courses,si_index)"></simple-list-item>
                                 </form>
+
                             </div>
                         </form>
                     </div>
@@ -694,9 +694,12 @@
                                 <small id="keywordsHelp" class="form-help text-muted">Keywords (e.g. HTML, CSS, JavaScript).</small>
     
                                 <button type="button" class="w3-btn w3-white w3-border w3-border-blue w3-round w3-padding-small" v-on:click="addKeyword(s_index)">+ Add Keyword</button>
-                                <form class="" v-for="(keyword, k_index) in skill.keywords">
-                                    <simple-list-item v-bind:modelitem="$root.sections.skills[s_index].keywords" v-bind:id="k_index" v-on:delete-clicked="deleteClickedKeyword(s_index,k_index)" v-on:move-up-clicked="moveUpClickedKeyword(s_index,k_index)" v-on:move-down-clicked="moveDownClickedKeyword(s_index,k_index)"></simple-list-item>
+
+                                
+                                <form class="" v-for="(subitem, si_index) in skill.keywords">
+                                    <simple-list-item v-bind:modelitem="skill.keywords" v-bind:id="si_index" v-on:delete-clicked="$root.deleteClickedSubitem(skill.keywords,si_index)" v-on:move-up-clicked="$root.moveUpClickedSubitem(skill.keywords,si_index)" v-on:move-down-clicked="$root.moveDownClickedSubitem(skill.keywords,si_index)"></simple-list-item>
                                 </form>
+
                             </div>
                         </form>
                     </div>
@@ -775,8 +778,8 @@
     
                                 <button type="button" class="w3-btn w3-white w3-border w3-border-blue w3-round w3-padding-small" v-on:click="addKeyword(i_index)">+ Add Keyword</button>
                                 
-                                <form class="margin-top-32" v-for="(keyword, k_index) in interest.keywords">
-                                    <simple-list-item v-bind:modelitem="$root.sections.interests[i_index].keywords" v-bind:id="k_index" v-on:delete-clicked="deleteClickedKeyword(i_index,k_index)" v-on:move-up-clicked="moveUpClickedKeyword(i_index,k_index)" v-on:move-down-clicked="moveDownClickedKeyword(i_index,k_index)"></simple-list-item>
+                                <form class="" v-for="(subitem, si_index) in interest.keywords">
+                                    <simple-list-item v-bind:modelitem="interest.keywords" v-bind:id="si_index" v-on:delete-clicked="$root.deleteClickedSubitem(interest.keywords,si_index)" v-on:move-up-clicked="$root.moveUpClickedSubitem(interest.keywords,si_index)" v-on:move-down-clicked="$root.moveDownClickedSubitem(interest.keywords,si_index)"></simple-list-item>
                                 </form>
                                 
                             </div>
@@ -877,7 +880,7 @@
                                 <button type="button" class="w3-btn w3-white w3-border w3-border-blue w3-round w3-padding-small" v-on:click="addHighlight(p_index)">+ Add Highlight</button>
 
                                 <form class="" v-for="(subitem, si_index) in project.highlights">
-                                    <simple-list-item v-bind:modelitem="project.highlights" v-bind:id="si_index" v-on:delete-clicked="deleteClickedSubitem(project.highlights,si_index)" v-on:move-up-clicked="moveUpClickedSubitem(project.highlights,si_index)" v-on:move-down-clicked="moveDownClickedSubitem(project.highlights,si_index)"></simple-list-item>
+                                    <simple-list-item v-bind:modelitem="project.highlights" v-bind:id="si_index" v-on:delete-clicked="$root.deleteClickedSubitem(project.highlights,si_index)" v-on:move-up-clicked="$root.moveUpClickedSubitem(project.highlights,si_index)" v-on:move-down-clicked="$root.moveDownClickedSubitem(project.highlights,si_index)"></simple-list-item>
                                 </form>
 
 
@@ -886,20 +889,19 @@
     
                                 <button type="button" class="w3-btn w3-white w3-border w3-border-blue w3-round w3-padding-small" v-on:click="addKeyword(p_index)">+ Add Keyword</button>
 
-                                
                                 <form class="" v-for="(subitem, si_index) in project.keywords">
-                                    <simple-list-item v-bind:modelitem="project.keywords" v-bind:id="si_index" v-on:delete-clicked="deleteClickedSubitem(project.keywords,si_index)" v-on:move-up-clicked="moveUpClickedSubitem(project.keywords,si_index)" v-on:move-down-clicked="moveDownClickedSubitem(project.keywords,si_index)"></simple-list-item>
+                                    <simple-list-item v-bind:modelitem="project.keywords" v-bind:id="si_index" v-on:delete-clicked="$root.deleteClickedSubitem(project.keywords,si_index)" v-on:move-up-clicked="$root.moveUpClickedSubitem(project.keywords,si_index)" v-on:move-down-clicked="$root.moveDownClickedSubitem(project.keywords,si_index)"></simple-list-item>
                                 </form>
-
 
                                 <h5 class="">Roles</h5>
                                 <small id="highlightsHelp" class="form-help text-muted">Briefly describe successes and outcomes (e.g. Increased profits by 20% from 2011-2012 through viral advertising).</small>
     
                                 <button type="button" class="w3-btn w3-white w3-border w3-border-blue w3-round w3-padding-small" v-on:click="addRole(p_index)">+ Add Role</button>
 
-                                <form class="margin-top-32" v-for="(subitem, si_index) in project.roles">
-                                    <simple-list-item v-bind:modelitem="project.roles" v-bind:id="si_index" v-on:delete-clicked="deleteClickedSubitem(project.roles,si_index)" v-on:move-up-clicked="moveUpClickedSubitem(project.roles,si_index)" v-on:move-down-clicked="moveDownClickedSubitem(project.roles,si_index)"></simple-list-item>
+                                <form class="" v-for="(subitem, si_index) in project.roles">
+                                    <simple-list-item v-bind:modelitem="project.roles" v-bind:id="si_index" v-on:delete-clicked="$root.deleteClickedSubitem(project.roles,si_index)" v-on:move-up-clicked="$root.moveUpClickedSubitem(project.roles,si_index)" v-on:move-down-clicked="$root.moveDownClickedSubitem(project.roles,si_index)"></simple-list-item>
                                 </form>
+
                             </div>
                         </form>
                     </div>

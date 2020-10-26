@@ -62,29 +62,8 @@ var sectionWorkComponent = {
 		moveDownClicked: function(index)
 		{
 			this.$root.moveArrayPosition(this.$root.sections.work, index, index + 1);
-		},
-
-		deleteClickedHighlight: function(wIndex, index)
-		{
-			var response = confirm("Are you sure you want to delete this highlight?");
-
-			if (response == true)
-			{
-				this.$root.sections.work[wIndex].highlights.splice(index, 1);
-			}
-		},
-
-		moveUpClickedHighlight: function(wIndex,index)
-		{
-			if (index > 0)
-				this.$root.moveArrayPosition(this.$root.sections.work[wIndex].highlights, index, index - 1);
-		},
-
-
-		moveDownClickedHighlight: function(wIndex,index)
-		{
-			if (index < this.$root.sections.work[wIndex].highlights.length)
-				this.$root.moveArrayPosition(this.$root.sections.work[wIndex].highlights, index, index + 1);
 		}
+
 	}
+
 };

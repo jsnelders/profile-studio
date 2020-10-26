@@ -481,6 +481,27 @@ var app = new Vue({
 			arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
 
 			return arr; // for testing
+		},
+
+		deleteClickedSubitem: function(mainitem, index)
+		{
+			var response = confirm("Are you sure you want to delete this subitem?");
+	
+			if (response == true)
+			{
+				mainitem.splice(index, 1);
+			}
+		},
+	
+		moveUpClickedSubitem: function(mainitem,index)
+		{
+				this.$root.moveArrayPosition(mainitem, index, index - 1);
+		},
+	
+	
+		moveDownClickedSubitem: function(mainitem,index)
+		{
+				this.$root.moveArrayPosition(mainitem, index, index + 1);
 		}
 
 	},
