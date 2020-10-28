@@ -7,7 +7,7 @@ var exportComponent = {
 	{
 		stringDate = new Date().toISOString();
 		this.$root.sections.meta.lastModified = stringDate.slice(0,16) + stringDate.slice(stringDate.lastIndexOf("Z")); //.replace(":","");
-		this.json = JSON.stringify(this.$root.sections, null, 4);
+		this.json = JSON.stringify(this.$root.sections, null, 2);
 	},
 
 
