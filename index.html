@@ -48,8 +48,8 @@
                 <div class="w3-bar-block">
                     <a href="#/" class="w3-bar-item w3-button w3-padding w3-blue"><i class="fas fa-home"></i>&nbsp; Home</a>
                     <form>
-                    <select name="currentVersion" v-model="currentVersion" @change="onVersionChange()">
-                    <option v-for="(version, v_index) in this.$root.versions">
+                    <select name="currentVersion" v-model="$root.currentVersion" @change="$root.onVersionChange">
+                    <option v-for="(version, v_index) in $root.versions">
                             {{ version }}
                     </option>
                     </select>
@@ -106,7 +106,23 @@
                 </header>
 
                 <div class="w3-container">
+                    <span class="w3-bar-item w3-button w3-padding" v-on:click="$root.saveResume"><i class="fas fa-save"></i>&nbsp; Save</span>
+                    <form>
+                        <select name="currentVersion" v-model="$root.currentVersion" @change="$root.onVersionChange">
+                        <option v-for="(version, v_index) in $root.versions">
+                                {{ version }}
+                        </option>
+                        </select>
+                        </form>
                     <router-view></router-view>
+                    <span class="w3-bar-item w3-button w3-padding" v-on:click="$root.saveResume"><i class="fas fa-save"></i>&nbsp; Save</span>
+                    <form>
+                        <select name="currentVersion" v-model="$root.currentVersion" @change="$root.onVersionChange">
+                        <option v-for="(version, v_index) in $root.versions">
+                                {{ version }}
+                        </option>
+                        </select>
+                    </form>
                 </div>
                     
             </div>
@@ -337,6 +353,13 @@
                             <card-header v-bind:label="work.company + ' - ' + work.position + ' (' + $root.dateMonthYear(work.startDate) + ')'" v-bind:id="w_index" v-on:delete-clicked="deleteClicked" v-on:move-up-clicked="moveUpClicked" v-on:move-down-clicked="moveDownClicked"></card-header>
 
                             <div class="w3-container w3-hide" v-bind:id="'content' + w_index">
+                                <form>
+                                    <select name="currentVersion" v-model="$root.currentVersion" @change="$root.onVersionChange">
+                                    <option v-for="(version, v_index) in $root.versions">
+                                            {{ version }}
+                                    </option>
+                                    </select>
+                                </form>
                                 <p>
                                     <label for="company" class="w3-text-blue required-field"><b>Company</b></label>
                                     <input id="company" class="w3-input w3-border" type="text" v-model="work.company" required>
@@ -378,20 +401,11 @@
                                     <simple-list-item v-bind:modelitem="work.highlights" v-bind:id="si_index" v-on:delete-clicked="$root.deleteClickedSubitem(work.highlights,si_index)" v-on:move-up-clicked="$root.moveUpClickedSubitem(work.highlights,si_index)" v-on:move-down-clicked="$root.moveDownClickedSubitem(work.highlights,si_index)"></simple-list-item>
                                 </form>
 
-<!--
-                                <div class="w3-row" v-for="(highlight, h_index) in work.highlights">
-                                    <div class="w3-col s9">
-                                        <input class="w3-input w3-border" type="text" v-model="$root.sections.work[w_index].highlights[h_index]"/>
-                                    </div>
-                                    <div class="w3-col s3 w3-right-align">
-                                        <i class="fas fa-times w3-margin-right" style="cursor: pointer;" v-on:click="deleteClickedHighlight(w_index,h_index)"></i>
-                                        <i class="fas fa-chevron-up" style="cursor: pointer;" v-on:click="moveUpClickedHighlight(w_index,h_index)"></i>
-                                        <i class="fas fa-chevron-down" style="cursor: pointer;" v-on:click="moveDownClickedHighlight(w_index,h_index)"></i>
-                                    </div>
-                                </div>
--->
+                                <span class="w3-bar-item w3-button w3-padding" v-on:click="$root.saveResume"><i class="fas fa-save"></i>&nbsp; Save</span>
+
 
                             </div>
+
                         </form>
                     </div>
                     <div class="w3-col m6">
@@ -425,6 +439,13 @@
                             <card-header v-bind:label="vol.organization" v-bind:id="v_index" v-on:delete-clicked="deleteClicked" v-on:move-up-clicked="moveUpClicked" v-on:move-down-clicked="moveDownClicked"></card-header>
 
                             <div class="w3-container w3-hide" v-bind:id="'content' + v_index">
+                                <form>
+                                    <select name="currentVersion" v-model="$root.currentVersion" @change="$root.onVersionChange">
+                                    <option v-for="(version, v_index) in $root.versions">
+                                            {{ version }}
+                                    </option>
+                                    </select>
+                                </form>
                                 <p>
                                     <label for="organization" class="w3-text-blue required-field"><b>Organisation</b></label>
                                     <input id="organization" class="w3-input w3-border" type="text" v-model="vol.organization" required>
@@ -465,8 +486,10 @@
                                 <form class="" v-for="(subitem, si_index) in vol.highlights">
                                     <simple-list-item v-bind:modelitem="vol.highlights" v-bind:id="si_index" v-on:delete-clicked="$root.deleteClickedSubitem(vol.highlights,si_index)" v-on:move-up-clicked="$root.moveUpClickedSubitem(vol.highlights,si_index)" v-on:move-down-clicked="$root.moveDownClickedSubitem(vol.highlights,si_index)"></simple-list-item>
                                 </form>
+                                <span class="w3-bar-item w3-button w3-padding" v-on:click="$root.saveResume"><i class="fas fa-save"></i>&nbsp; Save</span>
 
                             </div>
+
                         </form>
                     </div>
                     <div class="w3-col m6">
@@ -500,6 +523,13 @@
                             <card-header v-bind:label="edu.institution" v-bind:id="e_index" v-on:delete-clicked="deleteClicked" v-on:move-up-clicked="moveUpClicked" v-on:move-down-clicked="moveDownClicked"></card-header>
 
                             <div class="w3-container w3-hide" v-bind:id="'content' + e_index">
+                                <form>
+                                    <select name="currentVersion" v-model="$root.currentVersion" @change="$root.onVersionChange">
+                                    <option v-for="(version, v_index) in $root.versions">
+                                            {{ version }}
+                                    </option>
+                                    </select>
+                                </form>
                                 <p>
                                     <label for="institution" class="w3-text-blue required-field"><b>Institution</b></label>
                                     <input id="institution" class="w3-input w3-border" type="text" v-model="edu.institution" required>
@@ -539,8 +569,10 @@
                                 <form class="" v-for="(subitem, si_index) in edu.courses">
                                     <simple-list-item v-bind:modelitem="edu.courses" v-bind:id="si_index" v-on:delete-clicked="$root.deleteClickedSubitem(edu.courses,si_index)" v-on:move-up-clicked="$root.moveUpClickedSubitem(edu.courses,si_index)" v-on:move-down-clicked="$root.moveDownClickedSubitem(edu.courses,si_index)"></simple-list-item>
                                 </form>
+                                <span class="w3-bar-item w3-button w3-padding" v-on:click="$root.saveResume"><i class="fas fa-save"></i>&nbsp; Save</span>
 
                             </div>
+
                         </form>
                     </div>
                     <div class="w3-col m6">
@@ -625,6 +657,13 @@
                             <card-header v-bind:label="publication.name" v-bind:id="p_index" v-on:delete-clicked="deleteClicked" v-on:move-up-clicked="moveUpClicked" v-on:move-down-clicked="moveDownClicked"></card-header>
 
                             <div class="w3-container w3-hide" v-bind:id="'content' + p_index">
+                                <form>
+                                    <select name="currentVersion" v-model="$root.currentVersion" @change="$root.onVersionChange">
+                                    <option v-for="(version, v_index) in $root.versions">
+                                            {{ version }}
+                                    </option>
+                                    </select>
+                                </form>
                                 <p>
                                     <label for="name" class="w3-text-blue required-field"><b>Name</b></label>
                                     <input id="name" class="w3-input w3-border" type="text" v-model="publication.name" required>
@@ -651,6 +690,7 @@
                                     <small id="summaryHelp" class="form-help text-muted">Details of the article (e.g. Discussion of the World Wide Web, HTTP, HTML.).</small>
                                 </p>
                             </div>
+                            <span class="w3-bar-item w3-button w3-padding" v-on:click="$root.saveResume"><i class="fas fa-save"></i>&nbsp; Save</span>
                         </form>
                     </div>
                     <div class="w3-col m6">
@@ -678,7 +718,18 @@
                         <form class="w3-card-4 margin-top-32" v-for="(skill, s_index) in $root.sections.skills">
                             <card-header v-bind:label="skill.name" v-bind:id="s_index" v-on:delete-clicked="deleteClicked" v-on:move-up-clicked="moveUpClicked" v-on:move-down-clicked="moveDownClicked"></card-header>
 
+            
+
                             <div class="w3-container w3-hide" v-bind:id="'content' + s_index">
+
+                                <form>
+                                    <select name="currentVersion" v-model="$root.currentVersion" @change="$root.onVersionChange">
+                                    <option v-for="(version, v_index) in $root.versions">
+                                            {{ version }}
+                                    </option>
+                                    </select>
+                                </form>
+
                                 <p>
                                     <label for="name" class="w3-text-blue required-field"><b>Name</b></label>
                                     <input id="name" class="w3-input w3-border" type="text" v-model="skill.name" required>
@@ -699,6 +750,7 @@
                                 <form class="" v-for="(subitem, si_index) in skill.keywords">
                                     <simple-list-item v-bind:modelitem="skill.keywords" v-bind:id="si_index" v-on:delete-clicked="$root.deleteClickedSubitem(skill.keywords,si_index)" v-on:move-up-clicked="$root.moveUpClickedSubitem(skill.keywords,si_index)" v-on:move-down-clicked="$root.moveDownClickedSubitem(skill.keywords,si_index)"></simple-list-item>
                                 </form>
+                                <span class="w3-bar-item w3-button w3-padding" v-on:click="$root.saveResume"><i class="fas fa-save"></i>&nbsp; Save</span>
 
                             </div>
                         </form>
@@ -766,6 +818,15 @@
                             <card-header v-bind:label="interest.name" v-bind:id="i_index" v-on:delete-clicked="deleteClicked" v-on:move-up-clicked="moveUpClicked" v-on:move-down-clicked="moveDownClicked"></card-header>
                             
                             <div class="w3-container w3-hide" v-bind:id="'content' + i_index">
+
+                                <form>
+                                    <select name="currentVersion" v-model="$root.currentVersion" @change="$root.onVersionChange">
+                                    <option v-for="(version, v_index) in $root.versions">
+                                            {{ version }}
+                                    </option>
+                                    </select>
+                                </form>
+
                                 <p>
                                     <label for="name" class="w3-text-blue required-field"><b>Name</b></label>
                                     <input id="name" class="w3-input w3-border" type="text" v-model="interest.name" required>
@@ -781,8 +842,11 @@
                                 <form class="" v-for="(subitem, si_index) in interest.keywords">
                                     <simple-list-item v-bind:modelitem="interest.keywords" v-bind:id="si_index" v-on:delete-clicked="$root.deleteClickedSubitem(interest.keywords,si_index)" v-on:move-up-clicked="$root.moveUpClickedSubitem(interest.keywords,si_index)" v-on:move-down-clicked="$root.moveDownClickedSubitem(interest.keywords,si_index)"></simple-list-item>
                                 </form>
-                                
+                                <span class="w3-bar-item w3-button w3-padding" v-on:click="$root.saveResume"><i class="fas fa-save"></i>&nbsp; Save</span>
+
                             </div>
+
+
                         </form>
                     </div>
                     <div class="w3-col m6">
@@ -814,6 +878,13 @@
                             <card-header v-bind:label="reference.name" v-bind:id="r_index" v-on:delete-clicked="deleteClicked" v-on:move-up-clicked="moveUpClicked" v-on:move-down-clicked="moveDownClicked"></card-header>
 
                             <div class="w3-container w3-hide" v-bind:id="'content' + r_index">
+                                <form>
+                                    <select name="currentVersion" v-model="$root.currentVersion" @change="$root.onVersionChange">
+                                    <option v-for="(version, v_index) in $root.versions">
+                                            {{ version }}
+                                    </option>
+                                    </select>
+                                </form>
                                 <p>
                                     <label for="name" class="w3-text-blue required-field"><b>Name</b></label>
                                     <input id="name" class="w3-input w3-border" type="text" v-model="reference.name" required>
@@ -824,7 +895,9 @@
                                     <textarea id="reference" rows="8" class="w3-input w3-border" type="text" v-model="reference.reference"></textarea>
                                     <small id="referenceHelp" class="form-help text-muted">The reference given by the person (e.g. Joe blogs was a great employee, who turned up to work at least once a week. He exceeded my expectations when it came to doing nothing).</small>
                                 </p>
+                                <span class="w3-bar-item w3-button w3-padding" v-on:click="$root.saveResume"><i class="fas fa-save"></i>&nbsp; Save</span>
                             </div>
+
                         </form>
                     </div>
                     <div class="w3-col m6">
@@ -847,6 +920,13 @@
                             <card-header v-bind:label="project.name + ' (' + $root.dateMonthYear(project.startDate) + ')'" v-bind:id="p_index" v-on:delete-clicked="deleteClicked" v-on:move-up-clicked="moveUpClicked" v-on:move-down-clicked="moveDownClicked"></card-header>
 
                             <div class="w3-container w3-hide" v-bind:id="'content' + p_index">
+                                <form>
+                                    <select name="currentVersion" v-model="$root.currentVersion" @change="$root.onVersionChange">
+                                    <option v-for="(version, v_index) in $root.versions">
+                                            {{ version }}
+                                    </option>
+                                    </select>
+                                </form>
                                 <p>
                                     <label for="company" class="w3-text-blue required-field"><b>Name</b></label>
                                     <input id="company" class="w3-input w3-border" type="text" v-model="project.name" required>
@@ -901,6 +981,7 @@
                                 <form class="" v-for="(subitem, si_index) in project.roles">
                                     <simple-list-item v-bind:modelitem="project.roles" v-bind:id="si_index" v-on:delete-clicked="$root.deleteClickedSubitem(project.roles,si_index)" v-on:move-up-clicked="$root.moveUpClickedSubitem(project.roles,si_index)" v-on:move-down-clicked="$root.moveDownClickedSubitem(project.roles,si_index)"></simple-list-item>
                                 </form>
+                                <span class="w3-bar-item w3-button w3-padding" v-on:click="$root.saveResume"><i class="fas fa-save"></i>&nbsp; Save</span>
 
                             </div>
                         </form>
@@ -1311,7 +1392,7 @@
                 <button class="w3-btn w3-white w3-border w3-border-blue w3-round" v-on:click="importJson">Import</button>
                 <br/>
                 <BR/>
-                <form class="w3-card-4  margin-top-32" v-for="(version, v_index) in this.$root.versions">
+                <form class="w3-card-4  margin-top-32" v-for="(version, v_index) in $root.versions">
                     <card-header v-bind:label="version" v-bind:id="v_index" v-on:delete-clicked="deleteClicked" v-on:move-up-clicked="moveUpClicked" v-on:move-down-clicked="moveDownClicked"></card-header>
 
                     <div class="w3-container w3-hide" v-bind:id="'content' + v_index">

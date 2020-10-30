@@ -312,12 +312,12 @@ var app = new Vue({
 
 		saveResume: function()
 		{
-			var response = confirm("Resume saved");
+			// var response = confirm("Resume saved");
 
 			storage.setLocalStorage("sections", this.$root.sections);
 			storage.setVersionedLocalStorage(this.$root.currentVersion,"sections", this.$root.sections);
 
-			alert("Resume saved");
+			// alert("Resume saved");
 			return false;
 		},
 		/**
