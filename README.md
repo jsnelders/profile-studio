@@ -15,7 +15,7 @@ Once you've got that JSON-resume file,you can then make use of it as fellows:
 1.  Create a public Gist in your [GitHub](https://github.com/) account (create a new account for free) with a filename "resume.json". (See an [example here](https://gist.github.com/jsnelders/cab89beb9bc0e677ef3f5ec30ef4260b).)
 2.  Save your resume in your browser. You can close your browser and come back to the site any time - your saved resume will re-load automatically for you to keep working.
 3.  View your live resume on jsonresume.org by browsing to https://registry.jsonresume.org/{your_github_username}. (see an [example here](https://registry.jsonresume.org/jsnelders).) or use any of the following tools:
-    - https://www.velocv.com](https://www.velocv.com/)
+    - [https://www.velocv.com](https://www.velocv.com/)
     - <https://resumefodder.com/>
     - <https://github.com/hacksalot/HackMyResume>
     - <https://medium.com/@fullsour/creating-online-resume-with-netlify-8d468a5ef11b>
