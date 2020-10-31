@@ -1,5 +1,14 @@
 var models = {
 
+    newDefaultSettings: function()
+    {
+        var settings = {
+            versionswitcher: false
+        };
+
+        return settings;
+    },
+
     // resume.json uses the ISO 8601 date standard e.g. 2014-06-29
 
     newDefaultSections: function()

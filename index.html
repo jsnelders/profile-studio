@@ -47,14 +47,9 @@
             <nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar">
                 <div class="w3-bar-block">
                     <a href="#/" class="w3-bar-item w3-button w3-padding w3-blue"><i class="fas fa-home"></i>&nbsp; Home</a>
-                    <form>
-                    <select name="currentVersion" v-model="$root.currentVersion" @change="$root.onVersionChange">
-                    <option v-for="(version, v_index) in $root.versions">
-                            {{ version }}
-                    </option>
-                    </select>
-                    </form>
+                    <version-switcher v-bind:forcevisible="true"></version-switcher>
                     <a v-bind:href="this.sections.meta.canonical" v-if="this.sections.meta.canonical != ''" target="_new" class="w3-bar-item w3-button w3-padding "><i class="fas fa-link"></i> link ({{ this.sections.meta.lastModified}})</a>
+                    <a href="#/settings" class="w3-bar-item w3-button w3-padding w3-blue"><i class="fas fa-cog"></i>&nbsp; Settings</a>
                 </div>
                 <div class="w3-container w3-margin-top">
                     <h5>Sections</h5>
@@ -107,22 +102,10 @@
 
                 <div class="w3-container">
                     <span class="w3-bar-item w3-button w3-padding" v-on:click="$root.saveResume"><i class="fas fa-save"></i>&nbsp; Save</span>
-                    <form>
-                        <select name="currentVersion" v-model="$root.currentVersion" @change="$root.onVersionChange">
-                        <option v-for="(version, v_index) in $root.versions">
-                                {{ version }}
-                        </option>
-                        </select>
-                        </form>
+                    <version-switcher></version-switcher>
                     <router-view></router-view>
                     <span class="w3-bar-item w3-button w3-padding" v-on:click="$root.saveResume"><i class="fas fa-save"></i>&nbsp; Save</span>
-                    <form>
-                        <select name="currentVersion" v-model="$root.currentVersion" @change="$root.onVersionChange">
-                        <option v-for="(version, v_index) in $root.versions">
-                                {{ version }}
-                        </option>
-                        </select>
-                    </form>
+                    <version-switcher></version-switcher>
                 </div>
                     
             </div>
@@ -316,10 +299,29 @@
             </div>
         </template>
 
+        <template type="text/x-template" id="settings-template" lang="html">
+            <div id="settings-root">
+                <form class="w3-container w3-card-4">
+                    <p>      
+                        <label for="versionSwitcher" class="w3-text-blue"><b>Version-Switcher drop-down</b></label>
+                        <input id="versionSwitcher" class="w3-input w3-border" type="checkbox" v-model="$root.settings.versionswitcher">
+                        <small id="versionSwitcherHelp" class="form-help text-muted">Present a drop-down lisn of available versions.</small>
+                    </p>
+                </form>
+                <!--
+                <div class="w3-row">
+                    <div class="w3-col m12">
+
+                    </div>
+                </div>
+                -->
+            </div>
+        </template>
+
         <template type="text/x-template" id="section-meta-template" lang="html">
             <div id="section-meta-root">
                 <div class="w3-row">
-                    <div class="w3-col m6">
+                    <div class="w3-col m12">
                         <form class="w3-container w3-card-4">
                             <p>      
                                 <label for="version" class="w3-text-blue"><b>Version</b></label>
@@ -353,13 +355,7 @@
                             <card-header v-bind:label="work.company + ' - ' + work.position + ' (' + $root.dateMonthYear(work.startDate) + ')'" v-bind:id="w_index" v-on:delete-clicked="deleteClicked" v-on:move-up-clicked="moveUpClicked" v-on:move-down-clicked="moveDownClicked"></card-header>
 
                             <div class="w3-container w3-hide" v-bind:id="'content' + w_index">
-                                <form>
-                                    <select name="currentVersion" v-model="$root.currentVersion" @change="$root.onVersionChange">
-                                    <option v-for="(version, v_index) in $root.versions">
-                                            {{ version }}
-                                    </option>
-                                    </select>
-                                </form>
+                                <version-switcher></version-switcher>
                                 <p>
                                     <label for="company" class="w3-text-blue required-field"><b>Company</b></label>
                                     <input id="company" class="w3-input w3-border" type="text" v-model="work.company" required>
@@ -440,11 +436,7 @@
 
                             <div class="w3-container w3-hide" v-bind:id="'content' + v_index">
                                 <form>
-                                    <select name="currentVersion" v-model="$root.currentVersion" @change="$root.onVersionChange">
-                                    <option v-for="(version, v_index) in $root.versions">
-                                            {{ version }}
-                                    </option>
-                                    </select>
+                                    <version-switcher></version-switcher>
                                 </form>
                                 <p>
                                     <label for="organization" class="w3-text-blue required-field"><b>Organisation</b></label>
@@ -524,11 +516,7 @@
 
                             <div class="w3-container w3-hide" v-bind:id="'content' + e_index">
                                 <form>
-                                    <select name="currentVersion" v-model="$root.currentVersion" @change="$root.onVersionChange">
-                                    <option v-for="(version, v_index) in $root.versions">
-                                            {{ version }}
-                                    </option>
-                                    </select>
+                                    <version-switcher></version-switcher>
                                 </form>
                                 <p>
                                     <label for="institution" class="w3-text-blue required-field"><b>Institution</b></label>
@@ -658,11 +646,7 @@
 
                             <div class="w3-container w3-hide" v-bind:id="'content' + p_index">
                                 <form>
-                                    <select name="currentVersion" v-model="$root.currentVersion" @change="$root.onVersionChange">
-                                    <option v-for="(version, v_index) in $root.versions">
-                                            {{ version }}
-                                    </option>
-                                    </select>
+                                    <version-switcher></version-switcher>
                                 </form>
                                 <p>
                                     <label for="name" class="w3-text-blue required-field"><b>Name</b></label>
@@ -723,11 +707,7 @@
                             <div class="w3-container w3-hide" v-bind:id="'content' + s_index">
 
                                 <form>
-                                    <select name="currentVersion" v-model="$root.currentVersion" @change="$root.onVersionChange">
-                                    <option v-for="(version, v_index) in $root.versions">
-                                            {{ version }}
-                                    </option>
-                                    </select>
+                                    <version-switcher></version-switcher>
                                 </form>
 
                                 <p>
@@ -820,11 +800,7 @@
                             <div class="w3-container w3-hide" v-bind:id="'content' + i_index">
 
                                 <form>
-                                    <select name="currentVersion" v-model="$root.currentVersion" @change="$root.onVersionChange">
-                                    <option v-for="(version, v_index) in $root.versions">
-                                            {{ version }}
-                                    </option>
-                                    </select>
+                                    <version-switcher></version-switcher>
                                 </form>
 
                                 <p>
@@ -878,13 +854,7 @@
                             <card-header v-bind:label="reference.name" v-bind:id="r_index" v-on:delete-clicked="deleteClicked" v-on:move-up-clicked="moveUpClicked" v-on:move-down-clicked="moveDownClicked"></card-header>
 
                             <div class="w3-container w3-hide" v-bind:id="'content' + r_index">
-                                <form>
-                                    <select name="currentVersion" v-model="$root.currentVersion" @change="$root.onVersionChange">
-                                    <option v-for="(version, v_index) in $root.versions">
-                                            {{ version }}
-                                    </option>
-                                    </select>
-                                </form>
+                                <version-switcher></version-switcher>
                                 <p>
                                     <label for="name" class="w3-text-blue required-field"><b>Name</b></label>
                                     <input id="name" class="w3-input w3-border" type="text" v-model="reference.name" required>
@@ -921,11 +891,7 @@
 
                             <div class="w3-container w3-hide" v-bind:id="'content' + p_index">
                                 <form>
-                                    <select name="currentVersion" v-model="$root.currentVersion" @change="$root.onVersionChange">
-                                    <option v-for="(version, v_index) in $root.versions">
-                                            {{ version }}
-                                    </option>
-                                    </select>
+                                    <version-switcher></version-switcher>
                                 </form>
                                 <p>
                                     <label for="company" class="w3-text-blue required-field"><b>Name</b></label>
@@ -1383,6 +1349,18 @@
             </div>
         </template>
 
+        <template type="text/x-template" id="version-switcher-template" lang="html">
+            <div id="version-switcher-root">
+                <form v-if="visible()">
+                    <select name="currentVersion" v-model="$root.currentVersion" @change="$root.onVersionChange">
+                    <option v-for="(version, v_index) in $root.versions">
+                            {{ version }}
+                    </option>
+                    </select>
+                </form>
+        </div>
+        </template>
+
         <template type="text/x-template" id="import-template" lang="html">
             <div id="import-root">
                 <p>
@@ -1470,8 +1448,10 @@
         <script type="text/javascript" src="components/section_projects.js"></script>
         <script type="text/javascript" src="components/preview_resume.js"></script>
         <script type="text/javascript" src="components/preview_single_field.js"></script>
+        <script type="text/javascript" src="components/settings.js"></script>
         <script type="text/javascript" src="components/card_header.js"></script>
         <script type="text/javascript" src="components/simple_list_item.js"></script>
+        <script type="text/javascript" src="components/version_switcher.js"></script>
         <script type="text/javascript" src="components/import.js"></script>
         <script type="text/javascript" src="components/export.js"></script>
         <script type="text/javascript" src="components/about.js"></script>

@@ -40,11 +40,7 @@ var sectionMetaComponent = {
 		$data: {
 			handler: function(val, oldVal) 
 			{
-				// Save the data to localStorage
-				//NOTE: I'm initially not concerned about performance here/
-				//storage.setLocalStorage("section.basics", val);
-				console.log([val, oldVal]);
-				//this.$root.sections.basics = val;
+
 			},
 			deep: true
 		}
@@ -65,15 +61,7 @@ var sectionMetaComponent = {
 			}
 			this.$root.currentVersion = this.$root.sections.meta.version;
 			storage.setLocalStorage("currentVersion",this.$root.currentVersion);
-			
-			/*
-			var oldVersion = this.$root.currentVersion;
-			var newVersion = this.$root.sections.meta.version;
-			storage.setVersionedLocalStorage(newVersion,"sections",this.$root.sections);
-			storage.setVersionedLocalStorage(oldVersion,"sections",null);
-			this.$root.currentVersion = newVersion;
-			storage.setLocalStorage("currentVersion",newVersion);
-			*/
+
 		}
 
 	}

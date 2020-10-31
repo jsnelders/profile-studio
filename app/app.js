@@ -10,6 +10,7 @@
 var router = new VueRouter({
 	routes: [
 		{ path: '/', component: homeComponent },
+		{ path: '/settings', component: settingsComponent },
 		
 		{ path: '/section/basics', component: sectionBasicsComponent },
 		{ path: '/section/work', component: sectionWorkComponent },
@@ -64,11 +65,10 @@ var app = new Vue({
 	created()
 	{
 		this.sections = models.newDefaultSections();
+		this.settings = models.newDefaultSettings();
 		// this.versons = [];
 		this.versions = storage.getLocalStorage("versions");
 		this.currentVersion = "";
-
-		// console.log("this.sections=", this.sections);
 
 		//-- Register all components
 		pageComponents.registerComponents();
@@ -89,15 +89,11 @@ var app = new Vue({
 	{
 		this.loadCountryCodes();
 		this.loadFromStorage();
-		this.currentVersion = this.$root.sections.meta.version
+		this.currentVersion = this.$root.sections.meta.version;
 		// Quick Fix
 		storage.setVersionedLocalStorage(this.currentVersion, "sections", this.$root.sections);
-		// console.log([this.$root.sections.meta.version,this.$root.sections]);
-		//if (!this.availableVersions.hasKey(this.$root.sections.meta.version))
-		//	this.availableVersions.push(this.$root.sections.meta.version);
-		// console.log([this.versions[0],storage.getVersionedLocalStorage(this.versions[0])]);
 
-		// this.availableVersions = this.$root.availableVersions;
+	  // this.$root.settings.versionswitcher = false; // storage.getLocalStorage("settings.versionswitcher")
 
 		// Set the "current" main navigation item based on the current route.
 		this.selectMenuItemForCurrentUrl();
@@ -173,8 +169,6 @@ var app = new Vue({
 
 		loadCountryCodes: function()
 		{
-			// console.log("loadCountryCodes(): data", countryCodes);
-
 			this.countryCodes.push({
 				"code": "",
 				"name": "--Select a country--"
@@ -328,8 +322,6 @@ var app = new Vue({
 			var mySidebar = document.getElementById("mySidebar");
 			var overlayBg = document.getElementById("myOverlay");
 	
-			console.log("mySidebar=", mySidebar);
-	
 			if (mySidebar.style.display === 'block') 
 			{
 				mySidebar.style.display = 'none';
@@ -390,7 +382,6 @@ var app = new Vue({
 			for (let i = 0; i < elements.length; i++) 
 			{
 				var element = elements[i];
-				//console.log("element[" + i + "]=", element);
 
 				// Get HREF from the element
 				var linkHref = element.getAttribute("href");
@@ -520,7 +511,7 @@ var app = new Vue({
             this.selectMenuItemForCurrentUrl();
 			
 			// Set the current page details based on the component mapped to the active route.
-            var component = pageComponents.getComponentByPath(to.fullPath);
+						var component = pageComponents.getComponentByPath(to.fullPath);
             this.setActivePageByComponent(component);
 		},
 
