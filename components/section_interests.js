@@ -36,7 +36,7 @@ var sectionInterestsComponent = {
 		addKeyword: function(index)
 		{
 			var item = models.newDefaultInterestKeyword();
-			//console.log("addHighlight(" + index + ")", this.$root.sections.interests[index]);
+			//console.log("addKeyword(" + index + ")", this.$root.sections.interests[index]);
 			this.$root.sections.interests[index].keywords.push(item);
 		},
 
@@ -62,5 +62,6 @@ var sectionInterestsComponent = {
 		{
 			this.$root.moveArrayPosition(this.$root.sections.interests, index, index + 1);
 		}
+
 	}
 };

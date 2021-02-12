@@ -82,6 +82,15 @@ var pageComponents = {
         });
 
         this.registerComponent({
+            id: "settings",
+            path: "#/settings",
+            type: "page",
+            title: "Settings",
+            description: "",
+            fontAwesomeIcon: "fas fa-cog"  
+        });
+
+        this.registerComponent({
             id: "basics",
             path: "#/section/basics",
             type: "page",
@@ -160,6 +169,15 @@ var pageComponents = {
             title: "Interests",
             description: "",
             fontAwesomeIcon: "fas fa-map"  
+        });
+
+        this.registerComponent({
+            id: "meta",
+            path: "#/section/meta",
+            type: "page",
+            title: "Meta",
+            description: "",
+            fontAwesomeIcon: "fas fa-info"  
         });
 
         this.registerComponent({

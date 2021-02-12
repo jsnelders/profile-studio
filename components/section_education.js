@@ -1,8 +1,6 @@
 var sectionEducationComponent = {
 	template: '#section-education-template',
 
-	
-
 	mounted: function()
 	{
 		
@@ -61,5 +59,6 @@ var sectionEducationComponent = {
 		{
 			this.$root.moveArrayPosition(this.$root.sections.education, index, index + 1);
 		}
+
 	}
 };

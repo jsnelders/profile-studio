@@ -35,10 +35,12 @@ var sectionWorkComponent = {
 
 		addHighlight: function(index)
 		{
+			if (!this.$root.sections.work[index].highlights) {
+				this.$set(this.$root.sections.work[index], "highlights", []);
+			}
 			var item = models.newDefaultWorkHighlight();
 			this.$root.sections.work[index].highlights.push(item);
 		},
-
 
 		deleteClicked: function(index)
 		{
@@ -61,5 +63,7 @@ var sectionWorkComponent = {
 		{
 			this.$root.moveArrayPosition(this.$root.sections.work, index, index + 1);
 		}
+
 	}
+
 };
