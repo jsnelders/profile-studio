@@ -5,7 +5,6 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
         <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
         <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
@@ -48,6 +47,14 @@
             <nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar">
                 <div class="w3-bar-block">
                     <a href="#/" class="w3-bar-item w3-button w3-padding w3-blue"><i class="fas fa-home"></i>&nbsp; Home</a>
+                    <form>
+                    <select name="currentVersion" v-model="currentVersion" @change="onVersionChange()">
+                    <option v-for="(version, v_index) in this.$root.versions">
+                            {{ version }}
+                    </option>
+                    </select>
+                    </form>
+                    <a v-bind:href="this.sections.meta.canonical" v-if="this.sections.meta.canonical != ''" target="_new" class="w3-bar-item w3-button w3-padding "><i class="fas fa-link"></i> link ({{ this.sections.meta.lastModified}})</a>
                 </div>
                 <div class="w3-container w3-margin-top">
                     <h5>Sections</h5>
@@ -65,6 +72,7 @@
                     <a href="#/section/interests" class="w3-bar-item w3-button w3-padding"><i class="fas fa-map"></i>&nbsp; Interests</a>
                     <a href="#/section/references" class="w3-bar-item w3-button w3-padding"><i class="fas fa-list"></i>&nbsp; References</a>
                     <a href="#/section/projects" class="w3-bar-item w3-button w3-padding"><i class="fas fa-project-diagram"></i>&nbsp; Projects</a>
+                    <a href="#/section/meta" class="w3-bar-item w3-button w3-padding"><i class="fas fa-info"></i>&nbsp; Meta</a>
                 </div>
                 <hr>
                 <div class="w3-bar-block">
@@ -111,14 +119,12 @@
         <!-- Component Templates -->
         <template type="text/x-template" id="home-template" lang="html">
             <div id="home-root">
-                <p class="margin-bottom-64">
-                    <b style="color: maroon">Status: Working & Under Development (26 Nov 2019)</b>
+                <p class="margin-bottom-32">
+                    <b style="color: maroon">Status: Works Fine (October 2020)</b>
                 </p>
                 <p>
-                    Welcome to Profile Studio - a generator and editor for <a href="https://jsonresume.org/">JSON Resume</a> files.
-                </p>
-                <p>
-                    No registration required. No data stored.
+                    Welcome to <strong>JSON Resume Studio</strong> - a generator and editor for <a href="https://jsonresume.org/">JSON Resume</a> files.<BR/>
+                    <I>All the magic happens in your local browser.</I> No registration possible, even if you wanted to. No data stored.
                 </p>
                 <p>
                     To create a JSON resume file:
@@ -126,6 +132,10 @@
                         <li>Fill in the details under each section.</li>
                         <li>At any time <a href="#/preview">Preview</a> how your resume could look.</li>
                         <li>When you're finished <a href="">export</a> your resume by copying the JSON output into a text file.</li>
+                        </ol>
+
+                        Once you've got that JSON-resume file,you can then make use of it as fellows:
+                        <ol>
                         <li>
                             Create a public Gist in your <a href="https://github.com/">GitHub</a> account (create a new account for free) with a filename "resume.json".<br>
                             (See an <a href="https://gist.github.com/jsnelders/cab89beb9bc0e677ef3f5ec30ef4260b">example here</a>.)
@@ -137,6 +147,10 @@
                             View your live resume on jsonresume.org by browsing to https://registry.jsonresume.org/{your_github_username}.<br>
                             (see an <a href="https://registry.jsonresume.org/jsnelders">example here</a>.)
                         </li>
+                        <li><a href="https://www.velocv.com">https://www.velocv.com</a></li>
+                        <li><a href="https://resumefodder.com/">https://resumefodder.com/</a></li>
+                        <li><a href="https://github.com/hacksalot/HackMyResume">https://github.com/hacksalot/HackMyResume</a></li>
+                        <li><a href="https://medium.com/@fullsour/creating-online-resume-with-netlify-8d468a5ef11b">https://medium.com/@fullsour/creating-online-resume-with-netlify-8d468a5ef11b</a></li>
                     </ol>
                 </p>
                 <p>
@@ -147,12 +161,10 @@
                     with additional attributes found at <a href="https://github.com/jsonresume/resume-schema/blob/v1.0.0/schema.json">https://github.com/jsonresume/resume-schema/blob/v1.0.0/schema.json</a>.<br>
                     "url" attributes are current identified as "website" per the published shema at jsonresume.org.
                 </p>
-                <p>Enjoy!</p>
-                <p><a href="https://jsnelders.com">Jason Snelders</a></p>
+                <p><i>Enjoy!</i></p>
+                <p><a href="https://jsnelders.com">Jason Snelders</a> and <a href="https://www.mann.fr">Chris Mann</a></p>
             </div>
         </template>
-
-
 
         <template type="text/x-template" id="section-basics-template" lang="html">
             <div id="section-basics-root">
@@ -235,7 +247,8 @@
                         Any social networks that you participate in.
                         <button type="button" class="w3-btn w3-white w3-border w3-border-blue w3-round w3-padding-small" v-on:click="addProfile">+ Add Profile</button>
                         
-                        <form class="w3-container w3-card-4 w3-margin-top" v-for="profile in $root.sections.basics.profiles">
+                        <form class="w3-container w3-card-4 w3-margin-top" v-for="(profile, pr_index) in $root.sections.basics.profiles">
+                            <card-header v-bind:label="profile.network" v-bind:id="pr_index" v-on:delete-clicked="deleteClicked" v-on:move-up-clicked="moveUpClicked" v-on:move-down-clicked="moveDownClicked"></card-header>
                             <p>      
                                 <label for="profiles.network" class="w3-text-blue"><b>Network</b></label>
                                 <input id="profiles.network" class="w3-input w3-border" type="text" v-model="profile.network">
@@ -287,7 +300,32 @@
             </div>
         </template>
 
-
+        <template type="text/x-template" id="section-meta-template" lang="html">
+            <div id="section-meta-root">
+                <div class="w3-row">
+                    <div class="w3-col m6">
+                        <form class="w3-container w3-card-4">
+                            <p>      
+                                <label for="version" class="w3-text-blue"><b>Version</b></label>
+                                <input id="version" class="w3-input w3-border" type="text" @input="versionChange " v-model="$root.sections.meta.version" required>
+                                <small id="versionHelp" class="form-help text-muted">Version of this CV.</small>
+                            </p>
+                            <p>      
+                                <label for="canonical" class="w3-text-blue"><b>URL</b></label>
+                                <input id="canonical" class="w3-input w3-border" type="text" v-model="$root.sections.meta.canonical" required>
+                                <small id="canonicalHelp" class="form-help text-muted">Canonical of this JSON file.</small>
+                            </p>
+                            <p>   
+                                <label for="lastModified" class="w3-text-blue"><b>Modified</b></label>
+                                <input id="lastModified" readonly class="w3-input w3-border" type="text" v-model="$root.sections.meta.lastModified" required>
+                                <small id="lastModifiedHelp" class="form-help text-muted">Read-only date and timme of export.</small>
+                              <!-- <preview-field label="Last Exported" v-bind:value="meta.lastModified"></preview-field>  -->
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </template>
 
         <template type="text/x-template" id="section-work-template" lang="html">
             <div id="section-work-root">
@@ -326,7 +364,7 @@
                                 </p>
                                 <p>
                                     <label for="summary" class="w3-text-blue"><b>Summary</b></label>
-                                    <textarea id="summary" rows="8" class="w3-input w3-border" type="text" v-model="work.summary"></textarea>
+                                    <textarea id="summary" rows="8" class="w3-input w3-border" type="text" v-model="work.summary" format="multi-line"></textarea>
                                     <small id="summaryHelp" class="form-help text-muted">Details of your work, responsibilities and achievements. And a little about the company.</small>
                                 </p>
     
@@ -335,11 +373,25 @@
                                 <small id="highlightsHelp" class="form-help text-muted">Briefly describe successes and outcomes (e.g. Increased profits by 20% from 2011-2012 through viral advertising).</small>
     
                                 <button type="button" class="w3-btn w3-white w3-border w3-border-blue w3-round w3-padding-small" v-on:click="addHighlight(w_index)">+ Add Highlight</button>
-                                <ol>
-                                    <li v-for="(highlight, h_index) in work.highlights">
-                                        <input class="w3-input w3-border" type="text" v-model="$root.sections.work[w_index].highlights[h_index]">
-                                    </li>
-                                </ol>
+
+                                
+
+                                <form class="margin-top-32" v-for="(highlight, h_index) in work.highlights">
+                                <simple-list-item v-bind:modelitem="$root.sections.work[w_index].highlights" v-bind:id="h_index" v-on:delete-clicked="deleteClickedHighlight(w_index,h_index)" v-on:move-up-clicked="moveUpClickedHighlight(w_index,h_index)" v-on:move-down-clicked="moveDownClickedHighlight(w_index,h_index)"></simple-list-item>
+                                </form>
+<!--
+                                <div class="w3-row" v-for="(highlight, h_index) in work.highlights">
+                                    <div class="w3-col s9">
+                                        <input class="w3-input w3-border" type="text" v-model="$root.sections.work[w_index].highlights[h_index]"/>
+                                    </div>
+                                    <div class="w3-col s3 w3-right-align">
+                                        <i class="fas fa-times w3-margin-right" style="cursor: pointer;" v-on:click="deleteClickedHighlight(w_index,h_index)"></i>
+                                        <i class="fas fa-chevron-up" style="cursor: pointer;" v-on:click="moveUpClickedHighlight(w_index,h_index)"></i>
+                                        <i class="fas fa-chevron-down" style="cursor: pointer;" v-on:click="moveDownClickedHighlight(w_index,h_index)"></i>
+                                    </div>
+                                </div>
+-->
+
                             </div>
                         </form>
                     </div>
@@ -363,8 +415,6 @@
                 </div>
             </div>
         </template>
-
-
 
         <template type="text/x-template" id="section-volunteer-template" lang="html">
             <div id="section-volunteer-root">
@@ -441,8 +491,6 @@
             </div>
         </template>
 
-
-
         <template type="text/x-template" id="section-education-template" lang="html">
             <div id="section-education-root">
                 <button type="button" class="w3-btn w3-white w3-border w3-border-blue w3-round w3-padding-small" v-on:click="addEducation">+ Add Education</button>
@@ -488,11 +536,11 @@
                                 <small id="highlightsHelp" class="form-help text-muted">List notable courses/subjects (e.g. H1302 - Introduction to American history).</small>
     
                                 <button type="button" class="w3-btn w3-white w3-border w3-border-blue w3-round w3-padding-small" v-on:click="addCourse(e_index)">+ Add Course</button>
-                                <ol>
-                                    <li v-for="(course, c_index) in edu.courses">
-                                        <input class="w3-input w3-border" type="text" v-model="$root.sections.education[e_index].courses[c_index]">
-                                    </li>
-                                </ol>
+
+                                
+                                <form class="margin-top-32" v-for="(course, c_index) in edu.courses">
+                                    <simple-list-item v-bind:modelitem="$root.sections.education[e_index].courses" v-bind:id="c_index" v-on:delete-clicked="deleteClickedCourse(e_index,c_index)" v-on:move-up-clicked="moveUpClickedCourse(e_index,c_index)" v-on:move-down-clicked="moveDownClickedCourse(e_index,c_index)"></simple-list-item>
+                                    </form>
                             </div>
                         </form>
                     </div>
@@ -516,8 +564,6 @@
                 </div>
             </div>
         </template>
-
-
 
         <template type="text/x-template" id="section-awards-template" lang="html">
             <div id="section-awards-root">
@@ -566,8 +612,6 @@
                 </div>
             </div>
         </template>
-
-
 
         <template type="text/x-template" id="section-publications-template" lang="html">
             <div id="section-publications-root">
@@ -623,8 +667,6 @@
             </div>
         </template>
 
-
-
         <template type="text/x-template" id="section-skills-template" lang="html">
             <div id="section-skills-root">
                 <p>
@@ -678,8 +720,6 @@
             </div>
         </template>
 
-
-
         <template type="text/x-template" id="section-languages-template" lang="html">
             <div id="section-languages-root">
                 <p>
@@ -715,8 +755,6 @@
                 </div>
             </div>
         </template>
-
-
 
         <template type="text/x-template" id="section-interests-template" lang="html">
             <div id="section-interests-root">
@@ -763,8 +801,6 @@
             </div>
         </template> 
 
-
-
         <template type="text/x-template" id="section-references-template" lang="html">
             <div id="section-references-root">
                 <p>
@@ -800,8 +836,6 @@
                 </div>
             </div>
         </template>
-
-
 
         <template type="text/x-template" id="section-projects-template" lang="html">
             <div id="section-projects-root">
@@ -844,7 +878,6 @@
                                 <small id="highlightsHelp" class="form-help text-muted">Briefly describe successes and outcomes (e.g. Increased profits by 20% from 2011-2012 through viral advertising).</small>
     
                                 <button type="button" class="w3-btn w3-white w3-border w3-border-blue w3-round w3-padding-small" v-on:click="addHighlight(p_index)">+ Add Highlight</button>
-                                <span v-if="project.highlights">X: {{project.highlights.length}}</span>
                                 <ol>
                                     <li v-for="(highlight, h_index) in project.highlights">
                                         <input class="w3-input w3-border" type="text" v-model="$root.sections.projects[p_index].highlights[h_index]">
@@ -909,8 +942,6 @@
             </div>
         </template>
 
-        
-
         <template type="text/x-template" id="preview-resume-template" lang="html">
             <div id="preview-resume-root">
                 <!-- Page Container -->
@@ -921,7 +952,6 @@
 
                         <!-- Left Column -->
                         <div class="w3-third">
-
                             <div class="w3-white w3-text-grey w3-card-4">
                                 <div class="w3-display-container">
                                     <img v-bind:src="$root.sections.basics.picture" style="width:100%" alt="Avatar">
@@ -942,6 +972,7 @@
                                     <div v-if="$root.sections.skills.length > 0" v-for="(skill, index) in $root.sections.skills">
                                         <p>{{skill.name}}</p>
                                         <div class="w3-light-grey w3-round-xlarge w3-small">
+                                            <div class="w3-container w3-center w3-round-xlarge w3-teal" v-bind:style="{ width: $root.skillLevelAsPercent(index) + '%' }">{{skill.level}}</div>
                                         </div>
                                     </div>
                                     <br>
@@ -949,6 +980,7 @@
                                     <!-- Languages -->
                                     <div v-if="$root.sections.languages && $root.sections.languages.length > 0" >
                                         <p class="w3-large w3-text-theme"><b><i class="fa fa-globe fa-fw w3-margin-right w3-text-teal"></i>Languages</b></p>
+                                        <div v-if="$root.sections.languages.length > 0" v-for="(language, index) in $root.sections.languages">
                                         <div v-for="(language, index) in $root.sections.languages">
                                             <p>{{language.language}}</p>
                                             <div class="w3-light-grey w3-round-xlarge">
@@ -963,13 +995,16 @@
                             <!-- End Left Column -->
                         </div>
 
+
+                    </div>
+
                         <!-- Right Column -->
                         <div class="w3-twothird">
                             <!-- Work -->
                             <div class="w3-container w3-card w3-white w3-margin-bottom w3-padding-32" v-if="$root.sections.work.length > 0">
                                 <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Work</h2>
 
-                                <div class="w3-container" v-for="(work, w_index) in $root.sections.work">
+                                <div class="w3-container" v-for="(work, w_index) in $root.sections.work" v-bind:id="'content' + w_index">
                                     <h5 class="w3-opacity"><b>{{work.position}}</b></h5>
                                     <b>{{work.company}}</b>
                                     <a v-if="work.website" v-bind:href="work.website" target="_blank" class="w3-margin-left"><i class="fas fa-globe"></i></a>
@@ -978,7 +1013,10 @@
                                         <span class="w3-tag w3-teal w3-round" v-if="$root.workEndDate(w_index) == 'Current'">{{$root.workEndDate(w_index)}}</span>
                                         <span v-if="$root.workEndDate(w_index) != 'Current'">{{$root.workEndDate(w_index)}}</span>
                                     </h6>
-                                    <div v-html="work.summary"></div>
+                                    <!--
+                                    <div v-html="work.summary" ></div>
+                                    -->
+                                    <preview-field :label="''" :value="work.summary" :format="'multi-line'" :datatype="'text'" />
 
                                     <h5 class="margin-top-32">Highlights</h5>
                                     <ol>
@@ -1180,7 +1218,7 @@
                         </div>
                         <!-- /Right Column -->
                         
-                    </div>
+                    
                     <!-- /Grid -->
                     
                 </div>
@@ -1189,15 +1227,16 @@
             </div>
         </template>
 
-
-
         <template type="text/x-template" id="preview-single-field-template" lang="html">
             <div id="preview-single-field-root">
                 <div class="w3-row w3-margin-bottom" v-if="displayFormat == '' || displayFormat == 'url' || displayFormat == 'multi-line' || displayFormat == 'email' || displayFormat == 'phone' || displayFormat == 'date'">
-                    <div class="w3-col m3">
+                    <div class="w3-col m3" v-if="label != ''">
                         <span v-html="getLabel()"></span>
                     </div>
-                    <div class="w3-col m9">
+                    <div class="w3-col m9" v-if="label != ''">
+                        <span v-html="getValue()"></span>
+                    </div>
+                    <div class="w3-col m12" v-else>
                         <span v-html="getValue()"></span>
                     </div>
                 </div>
@@ -1216,7 +1255,21 @@
             </div>
         </template>
 
+        <template type="text/x-template" id="simple-list-item-template" lang="html">
+            <div id="simple-list-item-root">
 
+            <div class="w3-row">
+                <div class="w3-col s9">
+                    <input class="w3-input w3-border" type="text" v-model="modelitem[id]"/>
+                </div>
+                <div class="w3-col s3 w3-right-align">
+                    <i class="fas fa-times w3-margin-right" style="cursor: pointer;" v-on:click="deleteClick"></i>
+                    <i class="fas fa-chevron-up" style="cursor: pointer;" v-on:click="moveUpClick"></i>
+                    <i class="fas fa-chevron-down" style="cursor: pointer;" v-on:click="moveDownClick"></i>
+                </div>
+            </div>
+            </div>
+        </template>
 
         <template type="text/x-template" id="card-header-template" lang="html">
             <div id="card-header-root">
@@ -1235,8 +1288,6 @@
             </div>
         </template>
 
-
-
         <template type="text/x-template" id="sorted-input-item-template" lang="html">
             <div id="sorted-input-item-root">
                 <div class="" v-bind:id="'item' + id">
@@ -1254,19 +1305,29 @@
             </div>
         </template>
 
-
-
         <template type="text/x-template" id="import-template" lang="html">
             <div id="import-root">
                 <p>
-                    Past existing resume JSON and import to continue editing.
+                    Paste existing resume JSON and import to continue editing.
                 </p>
                 <textarea rows="20" class="w3-input w3-border" type="text" v-model="json"></textarea>
                 <button class="w3-btn w3-white w3-border w3-border-blue w3-round" v-on:click="importJson">Import</button>
+                <br/>
+                <BR/>
+                <form class="w3-card-4  margin-top-32" v-for="(version, v_index) in this.$root.versions">
+                    <card-header v-bind:label="version" v-bind:id="v_index" v-on:delete-clicked="deleteClicked" v-on:move-up-clicked="moveUpClicked" v-on:move-down-clicked="moveDownClicked"></card-header>
+
+                    <div class="w3-container w3-hide" v-bind:id="'content' + v_index">
+                        <button class="w3-btn w3-white w3-border w3-border-blue w3-round" v-on:click="importVersion(version,$event)">
+                            Load {{ version }}
+                        </button>
+                        <button class="w3-btn w3-white w3-border w3-border-blue w3-round" v-on:click="deleteVersion(version,$event)">
+                            Delete {{ version }}
+                        </button>
+                    </div>
+                </form>
             </div>
         </template>
-
-
 
         <template type="text/x-template" id="export-template" lang="html">
             <div id="export-root">
@@ -1276,8 +1337,6 @@
                 <textarea rows="20" class="w3-input w3-border" type="text" v-model="json"></textarea>
             </div>
         </template>
-
-
 
         <template type="text/x-template" id="about-template" lang="html">
             <div id="export-root">
@@ -1298,17 +1357,13 @@
                         <li><a href="https://router.vuejs.org/">Vue Router (v3.1.3)</a></li>
                     </ul>
                     <p class="margin-top-64">
-                        Developed by <a href="https://jsnelders.com" target="_blank">Jason Snelders</a>.<br>
-                        Source code at <a href="https://github.com/jsnelders/profile-studio" target="_blank">https://github.com/jsnelders/profile-studio</a>.
+                        Developed by <a href="https://jsnelders.com" target="_blank">Jason Snelders</a>  and <a href="https://www.mann.fr">Chris Mann</a>.<br>
+                        Source code at <a href="https://github.com/chris2fr/profile-studio" target="_blank">https://github.com/chris2fr/profile-studio</a>.
                     </p>
                 </p>
             </div>
         </template>
         <!-- /Component Templates -->
-
-
-
-
 
         <!-- Scripts -->
         <script type="text/javascript" src="data/data.js"></script>
@@ -1318,10 +1373,10 @@
 
         <script type="text/javascript" src="vendor/vue.2.6.10.js"></script>
         <script type="text/javascript" src="vendor/vue-router.3.1.3.js"></script>
-
         <script type="text/javascript" src="vendor/markdown-it-10.0.0.js"></script>
 
         <script type="text/javascript" src="app/page_registration.js"></script>
+
         <script type="text/javascript" src="components/home.js"></script>
         <script type="text/javascript" src="components/section_basics.js"></script>
         <script type="text/javascript" src="components/section_work.js"></script>
@@ -1332,14 +1387,17 @@
         <script type="text/javascript" src="components/section_skills.js"></script>
         <script type="text/javascript" src="components/section_languages.js"></script>
         <script type="text/javascript" src="components/section_interests.js"></script>
+        <script type="text/javascript" src="components/section_meta.js"></script>
         <script type="text/javascript" src="components/section_references.js"></script>
         <script type="text/javascript" src="components/section_projects.js"></script>
         <script type="text/javascript" src="components/preview_resume.js"></script>
         <script type="text/javascript" src="components/preview_single_field.js"></script>
         <script type="text/javascript" src="components/card_header.js"></script>
+        <script type="text/javascript" src="components/simple_list_item.js"></script>
         <script type="text/javascript" src="components/import.js"></script>
         <script type="text/javascript" src="components/export.js"></script>
         <script type="text/javascript" src="components/about.js"></script>
+
         <script type="text/javascript" src="app/app.js"></script>
         
         <!-- /Scripts -->

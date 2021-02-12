@@ -1,10 +1,6 @@
 var sectionBasicsComponent = {
 	template: '#section-basics-template',
 
-
-
-	
-
 	mounted: function()
 	{
 		var savedData = storage.getLocalStorage("section.basics");
@@ -25,18 +21,10 @@ var sectionBasicsComponent = {
 		}
 	},
 
-
-
-
-
 	destroyed: function()
 	{
 		
 	},
-
-
-	
-
 
 	data: function()
 	{
@@ -44,10 +32,6 @@ var sectionBasicsComponent = {
 
 		};
 	},
-
-	
-
-
 
 	watch: {
 		/**
@@ -66,15 +50,34 @@ var sectionBasicsComponent = {
 		}
 	},
 	
-
-
-
-
 	methods: {
 		addProfile: function()
 		{
 			var item = models.newDefaultBasic();
 			this.$root.sections.basics.profiles.push(item);
+		},
+
+		deleteClicked: function(index)
+		{
+			var response = confirm("Are you sure you want to delete this interest?");
+
+			if (response == true)
+			{
+				this.$root.sections.basics.profiles.splice(index, 1);
+			}
+		},
+
+
+		moveUpClicked: function(index)
+		{
+			this.$root.moveArrayPosition(this.$root.sections.basics.profiles, index, index - 1);
+		},
+
+
+		moveDownClicked: function(index)
+		{
+			this.$root.moveArrayPosition(this.$root.sections.basics.profiles, index, index + 1);
 		}
+	
 	}
 };

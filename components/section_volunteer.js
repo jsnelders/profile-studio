@@ -36,7 +36,10 @@ var sectionVolunteerComponent = {
 		addHighlight: function(index)
 		{
 			var item = models.newDefaultVolunteerHighlight();
-			//console.log("addHighlight(" + index + ")", this.$root.sections.volunteer[index]);
+			console.log("addHighlight(" + index + ")", this.$root.sections.volunteer[index]);
+			if (!this.$root.sections.volunteer[index].highlights) {
+				this.$set(this.$root.sections.volunteer[index], "highlights", []);
+			}
 			this.$root.sections.volunteer[index].highlights.push(item);
 		},
 		
