@@ -82,7 +82,7 @@ var models = {
             startDate: "",
             endDate: "",
             summary: "",
-            highlights: [""]
+            highlights: []
         };
     },
 
@@ -100,7 +100,7 @@ var models = {
             startDate: "",
             endDate: "",
             summary: "",
-            highlights: [""]
+            highlights: []
         };
     },
 
@@ -118,7 +118,7 @@ var models = {
             startDate: "",
             endDate: "",
             gpa: "",
-            courses: [""]
+            courses: []
         };
     },
             
@@ -153,7 +153,7 @@ var models = {
         return {
             name: "",
             level: "",
-            keywords: [""]
+            keywords: []
         };
     },
             
@@ -174,7 +174,7 @@ var models = {
     {
         return {
             name: "",
-            keywords: [""]
+            keywords: []
         };
     },
 
