@@ -975,12 +975,12 @@
                                     <a v-if="work.url" v-bind:href="work.url" target="_blank" class="w3-margin-left"><i class="fas fa-globe"></i></a>
                                     <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>
                                         {{work.startDate}} - 
-                                        <span class="w3-tag w3-teal w3-round" v-if="$root.workEndDate(w_index) == 'Current'">{{$root.workEndDate(w_index)}}</span>
-                                        <span v-if="$root.workEndDate(w_index) != 'Current'">{{$root.workEndDate(w_index)}}</span>
+                                        <span class="w3-tag w3-teal w3-round" v-if="!$root.workEndDate(w_index)">Current</span>
+                                        <span v-if="$root.workEndDate(w_index)">{{$root.workEndDate(w_index)}}</span>
                                     </h6>
                                     <div v-html="work.summary"></div>
 
-                                    <h5 class="margin-top-32">Highlights</h5>
+                                    <h5 class="margin-top-32" v-if="work.highlights && work.highlights.length">Highlights</h5>
                                     <ol>
                                         <li v-for="(highlight, h_index) in work.highlights">
                                             {{highlight}}
@@ -1004,7 +1004,7 @@
                                         <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>{{vol.startDate}} - {{vol.endDate}}</h6>
                                         <div v-html="vol.summary"></div>
 
-                                        <h5 class="margin-top-32">Highlights</h5>
+                                        <h5 class="margin-top-32" v-if="vol.highlights && vol.highlights.length">Highlights</h5>
                                         <ol>
                                             <li v-for="(highlight, h_index) in vol.highlights">
                                                 {{highlight}}
@@ -1028,7 +1028,7 @@
                                         <p v-if="edu.gpa != ''">GPA: {{edu.gpa}}</p>
                                         <div v-html="edu.summary"></div>
 
-                                        <h5 class="margin-top-32">Courses</h5>
+                                        <h5 class="margin-top-32" v-if="edu.courses && edu.courses.length">Courses</h5>
                                         <ol>
                                             <li v-for="(course, c_index) in edu.courses">
                                                 {{course}}
@@ -1137,8 +1137,8 @@
                                     <a v-if="project.url" v-bind:href="project.url" target="_blank" class="w3-margin-left"><i class="fas fa-globe"></i>{{project.url}}</a>
                                     <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>
                                         {{project.startDate}} - 
-                                        <span class="w3-tag w3-teal w3-round" v-if="$root.projectEndDate(p_index) == 'Current'">{{$root.projectEndDate(p_index)}}</span>
-                                        <span v-if="$root.projectEndDate(p_index) != 'Current'">{{$root.projectEndDate(p_index)}}</span>
+                                        <span class="w3-tag w3-teal w3-round" v-if="!$root.projectEndDate(p_index)">Current</span>
+                                        <span v-if="$root.projectEndDate(p_index)">{{$root.projectEndDate(p_index)}}</span>
                                     </h6>
                                     
 
