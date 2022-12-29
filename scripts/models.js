@@ -40,7 +40,7 @@ var models = {
         return {
             name: "",
             label: "",
-            picture: "",    // "image" per schema v1.0.0
+            image: "",
             email: "",
             phone: "",
             website: "",
@@ -74,11 +74,11 @@ var models = {
     newDefaultWork: function()
     {
         return {
-            company: "",        // "name" per schema v1.0.0
+            name: "",
             location: "",
             description: "",
             position: "",
-            website: "",        // "url" per schema v1.0.0
+            url: "",
             startDate: "",
             endDate: "",
             summary: "",
@@ -96,7 +96,7 @@ var models = {
         return {
             organization: "",
             position: "",
-            website: "",        // "url" per schema v1.0.0
+            url: "",
             startDate: "",
             endDate: "",
             summary: "",
@@ -143,7 +143,7 @@ var models = {
             name: "",
             publisher: "",
             releaseDate: "",
-            website: "",        // "url" per schema v1.0.0
+            url: "",
             summary: ""
         };
     },
@@ -202,7 +202,7 @@ var models = {
             keywords: [],
             startDate: "",
             endDate: "",
-            website: "",        // "url" per schema v1.0.0
+            url: "",
             roles: [],
             entity: "",         // Specify the relevant company/entity affiliations e.g. 'greenpeace', 'corporationXYZ'
             type: ""            //" e.g. 'volunteering', 'presentation', 'talk', 'application', 'conference'"

@@ -171,7 +171,7 @@
                             </p>
                             <p>      
                                 <label for="picture" class="w3-text-blue"><b>Profile Picture</b></label>
-                                <input id="picture" class="w3-input w3-border" type="text" v-model="$root.sections.basics.picture">
+                                <input id="picture" class="w3-input w3-border" type="text" v-model="$root.sections.basics.image">
                                 <small id="pictureHelp" class="form-help text-muted">URL (as per RFC 3986) to a image in JPEG or PNG format of your profile photo.</small>
                             </p>
                             <p>      
@@ -257,8 +257,8 @@
                         <div class="preview w3-container w3-card-4 w3-padding-16 w3-margin-left">
                             <preview-field label="Full Name" v-bind:value="$root.sections.basics.name"></preview-field>
                             <preview-field label="Professional Title" v-bind:value="$root.sections.basics.label"></preview-field>
-                            <preview-field label="Profile Picture" v-bind:value="$root.sections.basics.picture" format="url"></preview-field>
-                            <preview-field label="" v-bind:value="$root.sections.basics.picture" format="image"></preview-field>
+                            <preview-field label="Profile Picture" v-bind:value="$root.sections.basics.image" format="url"></preview-field>
+                            <preview-field label="" v-bind:value="$root.sections.basics.image" format="image"></preview-field>
     
                             <preview-field label="Email" v-bind:value="$root.sections.basics.email" format="email"></preview-field>
                             <preview-field label="Phone" v-bind:value="$root.sections.basics.phone" format="phone"></preview-field>
@@ -296,12 +296,12 @@
                 <div class="w3-row margin-top-32">
                     <div class="w3-col m6">
                         <form class="w3-card-4  margin-top-32" v-for="(work, w_index) in $root.sections.work">
-                            <card-header v-bind:label="work.company + ' - ' + work.position + ' (' + $root.dateMonthYear(work.startDate) + ')'" v-bind:id="w_index" v-on:delete-clicked="deleteClicked" v-on:move-up-clicked="moveUpClicked" v-on:move-down-clicked="moveDownClicked"></card-header>
+                            <card-header v-bind:label="work.name + ' - ' + work.position + ' (' + $root.dateMonthYear(work.startDate) + ')'" v-bind:id="w_index" v-on:delete-clicked="deleteClicked" v-on:move-up-clicked="moveUpClicked" v-on:move-down-clicked="moveDownClicked"></card-header>
 
                             <div class="w3-container w3-hide" v-bind:id="'content' + w_index">
                                 <p>
                                     <label for="company" class="w3-text-blue required-field"><b>Company</b></label>
-                                    <input id="company" class="w3-input w3-border" type="text" v-model="work.company" required>
+                                    <input id="company" class="w3-input w3-border" type="text" v-model="work.name" required>
                                     <small id="companyHelp" class="form-help text-muted">Name of the company or organisation where you worked.</small>
                                 </p>
                                 <p>
@@ -311,7 +311,7 @@
                                 </p>
                                 <p>
                                     <label for="website" class="w3-text-blue"><b>Website</b></label>
-                                    <input id="website" class="w3-input w3-border" type="url" v-model="work.website">
+                                    <input id="website" class="w3-input w3-border" type="url" v-model="work.url">
                                     <small id="websiteHelp" class="form-help text-muted">Company website.</small>
                                 </p>
                                 <p>
@@ -345,9 +345,9 @@
                     </div>
                     <div class="w3-col m6">
                         <div class="preview w3-container w3-card-4 w3-padding-16 w3-margin-left margin-top-32" v-for="(work, w_index) in $root.sections.work">
-                            <preview-field label="Company" v-bind:value="work.company"></preview-field>
+                            <preview-field label="Company" v-bind:value="work.name"></preview-field>
                             <preview-field label="Position" v-bind:value="work.position"></preview-field>
-                            <preview-field label="Website" v-bind:value="work.website" format="url"></preview-field>
+                            <preview-field label="Website" v-bind:value="work.url" format="url"></preview-field>
                             <preview-field label="Start Date" v-bind:value="work.startDate" format="date"></preview-field>
                             <preview-field label="End Date" v-bind:value="work.endDate" format="date"></preview-field>
                             <preview-field label="Summary" v-bind:value="work.summary" format="multi-line"></preview-field>
@@ -388,7 +388,7 @@
                                 </p>
                                 <p>
                                     <label for="website" class="w3-text-blue"><b>Website</b></label>
-                                    <input id="website" class="w3-input w3-border" type="url" v-model="vol.website">
+                                    <input id="website" class="w3-input w3-border" type="url" v-model="vol.url">
                                     <small id="websiteHelp" class="form-help text-muted">Company website.</small>
                                 </p>
                                 <p>
@@ -424,7 +424,7 @@
                         <div class="preview w3-container w3-card-4 w3-padding-16 w3-margin-left margin-top-32" v-for="(vol, v_index) in $root.sections.volunteer">
                             <preview-field label="Organisation" v-bind:value="vol.organization"></preview-field>
                             <preview-field label="Position" v-bind:value="vol.position"></preview-field>
-                            <preview-field label="Website" v-bind:value="vol.website" format="url"></preview-field>
+                            <preview-field label="Website" v-bind:value="vol.url" format="url"></preview-field>
                             <preview-field label="Start Date" v-bind:value="vol.startDate"></preview-field>
                             <preview-field label="End Date" v-bind:value="vol.endDate"></preview-field>
                             <preview-field label="Summary" v-bind:value="vol.summary" format="multi-line"></preview-field>
@@ -599,7 +599,7 @@
                                 </p>
                                 <p>
                                     <label for="website" class="w3-text-blue"><b>Website</b></label>
-                                    <input id="website" class="w3-input w3-border" type="url" v-model="publication.website">
+                                    <input id="website" class="w3-input w3-border" type="url" v-model="publication.url">
                                     <small id="websiteHelp" class="form-help text-muted">URL of the publisher or the actual publication.</small>
                                 </p>
                                 <p>
@@ -615,7 +615,7 @@
                             <preview-field label="Name" v-bind:value="publication.name"></preview-field>
                             <preview-field label="Publisher" v-bind:value="publication.publisher"></preview-field>
                             <preview-field label="Release Date" v-bind:value="publication.releaseDate"></preview-field>
-                            <preview-field label="Website" v-bind:value="publication.website" format="url"></preview-field>
+                            <preview-field label="Website" v-bind:value="publication.url" format="url"></preview-field>
                             <preview-field label="Summary" v-bind:value="publication.summary" format="multi-line"></preview-field>
                         </div>
                     </div>
@@ -825,7 +825,7 @@
                                 </p>
                                 <p>
                                     <label for="website" class="w3-text-blue"><b>Website</b></label>
-                                    <input id="website" class="w3-input w3-border" type="url" v-model="project.website">
+                                    <input id="website" class="w3-input w3-border" type="url" v-model="project.url">
                                     <small id="websiteHelp" class="form-help text-muted">Company website.</small>
                                 </p>
                                 <p>
@@ -879,7 +879,7 @@
                         <div class="preview w3-container w3-card-4 w3-padding-16 w3-margin-left margin-top-32" v-for="(project, p_index) in $root.sections.projects">
                             <preview-field label="Name" v-bind:value="project.name"></preview-field>
                             <preview-field label="Description" v-bind:value="project.description"></preview-field>
-                            <preview-field label="Website" v-bind:value="project.website" format="url"></preview-field>
+                            <preview-field label="Website" v-bind:value="project.url" format="url"></preview-field>
                             <preview-field label="Start Date" v-bind:value="project.startDate" format="date"></preview-field>
                             <preview-field label="End Date" v-bind:value="project.endDate" format="date"></preview-field>
 
@@ -924,7 +924,7 @@
 
                             <div class="w3-white w3-text-grey w3-card-4">
                                 <div class="w3-display-container">
-                                    <img v-bind:src="$root.sections.basics.picture" style="width:100%" alt="Avatar">
+                                    <img v-bind:src="$root.sections.basics.image" style="width:100%" alt="Avatar">
                                     <div class="w3-display-bottomleft w3-container w3-text-white">
                                         <h2>{{$root.sections.basics.name}}</h2>
                                     </div>
@@ -971,8 +971,8 @@
 
                                 <div class="w3-container" v-for="(work, w_index) in $root.sections.work">
                                     <h5 class="w3-opacity"><b>{{work.position}}</b></h5>
-                                    <b>{{work.company}}</b>
-                                    <a v-if="work.website" v-bind:href="work.website" target="_blank" class="w3-margin-left"><i class="fas fa-globe"></i></a>
+                                    <b>{{work.name}}</b>
+                                    <a v-if="work.url" v-bind:href="work.url" target="_blank" class="w3-margin-left"><i class="fas fa-globe"></i></a>
                                     <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>
                                         {{work.startDate}} - 
                                         <span class="w3-tag w3-teal w3-round" v-if="$root.workEndDate(w_index) == 'Current'">{{$root.workEndDate(w_index)}}</span>
@@ -1000,7 +1000,7 @@
                                     <div class="w3-container">
                                         <h5 class="w3-opacity"><b>{{vol.organization}}</b></h5>
                                         <p>{{vol.position}}</p>
-                                        <p v-if="vol.website"><a v-bind:href="vol.website">{{vol.website}}</a></p>
+                                        <p v-if="vol.url"><a v-bind:href="vol.url">{{vol.url}}</a></p>
                                         <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>{{vol.startDate}} - {{vol.endDate}}</h6>
                                         <div v-html="vol.summary"></div>
 
@@ -1064,7 +1064,7 @@
                                 <div class="w3-container" v-for="(publication, p_index) in $root.sections.publications">
                                     <div class="w3-container">
                                         <h5 class="w3-opacity"><b>{{publication.name}}</b></h5>
-                                        <p><a v-bind:href="publication.website">{{publication.publisher}}</a></p>
+                                        <p><a v-bind:href="publication.url">{{publication.url}}</a></p>
                                         <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>{{publication.releaseDate}}</h6>
                                         <div v-html="publication.summary"></div>
                                         <hr v-if="p_index < $root.sections.publications.length - 1">
@@ -1134,7 +1134,7 @@
                                 <div class="w3-container" v-for="(project, p_index) in $root.sections.projects">
                                     <h5 class="w3-opacity"><b>{{project.name}}</b></h5>
                                     <p>{{project.description}}</p>
-                                    <a v-if="project.website" v-bind:href="project.website" target="_blank" class="w3-margin-left"><i class="fas fa-globe"></i></a>
+                                    <a v-if="project.url" v-bind:href="project.url" target="_blank" class="w3-margin-left"><i class="fas fa-globe"></i>{{project.url}}</a>
                                     <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>
                                         {{project.startDate}} - 
                                         <span class="w3-tag w3-teal w3-round" v-if="$root.projectEndDate(p_index) == 'Current'">{{$root.projectEndDate(p_index)}}</span>
