@@ -22,7 +22,7 @@ However, a recent PR has prompted me to chip away at it again on the weekends.
 Next stage of development will "modernise" the code to ES6, introduce Vue single file components and use Parcel.js for compilation. 
 I started this with pure in-browser scripts to cut down on screwing around with build tools but it's now large enough to need them for better code architecture.
 
-Use it at [https://profilestudio.co](https://profilestudio.co/#/)
+Use it at [https://profile-studio.netlify.app/](https://profile-studio.netlify.app/)
 
 
 Dependencies:
@@ -30,3 +30,9 @@ Dependencies:
 1) W3CSS (https://www.w3schools.com/w3css/)
 2) VueJS (https://vuejs.org/)
 3) Vue Router (https://router.vuejs.org/)
+
+**Updates:**
+
+27 Oct 2023:  
+* Update the published URL to [https://profile-studio.netlify.app/](https://profile-studio.netlify.app/).
+* I haven't had time in the last few years to work on this, but I'm thinking I need to do some updates.
